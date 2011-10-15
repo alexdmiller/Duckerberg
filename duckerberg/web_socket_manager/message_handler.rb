@@ -73,6 +73,7 @@ class MessageHandler
     while message = @redis.spop(OUTBOX)
       @redis.srem(OUTBOX, message)
       begin
+        log_message("whoah the message is #{message.inspect}")
         message_hash     = JSON.parse(message)
         socket_id        = message_hash["socket_id"]
         original_message = message_hash["message"].to_json
@@ -88,7 +89,6 @@ class MessageHandler
 
   def send_to_socket(socket, message)
     begin
-      log_message("whoah the socket is #{socket.inspect} and message is #{message.inspect}")
       socket.send(message)
       socket_id = @sockets[socket]
       log_message("sent message to socket #{socket_id} :: #{message}")
