@@ -8,7 +8,6 @@ var canvas;
 $(document).ready(function() {
     GAME_WIDTH = $(document).width();
     GAME_HEIGHT = $(document).height();
-    
     canvas = document.createElement("canvas");
     canvas.width = GAME_WIDTH;
     canvas.height = GAME_HEIGHT;

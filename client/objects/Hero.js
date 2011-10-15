@@ -7,16 +7,26 @@ var UP_KEY = 87;
 var RIGHT_KEY = 68;
 var DOWN_KEY = 83;
 
+var START_HEALTH = 10;
+
 function Hero() {
     this.gameObject = new GameObject();
     this.gameObject.size = new Vector2D(20, 20);
     this.power = DEFAULT_POWER;
     this.keys = [];
+    this.health = START_HEALTH;
+    
 }
 
 Hero.prototype.draw = function(context) {
-    context.fillRect(this.gameObject.position.x, this.gameObject.position.y,
-        this.gameObject.size.x, this.gameObject.size.y);
+    context.save();
+    context.translate(this.gameObject.position.x, this.gameObject.position.y);
+    context.fillStyle = "#000000";
+    context.beginPath();
+    context.arc(0, 0, this.gameObject.size.x, 0, Math.PI * 2, true);
+    context.closePath();
+    context.fill();
+    context.restore();
 }
 
 Hero.prototype.update = function(game) {
@@ -37,7 +47,6 @@ Hero.prototype.update = function(game) {
         this.gameObject.applyForce(0, this.power);
     }
     this.gameObject.velocity = this.gameObject.velocity.multiply(FRICTION);
-    this.gameObject.velocity = this.gameObject.velocity.add(GRAVITY);
     this.gameObject.updatePosition();
 }
 
