@@ -3,6 +3,8 @@ var APPLE_RADIUS = 5;
 function Apple() {
 	this.gameObject = new GameObject();
 	this.gameObject.size = new Vector2D(APPLE_RADIUS * 2, APPLE_RADIUS * 2);
+	this.gameObject.velocity = new Vector2D(0, 0);
+	this.following = null;
 }
  
 Apple.prototype.draw = function(context) {
@@ -14,9 +16,16 @@ Apple.prototype.draw = function(context) {
 }
 
 Apple.prototype.update = function(gameContainer) {
-	if (collide(gameContainer.hero, this)) {
-		gameContainer.hero.apples++;
-		gameContainer.gameObjects.splice(gameContainer.gameObjects.indexOf(this), 1);
+	if (!this.following && collide(gameContainer.hero, this)) {
+		var apples = gameContainer.hero.apples;
+		this.following = apples[apples.length - 1] ? apples[apples.length - 1] : gameContainer.hero	;
+		apples.push(this)
 	}
+	if (this.following) {
+		this.gameObject.velocity.y = (this.following.gameObject.position.y - this.gameObject.position.y) / 6;
+		this.gameObject.velocity.x = (this.following.gameObject.position.x - this.gameObject.position.x) / 6;
+	}
+	this.gameObject.position.y += this.gameObject.velocity.y;
+	this.gameObject.position.x += this.gameObject.velocity.x;
 }
 

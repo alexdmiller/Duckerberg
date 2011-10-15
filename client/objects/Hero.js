@@ -14,7 +14,7 @@ function Hero() {
     this.gameObject.size = new Vector2D(20, 20);
     this.power = DEFAULT_POWER;
     this.keys = [];
-    this.apples = 0;
+    this.apples = new Array();
     this.startHealth = 10;
     this.health = this.startHealth;
 }
