@@ -37,7 +37,7 @@ class GameDaemon
       @game_manager.handle_message(message_hash)
     rescue
       @redis.sadd("inbox", message)
-      @game_manager.log_message("returned message to outbox:: #{message} :: #{$!}")
+      @game_manager.log_message("returned message to outbox:: #{message} :: #{$!.inspect}")
     end
   end
 

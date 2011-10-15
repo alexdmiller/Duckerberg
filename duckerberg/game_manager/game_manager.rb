@@ -31,10 +31,9 @@ class GameManager
   end
 
   def prepare_game_signals
-    log_message("Sending out game signals")
     game_time         = pass_timer
     score_table       = pass_full_score_table
-    log_message("Game Time: #{game_time}, Score Table: #{score_table}")
+    log_message("Sending out game signals :: Game Time: #{game_time}, Score Table: #{score_table}")
     game_over_message = game_over
 
     if game_over_message.nil?
@@ -64,6 +63,7 @@ class GameManager
 
   # Misc functionality
   def post(message, socket_id)
+    log_message("trying to post #{message.inspect}")
     return if (not message.is_a?(Hash)) and (not message.is_a?(Array))
     messages = [message] if (not message.is_a?(Array))
     messages.each do |mess|

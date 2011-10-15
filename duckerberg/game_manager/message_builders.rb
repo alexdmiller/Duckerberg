@@ -34,7 +34,7 @@ module MessageBuilders
         nil
       else
         {
-          "type" => "return_powerup",
+          "type"         => "return_powerup",
           "powerup_name" => powerup_name,
           "user_name"    => user_name
         }
