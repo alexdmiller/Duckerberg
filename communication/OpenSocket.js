@@ -129,7 +129,7 @@ function connect(){
 		}
 
 		socket.onmessage = function(msg){
-			alert(msg.data);
+			console.log(msg.data);
 			//readMessage(msg.data);
 		}
 
