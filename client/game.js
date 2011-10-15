@@ -21,8 +21,8 @@ $(document).ready(function() {
     container.width(GAME_WIDTH);
     container.height(GAME_HEIGHT);
     container.append(canvas);
-	setupSocket();
-	setupUI();
+	//setupSocket();
+	//setupUI();
     setupGame();
 });
 
