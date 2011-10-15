@@ -88,8 +88,12 @@ body {
 }
 
 #high_scores {
-	position: absolute;
+	position: fixed;
+	left: 0%;
+	bottom: 0%;
     font-family: helvetica;
     font-size: 15px;
+	opacity: 0.4;
+	border: 1px solid  gray;
     background-color: #FFFFFF;
 }
