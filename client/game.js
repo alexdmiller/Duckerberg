@@ -34,7 +34,7 @@ function setupGame() {
     gameContainer.gameWidth = GAME_WIDTH;
     gameContainer.gameHeight = GAME_HEIGHT;
     gameContainer.gameObjects.push(gameContainer.hero);
-	gameContainer.gameObjects.push(new Base());
+	gameContainer.gameObjects.push(new Base($(document).width() / 2, $(document).height() / 2));
     gameContainer.timer = setInterval(updateGame, 1000 / FPS);
         
     $(document).keydown(function(event) {
