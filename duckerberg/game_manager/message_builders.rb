@@ -93,7 +93,7 @@ module MessageBuilders
           "user_name" => user["user_name"],
           "score"     => user["score"]
         }
-      }
+      }.sort{|x, y| x["score"] <=> y["score"]}
     }
   end
 
