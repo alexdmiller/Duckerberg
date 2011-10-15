@@ -47,7 +47,7 @@ class GameManager
     end
   end
 
-  def endgame_measures
+  def endgame_measures(game_over_message)
       @users_by_id.values.each do |user|
         post(game_over_message, user["socket_id"])
         post(score_table, user["socket_id"])
