@@ -33,7 +33,6 @@ class GameDaemon
     @redis.srem("inbox", message)
     begin
       message_hash            = JSON.parse(message)
-      message_hash["message"] = JSON.parse(message_hash["message"])
       @game_manager.handle_message(message_hash)
     rescue
       @redis.sadd("inbox", message)
