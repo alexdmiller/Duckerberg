@@ -25,11 +25,19 @@ function setupGame() {
 		hero: new Hero(50, 50),
 		base: new Base($(document).width() / 2, $(document).height() / 2),
 		score: 0,
+		activePowerups: new Array(),
 		update: function() {
 			canvas.width = canvas.width;
 			for (var i = 0; i < gameContainer.gameObjects.length; i++) {
 				gameContainer.gameObjects[i].update(gameContainer);
 			    gameContainer.gameObjects[i].draw(canvas.getContext("2d"));
+			}
+			for (i = gameContainer.activePowerups.length - 1; i >= 0; i--) {
+			    activePowerups[i].ticks--;
+			    if (activePowerups[i].ticks < 0) {
+			        activePowerups[i].deactivate();
+			        gameContainer.activePowerups.splice(i, 1);
+			    }
 			}
 		},
 		heroDeath: function() {
