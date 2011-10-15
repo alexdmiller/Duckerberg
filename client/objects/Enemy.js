@@ -52,7 +52,6 @@ Enemy.prototype.update = function(game) {
                 this.following = false;
                 this.gameObject.velocity = new Vector2D(Math.random() * SPEED - SPEED / 2, Math.random() * SPEED - SPEED / 2);
             }
-            
         }
         if (this.gameObject.position.x < 0) {
             this.gameObject.position.x = GAME_WIDTH;
