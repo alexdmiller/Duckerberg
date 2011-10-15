@@ -9,6 +9,7 @@ class GameDaemon
   def initialize
     @game_manager  = GameManager.new
     @outward_socket = WebSocket.new("ws://localhost:8080/")
+		@outward_socket.send "GAME_SERVER"
     @redis          = Redis.new
 		@game_manager.log_message("Starting up Game Server")
 

@@ -32,6 +32,12 @@ class MessageHandler
       read_outbox
       return
     end
+
+    if message == "GAME_SERVER"
+      destroy_socket(socket)
+      return
+    end
+
     socket_id = @sockets[socket]
     log_message("Received message from socket #{socket_id} : #{message}")
     pass_message(message, socket)
