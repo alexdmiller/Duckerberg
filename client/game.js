@@ -103,8 +103,10 @@ function collideWithPowerup(powerupName) {
     var p = powerups[powerupName];
     if (p.type == "me") {
         gameContainer.activatePowerup(p);
+        $("#message").text(p.name + "!");
     } else {
         sendPowerUp(p);
+        $("#message").text("Deployed '" + p.name + "'!");
     }
 }
 
@@ -136,6 +138,7 @@ function setupGameObjects(gameContainer) {
 /* API for server */
 
 function onPowerUp(powerup) {
+    $("#message").text("Someone used " + powerup + "!");
 	gameContainer.activatePowerUp(powerups[powerup["powerup_name"]]);
 }
 
