@@ -53,7 +53,7 @@ function resetGame() {
     gameContainer.gameObjects.push(gameContainer.base);
     gameContainer.score = 0;
     $("#score").text("");
-    for (var i = 0; i < gameContainer.activePowerups; i++) {
+    for (var i = 0; i < gameContainer.activePowerups.length; i++) {
         gameContainer.activePowerups[i].deactivate(gameContainer);
     }
     gameContainer.activePowerups = new Array();

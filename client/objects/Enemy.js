@@ -3,7 +3,7 @@ var SPEED = 4;
 function Enemy() {
     this.gameObject = new GameObject();
     this.gameObject.size = new Vector2D(10, 10);
-    this.damage = 0.1;
+    this.damage = 0.15;
     this.gameObject.velocity = new Vector2D(Math.random() * SPEED - SPEED / 2, Math.random() * SPEED - SPEED / 2);
     this.following = false;
     this.img = new Image();
