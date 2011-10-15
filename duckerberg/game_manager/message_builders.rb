@@ -1,3 +1,10 @@
+# MessageBuilders
+#
+# Holds ways to respond to client messages as well as prepare signals to send to clients
+# Each should return a Hash if sending one signal to send
+# An Array if sending many messages
+# Or nil if not sending a message
+
 module MessageBuilders
 
   # returns an issue_user_id message
@@ -15,12 +22,15 @@ module MessageBuilders
 
     @users_by_id[user_id]     = user
     @ids_by_socket[socket_id] = user_id
+    @sockets_by_id[user_id]   = socket_id
 
     @highest_user_id += 1
 
-    {
-      "type"    => "issue_user_id",
-      "user_id" => user_id
+    { "message" => {
+        "type"    => "issue_user_id",
+        "user_id" => user_id
+      },
+      "socket_id" => socket_id
     }
   end
 
@@ -34,10 +44,12 @@ module MessageBuilders
       if x["user_id"] == user_id
         nil
       else
-        {
-          "type"         => "return_powerup",
-          "powerup_name" => powerup_name,
-          "user_name"    => user_name
+        { "message" => {
+            "type"         => "return_powerup",
+            "powerup_name" => powerup_name,
+            "user_name"    => user_name
+          },
+          "socket_id" => @sockets_by_id[user_id]
         }
       end
     }.compact
@@ -48,6 +60,7 @@ module MessageBuilders
     socket_id = message_hash["socket_id"]
     user_id   = @ids_by_socket[socket_id]
 
+    @sockets_by_id.delete(user_id)
     @ids_by_socket.delete(socket_id)
     @users_by_id.delete(user_id)
     nil

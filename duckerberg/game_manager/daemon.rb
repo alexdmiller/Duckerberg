@@ -1,3 +1,8 @@
+# GameDaemon
+#
+# Receives and sends messages from the Web Socket Server through sets on redis
+# Offloads processing of the messages to GameManager
+
 require 'redis'
 require 'web_socket'
 load    'game_manager.rb'

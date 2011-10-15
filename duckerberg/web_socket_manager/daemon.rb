@@ -1,15 +1,20 @@
+# Daemon
+#
+# Runs an EventMachine Server with Websockets to process connections from clients
+# Passes processing to MessageHandler
+
 require 'eventmachine'
 require 'em-websocket'
 load    'message_handler.rb'
 
+PORT = 8080
+
 handler = MessageHandler.new
 sockets = {}
 
-handler.log_message("Starting up Duckerberg server")
-
 EventMachine.run {
 
-  EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 8080) do |socket|
+  EventMachine::WebSocket.start(:host => "0.0.0.0", :port => PORT) do |socket|
     socket.onopen {
       handler.add_socket(socket)
     }

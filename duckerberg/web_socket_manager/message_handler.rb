@@ -1,10 +1,20 @@
+# MessageHandler
+#
+# Handles sockets of clients and their messages.
+# Sends the messages to the Game Server through a set on redis,
+# and Sends messages back to clients through a set on redis
+
 require 'json'
 require 'redis'
-INLOG_FILE = File.join("/home/ubuntu", "duckerberglog", "inlog.txt")
+LOG_FILE = File.join("/home/ubuntu", "duckerberglog", "websocket_log.txt")
+INBOX    = "inbox"
+OUTBOX   = "outbox"
 
 class MessageHandler
   def initialize
-    @inlogger  = File.new(INLOG_FILE, 'a')
+    log_message("Starting up Duckerberg server")
+
+    @inlogger  = File.new(LOG_FILE, 'a')
     @redis   = Redis.new
     @sockets = {}
     @current_new_socket_id = 0
@@ -31,9 +41,10 @@ class MessageHandler
     log_message("Destroyed Closed Socket Connection #{id}")
   end
 
+  # Takes a message and passes it on to Game Server
   def receive_message(message, socket)
     if message == "READ"
-      read_outbox
+      process_outbox
       return
     end
 
@@ -47,38 +58,41 @@ class MessageHandler
     pass_message(message, socket)
   end
 
+  # Passes a message to the Game Server with data on socket_id
   def pass_message(message, socket)
     formatted_message = {
       "message" => JSON.parse(message),
       "socket_id" => @sockets[socket]
     }.to_json
 
-    @redis.sadd("inbox", formatted_message)
+    @redis.sadd(INBOX, formatted_message)
   end
 
-  def read_outbox
-    while message = @redis.spop("outbox")
-      @redis.srem("outbox", message)
+  # Processes messages sent from the Game Server meant for the clients
+  def process_outbox
+    while message = @redis.spop(OUTBOX)
+      @redis.srem(OUTBOX, message)
       begin
         message_hash     = JSON.parse(message)
         socket_id        = message_hash["socket_id"]
-        original_message = message_hash["message"]
+        original_message = message_hash["message"].to_json
         socket           = @sockets[socket_id]
-        send_to_socket(socket, original_message, socket_id)
+        send_to_socket(socket, original_message)
       rescue
-        @redis.sadd("outbox", message)
+        @redis.sadd(OUTBOX, message)
         log_message("returned message to outbox:: #{message}")
       end
     end
     true
   end
 
-  def send_to_socket(socket, message, socket_id)
+  def send_to_socket(socket, message)
     begin
       socket.send(message)
+      socket_id = @sockets[socket]
       log_message("sent message to socket #{socket_id} :: #{message}")
     rescue
-      log_message("sending to socket #{socket_id} failed:: #{$!}")
+      log_message("sending to socket #{socket_id} failed:: #{$!} #{$!.backtrace}")
     end
   end
 

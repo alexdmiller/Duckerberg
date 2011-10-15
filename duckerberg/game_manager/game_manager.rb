@@ -1,3 +1,8 @@
+# GameManager
+#
+# Manages games of Duckerberg by organizing data that is shared between players, like the countdown clock and the score board
+# Also processes messages passed from the game clients and creates messages to send to clients
+
 require 'json'
 require 'redis'
 load    'message_builders.rb'
@@ -9,6 +14,8 @@ GAME_LENGTH = 100
 
 class GameManager
   include MessageBuilders
+
+  # Sets up structures to organize users
   def initialize
     @logger          = File.new(GAME_DAEMON_LOG, 'a')
     @redis           = Redis.new
@@ -19,9 +26,11 @@ class GameManager
     # user_name, user_id, socket_id, score
     @users_by_id     = {}
     @ids_by_socket   = {}
+    @sockets_by_id   = {}
     setup_game
   end
 
+  # Starts a new game by resetting the game clock and setting scores to 0
   def setup_game
     log_message("Game Restarting...")
     @game_start_time = Time.now.to_i
@@ -30,6 +39,8 @@ class GameManager
     end
   end
 
+  # Sends out messages to users that recur over common intervals
+  # For instance Score and Game clock
   def prepare_game_signals
     game_time         = pass_timer
     score_table       = pass_full_score_table
@@ -46,6 +57,7 @@ class GameManager
     end
   end
 
+  # Runs game changes for when the game is over
   def endgame_measures(game_over_message, score_table)
       @users_by_id.values.each do |user|
         post(game_over_message, user["socket_id"])
@@ -54,6 +66,7 @@ class GameManager
       setup_game
   end
 
+  # Takes a client message and processes it, possibly sending a message back
   def handle_message(message_hash)
     socket_id = message_hash["socket_id"]
     message   = message_hash["message"]
@@ -63,15 +76,16 @@ class GameManager
   end
 
   # Misc functionality
+  # Sends the Message to socket_id through redis to the websocket server
+  # All individual messages are of the form {"type" : string, "message" : JSON}, 
+  # So an Array is guaranteed to be multiple messages while a hash is guaranteed to be one message
   def post(message, socket_id)
     log_message("trying to post #{message.inspect}")
     return if (not message.is_a?(Hash)) and (not message.is_a?(Array))
     messages = [message] if (not message.is_a?(Array))
+
     messages.each do |mess|
-      @redis.sadd(OUTBOX,{
-        "message"   => mess.to_json,
-        "socket_id" => socket_id
-      }.to_json)
+      @redis.sadd(OUTBOX, mess.to_json)
     end
   end
 
