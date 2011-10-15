@@ -7,8 +7,8 @@ var gameContainer;
 var canvas;
 
 $(document).ready(function() {
-    GAME_WIDTH = $(document).width();
-    GAME_HEIGHT = $(document).height();
+    GAME_WIDTH = $(document).width() - 10;
+    GAME_HEIGHT = $(document).height() - 10;
     canvas = document.createElement("canvas");
     canvas.width = GAME_WIDTH;
     canvas.height = GAME_HEIGHT;
@@ -53,6 +53,7 @@ function setupGame() {
             gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
             gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
             gameContainer.hero.health = gameContainer.hero.startHealth;
+            gameContainer.hero.gameContainer.velocity = new Vector2D(0, 0);
 			while (gameContainer.hero.apples.length > 0) {
 				removeElementFromArray(gameContainer.hero.apples.shift(), gameContainer.gameObjects);
 			}
@@ -62,8 +63,11 @@ function setupGame() {
 		    $("#score").text(gameContainer.score);
 		}
 	};
-	$("#score").css("left", gameContainer.base.gameObject.position.x);
-	$("#score").css("top", gameContainer.base.gameObject.position.y);
+	
+	// put score in middle
+	$("#score").css("left", gameContainer.base.gameObject.position.x - $("#score").width() / 2);
+	$("#score").css("top", gameContainer.base.gameObject.position.y - $("#score").height() / 2);
+	
     gameContainer.gameWidth = GAME_WIDTH;
     gameContainer.gameHeight = GAME_HEIGHT;
     gameContainer.gameObjects.push(gameContainer.base);
@@ -79,9 +83,6 @@ function setupGame() {
         gameContainer.hero.onKeyUp(event.keyCode);
     });
     setupGameObjects(gameContainer);
- 
-    // ***
-    gameContainer.activatePowerup(powerups.speed);
 }
 
 function updateGame() {
