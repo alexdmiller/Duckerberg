@@ -53,19 +53,18 @@ class MessageHandler
   end
 
   def read_outbox
-    message = @redis.spop("outbox")
-    return if message.nil?
-
-    @redis.srem("outbox", message)
-    begin
-      message_hash     = JSON.parse(message)
-      socket_id        = message_hash["socket_id"]
-      original_message = message_hash["message"]
-      socket           = @sockets[socket_id]
-      send_to_socket(socket, original_message, socket_id)
-    rescue
-      @redis.sadd("outbox", message)
-      log_message("returned message to outbox:: #{message}")
+    while message = @redis.spop("outbox")
+      @redis.srem("outbox", message)
+      begin
+        message_hash     = JSON.parse(message)
+        socket_id        = message_hash["socket_id"]
+        original_message = message_hash["message"]
+        socket           = @sockets[socket_id]
+        send_to_socket(socket, original_message, socket_id)
+      rescue
+        @redis.sadd("outbox", message)
+        log_message("returned message to outbox:: #{message}")
+      end
     end
     true
   end
