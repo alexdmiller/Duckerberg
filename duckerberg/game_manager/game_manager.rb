@@ -72,20 +72,28 @@ class GameManager
     message   = message_hash["message"]
     type      = message["type"]
 
-    post(send(type, message_hash), socket_id)
+    post(send(type, message_hash))
   end
 
   # Misc functionality
   # Sends the Message to socket_id through redis to the websocket server
   # All individual messages are of the form {"type" : string, "message" : JSON}, 
   # So an Array is guaranteed to be multiple messages while a hash is guaranteed to be one message
-  def post(message, socket_id)
+  def post(message, socket_id = nil)
     log_message("trying to post #{message.inspect}")
-    return if (not message.is_a?(Hash)) and (not message.is_a?(Array))
-    messages = [message] if (not message.is_a?(Array))
+    if socket_id
+      messages = [{
+        "message"   => message,
+        "socket_id" => socket_id
+      }]
 
-    messages.each do |mess|
-      @redis.sadd(OUTBOX, mess.to_json)
+    else
+      return if (not message.is_a?(Hash)) and (not message.is_a?(Array))
+      messages = [message] if (not message.is_a?(Array))
+
+      messages.each do |mess|
+        @redis.sadd(OUTBOX, mess.to_json)
+      end
     end
   end
 
