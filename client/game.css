@@ -2,6 +2,7 @@ body {
     background-color: #a7d495;
     margin: 0;
     padding: 0;
+    font-family: helvetica;
 }
 
 #container {
@@ -73,7 +74,13 @@ body {
     font-size: 25px;
     background-color: #FFFFFF;
 }
-
+#time {
+    background-color: #FFFFFF;
+   font-size: 15px;
+   position: absolute;
+   right: 0;
+   top: 0;
+}
 #high_score {
 	    position: absolute;
     font-family: helvetica;
