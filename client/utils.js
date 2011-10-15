@@ -7,3 +7,9 @@ function collide(obj1, obj2) {
     }
     return false;
 }
+
+function removeElementFromArray(element, arr) {
+	var index = arr.indexOf(element);
+	arr.splice(index, 1);
+	return index;
+}

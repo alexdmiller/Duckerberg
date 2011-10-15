@@ -19,18 +19,6 @@ Base.prototype.draw = function(context) {
 
 Base.prototype.update = function(gameContainer) {
 	if (collide(gameContainer.hero, this)) {
-		var apples = gameContainer.hero.apples;
-		if (apples.length > 0) {
-			gameContainer.addToScore(apples.length);
-			apples.sort();
-			for (var i = 0; i < gameContainer.gameObjects.length && apples.length > 0; i++) {
-				if (gameContainer.gameObjects[i] == apples[0]) {
-					gameContainer.gameObjects.splice(i, 1);
-					apples.shift();
-					i--;
-				}
-			}
-		}
 		safe = true;
 	} else {
 		safe = false;

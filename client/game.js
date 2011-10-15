@@ -36,7 +36,9 @@ function setupGame() {
             gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
             gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
             gameContainer.hero.health = gameContainer.hero.startHealth;
-			gameContainer.hero.apples = 0;
+			while (gameContainer.hero.apples.length > 0) {
+				removeElementFromArray(gameContainer.hero.apples.shift(), gameContainer.gameObjects);
+			}
 		},
 		addToScore: function(add) {
 		    gameContainer.score += add;
