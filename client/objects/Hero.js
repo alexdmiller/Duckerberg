@@ -1,5 +1,5 @@
-var DEFAULT_POWER = 0.7;
-var FRICTION = 0.9;
+var DEFAULT_POWER = 2;
+var FRICTION = 0.8;
 var GRAVITY = new Vector2D(0, 0);
 
 var LEFT_KEY = 37;
