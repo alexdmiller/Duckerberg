@@ -47,6 +47,20 @@ Hero.prototype.update = function(game) {
         // down
         this.gameObject.applyForce(0, this.power);
     }
+	if (this.gameObject.position.x < 0) {
+        this.gameObject.velocity.x = 0;
+		this.gameObject.position.x = 0;
+    } else if (this.gameObject.position.x > GAME_WIDTH) {
+		this.gameObject.velocity.x = 0; 
+		this.gameObject.position.x = GAME_WIDTH;
+    }
+    if (this.gameObject.position.y < 0) {
+		this.gameObject.velocity.y = 0;
+        this.gameObject.position.y = 0;
+    } else if (this.gameObject.position.y > GAME_HEIGHT) {
+		this.gameObject.velocity.y = 0;
+        this.gameObject.position.y = GAME_HEIGHT;
+    }
     this.gameObject.velocity = this.gameObject.velocity.multiply(FRICTION);
     this.gameObject.updatePosition();
 }

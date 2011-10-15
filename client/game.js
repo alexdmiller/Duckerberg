@@ -5,12 +5,9 @@ var INITIAL;
 var DEFAULT_ENEMY_CONSTANT = 1; // bigger -> slower enemies
 var DEFAULT_ENEMY_MAX = 10;
 var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
-var POWERUP_FREQUENCY = 0.01;
+var POWERUP_FREQUENCY = 0.001;
 
 var damageConstant = 1;
-
-var DEFAULT_ENEMY_RESPONSE_RADIUS = 300;
-var POWERUP_FREQUENCY = 0.01;
 
 var gameContainer;
 var canvas;
@@ -68,10 +65,18 @@ function setupGame() {
 			    }
 			}
 			if (Math.random() < POWERUP_FREQUENCY) {
-			    var p = new Powerup(powerupNames[Math.floor(Math.random() * powerupNames.length)]);
-			    p.gameObject.position.x = Math.random() * GAME_WIDTH;
-			    p.gameObject.position.y = Math.random() * GAME_HEIGHT;
-			    gameContainer.gameObjects.push(p);
+				var p;
+				var layPowerup = function() {	
+					p = new Powerup(powerupNames[Math.floor(Math.random() * powerupNames.length)]);
+					p.gameObject.position.x = Math.random() * GAME_WIDTH;
+					p.gameObject.position.y = Math.random() * GAME_HEIGHT;
+					return collide(p, gameContainer.base);
+				}
+				while (layPowerup()) { }
+				gameContainer.gameObjects.push(p);
+				setTimeout(function() {
+					removeElementFromArray(p, gameContainer.gameObjects);
+				}, Math.random() * 5000 + 5000);
 			}
 
 		},
