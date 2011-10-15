@@ -3,7 +3,7 @@ require 'web_socket'
 load    'game_manager.rb'
 
 
-SLEEP_TIME = 0.2
+LOOP_RATE = 0.2
 
 class GameDaemon
   def initialize
@@ -13,9 +13,15 @@ class GameDaemon
 
     # Monitoring Loop
     loop {
+			start = Time.now.to_f
+
       handle_inbox
+			prepare_game_signals
       @outward_socket.send("READ")
-      sleep(SLEEP_TIME)
+
+			margin = Time.now.to_f - start
+			sleep_time = (margin > LOOP_RATE ? LOOP_RATE : LOOP_RATE - margin)
+      sleep(sleep_time)
     }
   end
 
