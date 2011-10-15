@@ -8,11 +8,10 @@ var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
 var POWERUP_FREQUENCY = .01;
 var MAX_POWERUPS = 1;
 var ROUND_TIME = 5;
-var PIXELS_PER_APPLE = 29696;
 var PIXELS_PER_ENEMY = 44544;
 
 var damageConstant = 1;
-var numPowerups = 0;
+var powerupAvailable = false;
 
 var gameContainer;
 var canvas;
@@ -76,7 +75,7 @@ function resetGame() {
     gameContainer.hero.gameObject.velocity.y = 0;
     gameContainer.hero.health = gameContainer.hero.startHealth;
     gameContainer.hero.apples = new Array();
-    numPowerups = 0;
+    powerupAvailable = false;
     canvas.width = canvas.width;
 }
 
@@ -115,21 +114,20 @@ function setupGame() {
 
 					}
 				}
-				if (Math.random() < POWERUP_FREQUENCY && numPowerups < MAX_POWERUPS) {
-					var p;
-					var layPowerup = function() {	
-						p = new Powerup(powerupNames[Math.floor(Math.random() * powerupNames.length)]);
+				if (Math.random() < POWERUP_FREQUENCY && !powerupAvailable) {
+					var p = new Powerup(powerupNames[Math.floor(Math.random() * powerupNames.length)]);
+					p.gameObject.position.x = Math.random() * GAME_WIDTH;
+					p.gameObject.position.y = Math.random() * GAME_HEIGHT;
+					while(collide(p, gameContainer.base)) {
 						p.gameObject.position.x = Math.random() * GAME_WIDTH;
 						p.gameObject.position.y = Math.random() * GAME_HEIGHT;
-						return collide(p, gameContainer.base);
 					}
-					while (layPowerup()) { }
 					gameContainer.gameObjects.push(p);
-					numPowerups++;
+					powerupAvailable = true;
 					setTimeout(function() {
 					    if (state == "running") {
 					        removeElementFromArray(p, gameContainer.gameObjects);
-                            numPowerups--;
+                            powerupAvailable = false;
 					    }
                     }, Math.random() * 5000 + 5000);
 				}
@@ -175,7 +173,7 @@ function setupGame() {
 
 function collideWithPowerup(powerupName) {
     var p = powerups[powerupName];
-	numPowerups--;
+	powerupAvailable = true;;
 	var msg = "";
     if (p.type == "me") {
         gameContainer.activatePowerup(p);
@@ -201,7 +199,7 @@ function setupGameObjects() {
 		else
 			i--;
     }
-	for (var i = 0; i < GAME_WIDTH * GAME_HEIGHT / PIXELS_PER_APPLE; i++) {
+	for (var i = 0; i < 50; i++) {
         var a = new Apple();
         a.gameObject.position.x = Math.random() * GAME_WIDTH;
         a.gameObject.position.y = Math.random() * GAME_HEIGHT;
