@@ -20,11 +20,15 @@ class MessageHandler
 
   def destroy_socket(socket)
     id = @sockets[socket]
+
+    # Destroy on the Game Manager Side
+    message = { "type" => "destroy_socket" }.to_json
+    pass_message(message, socket)
+
+    # Destroy on the WebSocket Manager Side
     @sockets.delete(id)
     @sockets.delete(socket)
     log_message("Destroyed Closed Socket Connection #{id}")
-    message = { "type" => "destroy_socket" }.to_json
-    pass_message(message, socket)
   end
 
   def receive_message(message, socket)
