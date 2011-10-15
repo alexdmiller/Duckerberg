@@ -18,6 +18,7 @@ class GameManager
   end
 
   def prepare_game_signals
+    log_message("Sending out game signals")
     game_time   = pass_timer
     score_table = pass_full_score_table
 
@@ -67,7 +68,7 @@ class GameManager
   end
 
   def destroy_socket(message_hash)
-    socket_id = message["socket_id"]
+    socket_id = message_hash["socket_id"]
     user_id   = @ids_by_socket[socket_id]
 
     @ids_by_socket.delete(socket_id)
@@ -96,6 +97,6 @@ class GameManager
   end
 
   def log_message(message)
-    @logger.syswrite "#{message}\n"
+    @logger.syswrite "#{Time.now} :: #{message}\n"
   end
 end
