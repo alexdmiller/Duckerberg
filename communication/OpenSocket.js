@@ -5,9 +5,8 @@ var onPowerUp;
 var onTimer;
 var onEndGame;
 
- function setupSocket(){
-	console.log("in setupSocket");
-	connect();
+function setupSocket(){
+   connect();
 }
  
  function getID(){

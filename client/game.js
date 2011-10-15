@@ -31,6 +31,10 @@ $(document).ready(function() {
     setupGame();
 });
 
+onTimer = function(time) {
+    $("#timer").text(time);
+}
+
 function setupGame() {
     gameContainer = {
 		gameObjects: new Array(),
@@ -146,7 +150,7 @@ function setupGameObjects(gameContainer) {
 /* API for server */
 
 onPowerUp = function(powerup) {
-    $("#message").text("Someone used " + powerup + "!");
+    $("#message").text(powerup.user_name + " deployed " + powerup.powerup_name + "!");
 	gameContainer.activatePowerUp(powerups[powerup["powerup_name"]]);
 }
 

@@ -52,15 +52,15 @@ Enemy.prototype.update = function(game) {
                 this.gameObject.velocity = new Vector2D(Math.random() * SPEED - SPEED / 2, Math.random() * SPEED - SPEED / 2);
             }
         }
-        if (this.gameObject.position.x < 0) {
-            this.gameObject.position.x = GAME_WIDTH;
-        } else if (this.gameObject.position.x > GAME_WIDTH) {
-            this.gameObject.position.x = 0;
-        }
-        if (this.gameObject.position.y < 0) {
-            this.gameObject.position.y = GAME_HEIGHT;
-        } else if (this.gameObject.position.y > GAME_HEIGHT) {
-            this.gameObject.position.y = 0;
-        }
+    }
+    if (this.gameObject.position.x < 0) {
+        this.gameObject.position.x = GAME_WIDTH;
+    } else if (this.gameObject.position.x > GAME_WIDTH) {
+        this.gameObject.position.x = 0;
+    }
+    if (this.gameObject.position.y < 0) {
+        this.gameObject.position.y = GAME_HEIGHT;
+    } else if (this.gameObject.position.y > GAME_HEIGHT) {
+        this.gameObject.position.y = 0;
     }
 }
