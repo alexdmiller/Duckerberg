@@ -22,21 +22,30 @@ function setupUI(){
 			}
 		});  
 }
+
+function showEndGameScores(){
+
+}
  
+function hideEndGameScores(){
+
+}
  
  function loadHighScores(msg){
 	var x = msg.table;
 	if(x == null)
 		return;
 	var score = -1;
+	$("#high_scores > tbody:last").text("");
 	for(var i = 0; i<x.length; i++){
-		if(x[i].score > score){
-			user = x[i].user_name;
-			score = x[i].score;
-		}
+		user = x[i].user_name;
+		score = x[i].score;
+		var text = '<tr><td>' + user + '</td><td>' + score + '</td></tr>';
+		$("#high_scores > tbody:last").append(text);
+		console.log("appending: " + text);
 	}
-	$("#high_score").text(user + " is winning with "+ score + " apples!");
 }
+
 
 
 

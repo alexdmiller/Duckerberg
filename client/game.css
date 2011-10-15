@@ -74,6 +74,7 @@ body {
     font-size: 25px;
     background-color: #FFFFFF;
 }
+
 #time {
     background-color: #FFFFFF;
    font-size: 15px;
@@ -81,8 +82,9 @@ body {
    right: 0;
    top: 0;
 }
-#high_score {
-	    position: absolute;
+
+#high_scores {
+	position: absolute;
     font-family: helvetica;
     font-size: 15px;
     background-color: #FFFFFF;
