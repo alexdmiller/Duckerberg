@@ -12,9 +12,9 @@ OUTBOX   = "outbox"
 
 class MessageHandler
   def initialize
+    @logger  = File.new(LOG_FILE, 'a')
     log_message("Starting up Duckerberg server")
 
-    @logger  = File.new(LOG_FILE, 'a')
     @redis   = Redis.new
     @sockets = {}
     @current_new_socket_id = 0
