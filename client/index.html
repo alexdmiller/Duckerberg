@@ -15,7 +15,6 @@
 		<script src="objects/Base.js" type="text/javascript" charset="utf-8"></script>
         <script src="objects/Enemy.js" type="text/javascript" charset="utf-8"></script>
         <script src="objects/Apple.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../communication/OpenSocket.js" type="text/javascript" charset="utf-8"></script>
         <script src="objects/Powerup.js" type="text/javascript" charset="utf-8"></script>
         <link rel="stylesheet" href="game.css" type="text/css" media="screen" />
     </head>
@@ -25,10 +24,12 @@
         </div>
 
 		<div id="popupContact">  
-			<a id="popupContactClose">x</a>  
 			<center><h2>Welcome!</h2></center>
-			NAME: <input id="name" type="text" size="45" /><br>
+			NAME: <input id="name" type="text" size="45" />
 			<button id="namesubmitted">Let's Play!</button>
+			<br>
+			<p>Use the arrow keys to move.  Collect as many apples as you can without the enemies catching you!</p>
+			<p>Collect powerups to gain bonus powers, or makelife difficult for other people playing online</p>
 		</div>  
 		<div id="backgroundPopup"></div>  
     </body>

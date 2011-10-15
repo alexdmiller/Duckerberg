@@ -1,6 +1,11 @@
 var socket;
 var id = 1;
 
+var onPowerUp;
+var onUserID;
+var onTimer;
+var onEndGame;
+
 //0 means disabled; 1 means enabled;  
 var popupStatus = 0; 
  $(document).ready(function(){
@@ -74,7 +79,11 @@ function returnPowerUp(msg){
  }
  
  function passFullScoreTable(msg){
-	onHighScores(msg.table);
+	var highScores = new Array();
+	var scores = JSON.parse(msg.table);
+	for (var i = 0; i< scores.length; i++){
+		highScores.
+	}
  }
  
  function gameOver(msg){
@@ -86,19 +95,19 @@ function returnPowerUp(msg){
 		var parsedJSON = JSON.parse(msg);
 		var type = parsedJSON.type; 
 		if(type == "return_powerup"){
-			returnPowerUp(type);
+			returnPowerUp(parsedJSON);
 		}
 		if(type == "issue_user_id"){
-			issueUserID(type);
+			issueUserID(parsedJSON);
 		}
 		if(type == "pass_timer"){
-			passTimer(type);
+			passTimer(parsedJSON);
 		}
 		if(type == "pass_full_score_table"){
-			passFullScoreTable(type);
+			passFullScoreTable(parsedJSON);
 		}
 		if(type == "game_over"){
-			gameOver(type);
+			gameOver(parsedJSON);
 		}
 	}
 	catch(exception){
@@ -120,7 +129,8 @@ function connect(){
 		}
 
 		socket.onmessage = function(msg){
-			readMessage(msg.data);
+			alert(msg.data);
+			//readMessage(msg.data);
 		}
 
 		socket.onclose = function(msg){
