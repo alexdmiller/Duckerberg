@@ -1,6 +1,7 @@
 var GAME_WIDTH;
 var GAME_HEIGHT;
 var FPS = 60;
+var INITIAL
 
 var gameContainer;
 var canvas;
@@ -8,7 +9,6 @@ var canvas;
 $(document).ready(function() {
     GAME_WIDTH = $(document).width();
     GAME_HEIGHT = $(document).height();
-    
     canvas = document.createElement("canvas");
     canvas.width = GAME_WIDTH;
     canvas.height = GAME_HEIGHT;
@@ -36,15 +36,26 @@ function setupGame() {
     gameContainer.gameObjects.push(gameContainer.hero);
 	gameContainer.gameObjects.push(new Base());
     gameContainer.timer = setInterval(updateGame, 1000 / FPS);
-    
+        
     $(document).keydown(function(event) {
         gameContainer.hero.onKeyDown(event.keyCode);
     });
     $(document).keyup(function(event) {
         gameContainer.hero.onKeyUp(event.keyCode);
     });
+    setupGameObjects(gameContainer);
+    
 }
 
 function updateGame() {
 	gameContainer.update();
+}
+
+function setupGameObjects(gameContainer) {
+    for (var i = 0; i < 50; i++) {
+        var e = new Enemy();
+        e.gameObject.position.x = Math.random() * GAME_WIDTH;
+        e.gameObject.position.y = Math.random() * GAME_HEIGHT;
+        gameContainer.gameObjects.push(e);
+    }
 }
