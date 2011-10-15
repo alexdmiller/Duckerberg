@@ -16,6 +16,12 @@ class MessageHandler
     log_message("Connection Opened -- Socket id: #{id}")
   end
 
+  def destroy_socket(socket)
+    id = @sockets[socket]
+    @sockets.delete(id)
+    @sockets.delete(socket)
+  end
+
   def receive_message(message, socket)
     if message == "READ"
       read_outbox

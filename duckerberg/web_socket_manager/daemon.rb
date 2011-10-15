@@ -18,5 +18,9 @@ EventMachine.run {
       handler.receive_message(message, socket)
     }
 
+    socket.onclose {
+      handler.destroy_socket(socket)
+    }
+
   end
 }
