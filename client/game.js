@@ -204,7 +204,7 @@ function setupGameObjects() {
 /* API for server */
 
 onPowerUp = function(powerup) {
-    $("#message").text(powerup.user_name + " deployed " + powerup.powerup_name + "!");
+	displayNewMessage(powerup.user_name + " deployed " + powerup.powerup_name + "!"); 	
 	gameContainer.activatePowerup(powerups[powerup["powerup_name"]]);
 }
 
