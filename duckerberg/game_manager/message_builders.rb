@@ -36,14 +36,14 @@ module MessageBuilders
 
   # returns a return_powerup message to hella people
   def powerup(message_hash)
-    log_message("da hash is #{message_hash.inspect}")
-    powerup_name = message_hash["powerup_name"]
-    user_id      = message_hash["user_id"]
-    log_message("HOLY DICKS USER ID #{user_id}")
+    message      = message_hash["message"]
+    powerup_name = message["powerup_name"]
+    user_id      = message["user_id"]
     user_name    = @users_by_id[user_id]["user_name"]
 
-    @users_by_id.map{|x|
-      if x["user_id"] == user_id
+    @users_by_id.values.map{|user|
+      other_user_id = user["user_id"]
+      if other_user_id == user_id
         nil
       else
         { "message" => {
@@ -51,7 +51,7 @@ module MessageBuilders
             "powerup_name" => powerup_name,
             "user_name"    => user_name
           },
-          "socket_id" => @sockets_by_id[user_id]
+          "socket_id" => @sockets_by_id[other_user_id]
         }
       end
     }.compact
