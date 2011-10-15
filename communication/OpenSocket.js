@@ -6,32 +6,12 @@ var onUserID;
 var onTimer;
 var onEndGame;
 
-//0 means disabled; 1 means enabled;  
-var popupStatus = 0; 
  $(document).ready(function(){
    connect();
    $("#scoreclick").click(sendScore);
    $("#powerupclick").click(sendPowerUp);
    $("#requestclick").click(sendJoinRequest);
    $("#aliveclick").click(sendAlive);
-
-	centerPopup();
-	loadPopup();
-	
-	$("#name").keypress(function(event) {
-		if(event.keyCode == 13){
-			sendJoinRequest($("#name").val());
-			disablePopup();
-		}
-	  });
-		
-	$("#namesubmitted").click(function(){  
-		if($("#name").val() != ""){
-			sendJoinRequest($("#name").val());
-			disablePopup();  
-			}
-		});  
-
  });
  
  function getID(){
@@ -78,14 +58,6 @@ function returnPowerUp(msg){
 	onTimer(msg.time);
  }
  
- function passFullScoreTable(msg){
-	var highScores = new Array();
-	var scores = JSON.parse(msg.table);
-	for (var i = 0; i< scores.length; i++){
-			
-	}
- }
- 
  function gameOver(msg){
 	onEndGame();
  }
@@ -104,7 +76,7 @@ function returnPowerUp(msg){
 			passTimer(parsedJSON);
 		}
 		if(type == "pass_full_score_table"){
-			passFullScoreTable(parsedJSON);
+			loadHighScores(parsedJSON);
 		}
 		if(type == "game_over"){
 			gameOver(parsedJSON);
@@ -118,11 +90,7 @@ function returnPowerUp(msg){
  
 function connect(){ 
 	try {		
-		//107.20.160.172
-		//port 8080
-		
 		socket = new WebSocket("ws://107.20.160.172:8080");
-		
 		
 		socket.onopen = function(msg){
 			console.log("Socket succesfully opened");
@@ -144,49 +112,5 @@ function connect(){
 	}
 }
 
-
-
-
-//loading popup with jQuery magic!  
-function loadPopup(){  
-	//loads popup only if it is disabled  
-	if(popupStatus==0){  
-		$("#backgroundPopup").css({  
-		"opacity": "0.7"  
-	});  
-	$("#backgroundPopup").fadeIn("slow");  
-	$("#popupContact").fadeIn("slow");  
-	popupStatus = 1;  
-}  
-}  
-
-//disabling popup with jQuery magic!  
-function disablePopup(){  
-	//disables popup only if it is enabled  
-	if(popupStatus==1){  
-		$("#backgroundPopup").fadeOut("slow");  
-		$("#popupContact").fadeOut("slow");  
-		popupStatus = 0;  
-	}  
-}  
-
-//centering popup  
-function centerPopup(){  
-	//request data for centering  
-	var windowWidth = document.documentElement.clientWidth;  
-	var windowHeight = document.documentElement.clientHeight;  
-	var popupHeight = $("#popupContact").height();  
-	var popupWidth = $("#popupContact").width();  
-	//centering  
-	$("#popupContact").css({  
-	"position": "absolute",  
-	"top": windowHeight/2-popupHeight/2,  
-	"left": windowWidth/2-popupWidth/2  
-});  
-//only need force for IE6  
   
-$("#backgroundPopup").css({  
-	"height": windowHeight  
-});  
   
-}  
