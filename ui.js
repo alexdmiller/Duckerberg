@@ -48,7 +48,7 @@ function displayNewMessage(msg, msgID){
 }
 
 function removeMessage(msgID){
-	console.log("called removed on " + msgID");
+	console.log("called removed on " + msgID);
 	console.log($("#" + msgID));
 	$("#" + msgID).fadeOut('slow');
 }

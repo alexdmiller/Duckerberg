@@ -58,6 +58,9 @@ function resetGame() {
     $("#score").text("");
     for (var i = 0; i < gameContainer.activePowerups.length; i++) {
         gameContainer.activePowerups[i].deactivate(gameContainer);
+		var id = messages.shift();
+		console.log("removing" + id);
+		removeMessage(id);
     }
     gameContainer.activePowerups = new Array();
     gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
@@ -99,6 +102,7 @@ function setupGame() {
 					gameContainer.activePowerups[i].onFrame(gameContainer);
 					gameContainer.activePowerups[i].ticks--;
 					if (gameContainer.activePowerups[i].ticks < 0) {
+						console.log('called');
 						gameContainer.activePowerups[i].deactivate(this);
 						gameContainer.activePowerups.splice(i, 1);
 						
