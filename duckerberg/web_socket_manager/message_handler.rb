@@ -88,6 +88,7 @@ class MessageHandler
 
   def send_to_socket(socket, message)
     begin
+      log_message("whoah the socket is #{socket.inspect} and message is #{message.inspect}")
       socket.send(message)
       socket_id = @sockets[socket]
       log_message("sent message to socket #{socket_id} :: #{message}")
