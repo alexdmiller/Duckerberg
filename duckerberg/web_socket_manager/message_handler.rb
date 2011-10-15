@@ -10,7 +10,7 @@ class MessageHandler
   end
 
   def add_socket(socket)
-    id               = @sockets.size
+    id               = (@sockets.size / 2)
     @sockets[id]     = socket
     @sockets[socket] = id
     log_message("Connection Opened -- Socket id: #{id}")
