@@ -1,21 +1,26 @@
 # Duckerberg
 
-Powerup, server returns name of powerup to the same group except
-original sender
+Duckerberg is a hella awesome game
 
-Every client has a list of scores
+## Messages
 
+`REQUEST: Game Joining`
 
-REQUEST: Game Joining
-REQUEST: Receive powerup
-REQUEST: A client sends a score
-REQUEST: Still Alive
+`REQUEST: Receive powerup`
 
-POST:    Return powerup
-POST:    Issue user_id
-POST:    Pass Timer
-POST:    Pass Full Score Table
-POST:    Game over
+`REQUEST: A client sends a score`
+
+`REQUEST: Still Alive`
+
+`POST:    Return powerup`
+
+`POST:    Issue user_id`
+
+`POST:    Pass Timer`
+
+`POST:    Pass Full Score Table`
+
+`POST:    Game over`
 
 I return a score
 
@@ -28,24 +33,24 @@ I return a score
 ### set_score
 
 {
-  "type"     : "set_score"
-  "user_id"  : int
-  "score"    : int
+  "type"     : "set_score",
+  "user_id"  : 1,
+  "score"    : 1
 }
 
 ### powerup
 
 {
-  "type"         : "powerup"
-  "user_id"      : int
-  "powerup_name" : string
+  "type"         : "powerup",
+  "user_id"      : 1,
+  "powerup_name" : 1
 }
 
 ### join_request
 
 {
-  "type"      : "join_request"
-  "user_name" : string
+  "type"      : "join_request",
+  "user_name" : "derp"
 }
 
 ### still_alive
@@ -62,31 +67,31 @@ I return a score
 ### return_powerup
 
 {
-  "type"         : "return_powerup"
-  "powerup_name" : string
+  "type"         : "return_powerup",
+  "powerup_name" : "derp"
 }
 
 ### issue_user_id
 
 {
-  "type" : "issue_user_id"
-  "user_id" : int
+  "type" : "issue_user_id",
+  "user_id" : 1
 }
 
 ### pass_timer
 
 {
-  "type" : "pass_timer"
-  "time" : int(seconds)
+  "type" : "pass_timer",
+  "time" : 1
 }
 
 ### pass_full_score_table
 
 {
-  "type" : "pass_full_score_table"
+  "type" : "pass_full_score_table",
   [
-    "user_id" : int
-    "score"   : int
+    "user_id" : 1,
+    "score"   : 1
   ]
 }
 
