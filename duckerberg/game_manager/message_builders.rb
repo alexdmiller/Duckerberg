@@ -37,8 +37,9 @@ module MessageBuilders
   # returns a return_powerup message to hella people
   def powerup(message_hash)
     log_message("da hash is #{message_hash.inspect}")
-    powerup_name = message_hash["powerup_name"]
-    user_id      = message_hash["user_id"]
+    message      = message_hash["message"]
+    powerup_name = message["powerup_name"]
+    user_id      = message["user_id"]
     log_message("HOLY DICKS USER ID #{user_id}")
     user_name    = @users_by_id[user_id]["user_name"]
 
