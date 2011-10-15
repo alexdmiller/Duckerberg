@@ -1,11 +1,14 @@
-var GAME_WIDTH = 500;
-var GAME_HEIGHT = 500;
+var GAME_WIDTH;
+var GAME_HEIGHT;
 var FPS = 60;
 
 var game;
 var canvas;
 
 $(document).ready(function() {
+    GAME_WIDTH = $(document).width();
+    GAME_HEIGHT = $(document).height();
+    
     canvas = document.createElement("canvas");
     canvas.width = GAME_WIDTH;
     canvas.height = GAME_HEIGHT;
@@ -17,22 +20,22 @@ $(document).ready(function() {
 });
 
 function setupGame() {
-    game = {};
-    game.gameWidth = GAME_WIDTH;
-    game.gameHeight = GAME_HEIGHT;
-    game.hero = new Hero(50, 50);
-    game.timer = setInterval(updateGame, 1000 / FPS);
+    gameContainer = {};
+    gameContainer.gameWidth = GAME_WIDTH;
+    gameContainer.gameHeight = GAME_HEIGHT;
+    gameContainer.hero = new Hero(50, 50);
+    gameContainer.timer = setInterval(updateGame, 1000 / FPS);
     
     $(document).keydown(function(event) {
-        game.hero.onKeyDown(event.keyCode);
+        gameContainer.hero.onKeyDown(event.keyCode);
     });
     $(document).keyup(function(event) {
-        game.hero.onKeyUp(event.keyCode);
+        gameContainer.hero.onKeyUp(event.keyCode);
     });
 }
 
 function updateGame() {
     canvas.width = canvas.width;
-    game.hero.update(game);
-    game.hero.draw(canvas.getContext("2d"));
+    gameContainer.hero.update(game);
+    gameContainer.hero.draw(canvas.getContext("2d"));
 }
