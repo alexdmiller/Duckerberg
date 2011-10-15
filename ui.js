@@ -41,6 +41,8 @@ function hideEndGameScores(){
 		user = x[i].user_name;
 		score = x[i].score;
 		var text = '<tr><td>' + user + '</td><td>' + score + '</td></tr>';
+		if(id == x[i].user_id)
+			text = '<tr><td><b>' + user + '</b></td><td><b>' + score + '</b></td></tr>';
 		$("#high_scores > tbody:last").append(text);
 	}
 }
