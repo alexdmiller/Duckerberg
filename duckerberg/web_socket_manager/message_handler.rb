@@ -7,13 +7,15 @@ class MessageHandler
     @inlogger  = File.new(INLOG_FILE, 'a')
     @redis   = Redis.new
     @sockets = {}
+    @current_new_socket_id = 0
   end
 
   def add_socket(socket)
-    id               = (@sockets.size / 2)
+    id               = @current_new_socket_id
     @sockets[id]     = socket
     @sockets[socket] = id
     log_message("Connection Opened -- Socket id: #{id}")
+    @current_new_socket_id += 1
   end
 
   def destroy_socket(socket)
