@@ -43,13 +43,12 @@ function setupUI(){
 }
 
 
-function displayNewMessage(msg, msgID){
-	var id = "msg" + count;
-	count++;
-	var text = "<div class=messages id=" + id + ">" + msg + "</div>";
-	$("#message").append(text);
-	$("#" + id).fadeOut(5000);
-	
+function displayNewMessage(msg){
+	console.log(msg);
+	var e = $( document.createElement('div') );  // ~300ms
+	e.text(msg);
+	$("#message").append(e);
+	e.fadeOut(2000);
 }
 
 

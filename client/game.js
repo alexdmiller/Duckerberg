@@ -39,12 +39,23 @@ onTimer = function(time) {
         if (time > ROUND_TIME) { // game should be running
             setupGameObjects();
             state = "running";
+            $("#roundOver").css("display", "none");
+            $("#high_scores").css("left", "10px");
+            $("#high_scores").css("bottom", "10px");
+            $("#high_scores").removeAttr("top");
+            $("#high_scores").css("font-size", "15px");
         }
     } else if (state == "running") {
         $("#time").text((time - ROUND_TIME) + " seconds left! Get apples duck!!");
         if (time <= ROUND_TIME) {
             resetGame();
             state = "paused";
+            $("#roundOver").css("display", "inline");
+            $("#roundOver").css("left", ($(document).width() / 2 - $("#roundOver").width() / 2) + "px");
+            $("#roundOver").css("top", ($(document).height() / 2 - $("#roundOver").height() / 2 - 100) + "px");
+            $("#high_scores").css("left", ($(document).width() / 2 - $("#high_scores").width() / 2) + "px");
+            $("#high_scores").css("top", ($(document).height() / 2 - $("#high_scores").height() / 2) + "px");
+            $("#high_scores").css("font-size", "25px");
         }
     }
 }
@@ -204,7 +215,7 @@ function setupGameObjects() {
 /* API for server */
 
 onPowerUp = function(powerup) {
-    $("#message").text(powerup.user_name + " deployed " + powerup.powerup_name + "!");
+	displayNewMessage(powerup.user_name + " deployed " + powerup.powerup_name + "!"); 	
 	gameContainer.activatePowerup(powerups[powerup["powerup_name"]]);
 }
 
