@@ -89,6 +89,7 @@ class GameManager
 
     else
       return if (not message.is_a?(Hash)) and (not message.is_a?(Array))
+      messages = message
       messages = [message] if (not message.is_a?(Array))
 
     end
