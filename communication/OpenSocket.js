@@ -16,8 +16,8 @@ function setupSocket(){
  }
  
  // { "type" : "powerup", "user_id" : 1, "powerup_name" : 1 }
- function sendPowerUp(powerup){
-	var name = powerup.name;
+ function sendPowerUp(powerupType){
+	var name = powerupType;
 	var obj = {"type":"powerup", "user_id":id, "powerup_name":name};
 	console.log("SENDING POWER UP");
 	socket.send(JSON.stringify(obj));

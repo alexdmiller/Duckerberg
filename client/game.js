@@ -117,7 +117,7 @@ function collideWithPowerup(powerupName) {
         gameContainer.activatePowerup(p);
         $("#message").text(p.name + "!");
     } else {
-        sendPowerUp(p);
+        sendPowerUp(powerupName);
         $("#message").text("Deployed '" + p.name + "'!");
     }
 }
