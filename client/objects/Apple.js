@@ -38,7 +38,14 @@ Apple.prototype.update = function(gameContainer) {
 	}
 	this.gameObject.position.y += this.gameObject.velocity.y;
 	this.gameObject.position.x += this.gameObject.velocity.x;
-	
+	if (apples[0] && apples[0].gameObject.velocity.y == 0 && apples[0].gameObject.velocity.x == 0) {
+		apples[0].following = gameContainer.hero;
+		for (var i = 1; i < apples.length; i++) {
+			if (!apples[i])
+				apples.splice(i, 1);
+			apples[i].following = apples[i - 1];
+		}
+	}
 
 }
 
