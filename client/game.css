@@ -73,3 +73,10 @@ body {
     font-size: 25px;
     background-color: #FFFFFF;
 }
+
+#high_score {
+	    position: absolute;
+    font-family: helvetica;
+    font-size: 15px;
+    background-color: #FFFFFF;
+}

@@ -9,8 +9,7 @@ function setupSocket(){
    connect();
 }
  // { "type" : "set_score", "user_id" : 1, "score" : 1 }
- function sendScore(){
-	var score = parseInt($("#score").val());
+ function sendScore(score){
 	var obj = {"type":"set_score", "user_id":id, "score":score};
 	socket.send(JSON.stringify(obj));
  }
@@ -19,7 +18,6 @@ function setupSocket(){
  function sendPowerUp(powerupType){
 	var name = powerupType;
 	var obj = {"type":"powerup", "user_id":id, "powerup_name":name};
-	console.log("SENDING POWER UP");
 	socket.send(JSON.stringify(obj));
  }
  
