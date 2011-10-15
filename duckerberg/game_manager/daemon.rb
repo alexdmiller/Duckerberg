@@ -16,7 +16,7 @@ class GameDaemon
 			start = Time.now.to_f
 
       handle_inbox
-			prepare_game_signals
+			manager.prepare_game_signals
       @outward_socket.send("READ")
 
 			margin = Time.now.to_f - start
