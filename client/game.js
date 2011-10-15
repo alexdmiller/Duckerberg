@@ -16,6 +16,7 @@ var powerupAvailable = false;
 var gameContainer;
 var canvas;
 var state = "paused";
+var setup = false;
 
 $(document).ready(function() {
     GAME_WIDTH = $(document).width() - 10;
@@ -168,7 +169,8 @@ function setupGame() {
     $(document).keyup(function(event) {
         gameContainer.hero.onKeyUp(event.keyCode);
     });
-    setupGameObjects(gameContainer);
+    //setupGameObjects(gameContainer);
+    //setup = true;
 }
 
 function collideWithPowerup(powerupName) {
