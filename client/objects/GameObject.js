@@ -11,3 +11,7 @@ GameObject.prototype.updatePosition = function() {
 GameObject.prototype.applyForce = function(fx, fy) {
     this.velocity = this.velocity.add(new Vector2D(fx, fy));
 }
+
+GameObject.prototype.radius = function() {
+    return this.size.x / 2;
+}
