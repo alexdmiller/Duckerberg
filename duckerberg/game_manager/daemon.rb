@@ -13,13 +13,13 @@ class GameDaemon
 
     # Monitoring Loop
     loop {
-      handle_outbox
+      handle_inbox
       @outward_socket.send("READ")
       sleep(SLEEP_TIME)
     }
   end
 
-  def handle_outbox
+  def handle_inbox
     message = @redis.spop("inbox")
     return if message.nil?
     @redis.srem("inbox", message)
@@ -29,7 +29,7 @@ class GameDaemon
       @game_manager.handle_message(message_hash)
     rescue
       @redis.sadd("inbox", message)
-      @game_manager.log_message("returned message to outbox:: #{message}")
+      @game_manager.log_message("returned message to outbox:: #{message} :: #{$!}")
     end
   end
 
