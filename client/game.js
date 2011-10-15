@@ -48,7 +48,7 @@ function setupGame() {
 			        gameContainer.activePowerups.splice(i, 1);
 			    }
 			}
-			if (Math.random() < 0.01) {
+			if (Math.random() < 0.001) {
 			    var p = new Powerup("speed");
 			    p.gameObject.position.x = Math.random() * GAME_WIDTH;
 			    p.gameObject.position.y = Math.random() * GAME_HEIGHT;

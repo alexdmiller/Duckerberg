@@ -2,15 +2,15 @@ var powerups = {
     speed: {
         name: "Speed Up",
         type: "me",
-        duration: 100,
+        duration: 200,
         activate: function(game) {
-            console.log("activate");
+            game.hero.power *= 2;
         },
         onFrame: function(game) {
-            console.log("on frame");
+//            console.log("on frame");
         },
         deactivate: function(game) {
-            console.log("deactivate");            
+            game.hero.power = DEFAULT_POWER;
         }
     }
 }
