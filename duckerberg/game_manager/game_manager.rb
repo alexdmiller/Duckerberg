@@ -59,16 +59,20 @@ class GameManager
     message = message_hash["message"]
     type    = message["type"]
 
-    send(type, message_hash)
+    outward_message = (send(type, message_hash))
+    
   end
 
   # Misc functionality
   def post(message, socket_id)
-    return if message.nil?
-    @redis.sadd(OUTBOX,{
-      "message"   => message.to_json,
-      "socket_id" => socket_id
-    }.to_json)
+    return if (not message.is_a?(Hash)) or (not message.is_a?(Array))
+    messages = [message] if (not message.is_a?(Array))
+    messages.each do |mess|
+      @redis.sadd(OUTBOX,{
+        "message"   => mess.to_json,
+        "socket_id" => socket_id
+      }.to_json)
+    end
   end
 
   def log_message(message)

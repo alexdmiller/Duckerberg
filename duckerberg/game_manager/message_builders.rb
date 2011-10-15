@@ -23,6 +23,7 @@ module MessageBuilders
     }, socket_id]
   end
 
+  # returns a return_powerup message to hella people
   def powerup(message_hash)
     powerup_name = message_hash["powerup_name"]
     user_id      = message_hash["user_id"]
@@ -38,9 +39,8 @@ module MessageBuilders
           "user_name"    => user_name
         }
       end
-    }.compact.to_json
+    }.compact
   end
-
 
   def destroy_socket(message_hash)
     socket_id = message_hash["socket_id"]
@@ -48,6 +48,14 @@ module MessageBuilders
 
     @ids_by_socket.delete(socket_id)
     @users_by_id.delete(user_id)
+    nil
+  end
+
+  def set_score(message_hash)
+    user_id        = message_hash["user_id"]
+    @user          = @users_by_id[user_id]
+    @user["score"] = message_hash["score"]
+    nil
   end
 
   # returns a pass_timer message
@@ -58,6 +66,7 @@ module MessageBuilders
     }.to_json
   end
 
+  # returns a pass_full_score_table message
   def pass_full_score_table
     {
       "type" => "pass_full_score_table",
@@ -70,10 +79,11 @@ module MessageBuilders
     }
   end
 
+  # returns a game_over message if the game is over
+  # otherwise returns nil
   def game_over
     time = GAME_LENGTH - (Time.now.to_i - @game_start_time)
     (time < 0 ? { "type" => "game_over" } : nil)
   end
 
-  
 end
