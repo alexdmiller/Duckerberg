@@ -27,7 +27,7 @@ class MessageHandler
   def pass_message(message, socket)
     formatted_message = {
       "message" => message,
-      "socket_id" => 39
+      "socket_id" => @sockets[socket]
     }.to_json
 
     @redis.sadd("outbox", formatted_message)
