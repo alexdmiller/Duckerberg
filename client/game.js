@@ -22,7 +22,8 @@ $(document).ready(function() {
 function setupGame() {
     gameContainer = {
 		gameObjects : new Array(),
-		hero : new Hero(50, 50),
+		hero: new Hero(50, 50),
+		base: new Base($(document).width() / 2, $(document).height() / 2),
 		update: function() {
 			canvas.width = canvas.width;
 			for (var i = 0; i < gameContainer.gameObjects.length; i++) {
@@ -31,14 +32,17 @@ function setupGame() {
 			}
 		},
 		heroDeath: function() {
-		    // TODO: implement
-		    console.log("hero death!");
+            gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
+            gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
+            gameContainer.hero.health = gameContainer.hero.startHealth;
 		}
 	};
     gameContainer.gameWidth = GAME_WIDTH;
     gameContainer.gameHeight = GAME_HEIGHT;
+    gameContainer.gameObjects.push(gameContainer.base);
     gameContainer.gameObjects.push(gameContainer.hero);
-	gameContainer.gameObjects.push(new Base($(document).width() / 2, $(document).height() / 2));
+    gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
+    gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
     gameContainer.timer = setInterval(updateGame, 1000 / FPS);
         
     $(document).keydown(function(event) {

@@ -14,8 +14,8 @@ function Hero() {
     this.gameObject.size = new Vector2D(20, 20);
     this.power = DEFAULT_POWER;
     this.keys = [];
-    this.health = START_HEALTH;
-    
+    this.startHealth = 10;
+    this.health = this.startHealth;
 }
 
 Hero.prototype.draw = function(context) {
@@ -30,7 +30,7 @@ Hero.prototype.draw = function(context) {
     context.fillStyle = "#0000FF";
     context.beginPath();
     if (this.health > 0) {
-        context.arc(0, 0, (this.health / START_HEALTH) * this.gameObject.size.x / 2, 0, Math.PI * 2, true);
+        context.arc(0, 0, (this.health / this.startHealth) * this.gameObject.size.x / 2, 0, Math.PI * 2, true);
     }
     context.closePath();
     context.fill();
