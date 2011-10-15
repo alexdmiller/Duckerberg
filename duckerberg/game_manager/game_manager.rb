@@ -55,10 +55,11 @@ class GameManager
   end
 
   def handle_message(message_hash)
-    message = message_hash["message"]
-    type    = message["type"]
+    socket_id = message_hash["socket_id"]
+    message   = message_hash["message"]
+    type      = message["type"]
 
-    post(send(type, message_hash))
+    post(send(type, message_hash), socket_id)
   end
 
   # Misc functionality
