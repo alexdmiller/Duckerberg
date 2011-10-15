@@ -58,7 +58,7 @@ function setupGame() {
 			    }
 			}
 			if (Math.random() < POWERUP_FREQUENCY) {
-			    var p = new Powerup("doubleDamage"); //powerupNames[Math.floor(Math.random() * powerupNames.length)]);
+			    var p = new Powerup(powerupNames[Math.floor(Math.random() * powerupNames.length)]);
 			    p.gameObject.position.x = Math.random() * GAME_WIDTH;
 			    p.gameObject.position.y = Math.random() * GAME_HEIGHT;
 			    gameContainer.gameObjects.push(p);
