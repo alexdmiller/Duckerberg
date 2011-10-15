@@ -16,7 +16,6 @@ var gameContainer;
 var canvas;
 
 $(document).ready(function() {
-	console.log("In game.js");
     GAME_WIDTH = $(document).width() - 10;
     GAME_HEIGHT = $(document).height() - 10;
     canvas = document.createElement("canvas");
@@ -39,7 +38,7 @@ function setupGame() {
     gameContainer = {
 		gameObjects: new Array(),
 		hero: new Hero(50, 50),
-		base: new Base($(document).width() / 2, $(document).height() / 2),
+		base: new Base(GAME_WIDTH / 2, GAME_HEIGHT / 2),
 		score: 0,
 		enemyForceConstant: DEFAULT_ENEMY_CONSTANT,
 		maxEnemySpeed: DEFAULT_ENEMY_MAX,
