@@ -126,9 +126,24 @@ function setupGameObjects(gameContainer) {
 	getID();
 }
 
+/* API for server */
+
 function onPowerUp(powerup) {
-	var myPowerup = powerups[powerup["powerup_name"]]
-	myPowerup.activate();
-	setInterval(myPowerup.onFrame, 1000 / FPS);
-	setTimer(myPowerup.deactivate, duration);
+	gameContainer.activatePowerUp(powerups[powerup["powerup_name"]]);
+}
+
+function onEndGame() {
+
+}
+
+function onTimer(time) {
+	
+}
+
+function onUserId(id) {
+
+}
+
+function onHighScores(scoreTable) {
+
 }
