@@ -20,6 +20,9 @@ body {
     font-weight: bold;
 }
 
+td {
+    padding-left: 20px;
+}
 
 #backgroundPopup{  
 	display:none;  
