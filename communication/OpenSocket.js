@@ -56,7 +56,7 @@ function returnPowerUp(msg){
 		var parsedJSON = JSON.parse(msg);
 		var type = parsedJSON.type; 
 		if(type == "return_powerup"){
-			console.log("POWERUP DEPLOYED: " + parsedJSON.powerup_name ", DEPLOYED BY: " parsedJSON.user_name);
+			console.log("POWERUP DEPLOYED: " + parsedJSON.powerup_name + ", DEPLOYED BY: " + parsedJSON.user_name);
 			returnPowerUp(parsedJSON);
 		}
 		if(type == "issue_user_id"){
