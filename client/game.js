@@ -62,4 +62,10 @@ function setupGameObjects(gameContainer) {
         e.gameObject.position.y = Math.random() * GAME_HEIGHT;
         gameContainer.gameObjects.push(e);
     }
+	for (var i = 0; i < 30; i++) {
+        var a = new Apple();
+        a.gameObject.position.x = Math.random() * GAME_WIDTH;
+        a.gameObject.position.y = Math.random() * GAME_HEIGHT;
+        gameContainer.gameObjects.push(a);	
+	}
 }

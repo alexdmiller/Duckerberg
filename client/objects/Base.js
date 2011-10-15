@@ -1,15 +1,16 @@
-var RADIUS = 80;
+var BASE_RADIUS = 80;
 
 var safe;
 
 function Base(x, y) {
 	this.gameObject = new GameObject();
 	this.gameObject.position = new Vector2D(x, y);
+	this.gameObject.size = new Vector2D(BASE_RADIUS * 2, BASE_RADIUS * 2);
 }
 	
 Base.prototype.draw = function(context) {
 	context.beginPath();
-	context.arc(this.gameObject.position.x, this.gameObject.position.y, RADIUS, 0, 2 * Math.PI, false);
+	context.arc(this.gameObject.position.x, this.gameObject.position.y, BASE_RADIUS, 0, 2 * Math.PI, false);
 	context.fillStyle = "black";
 	context.fill();
 	context.lineWidth = 5;
@@ -19,12 +20,13 @@ Base.prototype.draw = function(context) {
 }
 
 Base.prototype.update = function(gameContainer) {
-	var heroX = gameContainer.hero.gameObject.position.x;
-	var heroY = gameContainer.hero.gameObject.position.y;
-	/*if ( )
+	if (collide(gameContainer.hero, this)) {
+		console.log("colliding");
 		safe = true;
-	else
-		safe = false;*/
+	} else {
+		console.log("not colliding");
+		safe = false;
+	}
 }
 
 Base.prototype.containsHero = function() {

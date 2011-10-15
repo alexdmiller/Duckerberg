@@ -15,7 +15,7 @@ function Hero() {
     this.power = DEFAULT_POWER;
     this.keys = [];
     this.health = START_HEALTH;
-    
+    this.apples = 0;
 }
 
 Hero.prototype.draw = function(context) {
