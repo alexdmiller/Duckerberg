@@ -26,12 +26,11 @@ function setupUI(){
  
  function loadHighScores(msg){
 	console.log("Loading High Scores");
-	var x = JSON.parse(msg).table;
-	for(var i = 0; i<x.length; i++){
-		console.log(x[i].user_name);
-		console.log(x[i].score);
-	}
-	
+    var x = JSON.parse(msg).table;
+    for(var i = 0; i<x.length; i++){
+     console.log(x[i].user_name);
+     console.log(x[i].score);
+    }	
  }
 
 

@@ -27,7 +27,7 @@ $(document).ready(function() {
     container.height(GAME_HEIGHT);
     container.append(canvas);
 	setupSocket();
-	//setupUI();
+	setupUI();
     setupGame();
 });
 
