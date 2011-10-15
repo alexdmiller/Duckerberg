@@ -15,8 +15,10 @@ function Hero() {
 }
 
 Hero.prototype.draw = function(context) {
+	context.beginPath();
     context.fillRect(this.gameObject.position.x, this.gameObject.position.y,
         this.gameObject.size.x, this.gameObject.size.y);
+	context.closePath();
 }
 
 Hero.prototype.update = function(game) {

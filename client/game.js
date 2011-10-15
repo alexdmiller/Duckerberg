@@ -24,8 +24,8 @@ function setupGame() {
 		gameObjects : new Array(),
 		hero : new Hero(50, 50),
 		update: function() {
+			canvas.width = canvas.width;
 			for (var i = 0; i < gameContainer.gameObjects.length; i++) {
-				canvas.width = canvas.width;
 				gameContainer.gameObjects[i].update(gameContainer);
 			    gameContainer.gameObjects[i].draw(canvas.getContext("2d"));
 			}
@@ -34,6 +34,7 @@ function setupGame() {
     gameContainer.gameWidth = GAME_WIDTH;
     gameContainer.gameHeight = GAME_HEIGHT;
     gameContainer.gameObjects.push(gameContainer.hero);
+	gameContainer.gameObjects.push(new Base());
     gameContainer.timer = setInterval(updateGame, 1000 / FPS);
     
     $(document).keydown(function(event) {
