@@ -20,6 +20,7 @@ class MessageHandler
     id = @sockets[socket]
     @sockets.delete(id)
     @sockets.delete(socket)
+    log_message("Destroyed Closed Socket Connection #{id}")
   end
 
   def receive_message(message, socket)
