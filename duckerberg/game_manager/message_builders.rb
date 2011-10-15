@@ -91,9 +91,10 @@ module MessageBuilders
       "table" => @users_by_id.values.map{|user|
         {
           "user_name" => user["user_name"],
+          "user_id"   => user["user_id"],
           "score"     => user["score"]
         }
-      }.sort{|x, y| x["score"] <=> y["score"]}
+      }.sort{|x, y| x["score"] <=> y["score"]}.reverse
     }
   end
 

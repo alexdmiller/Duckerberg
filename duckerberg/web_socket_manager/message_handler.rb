@@ -65,13 +65,12 @@ class MessageHandler
       "socket_id" => @sockets[socket]
     }.to_json
 
-    @redis.sadd(INBOX, formatted_message)
+    @redis.rpush(INBOX, formatted_message)
   end
 
   # Processes messages sent from the Game Server meant for the clients
   def process_outbox
-    while message = @redis.spop(OUTBOX)
-      @redis.srem(OUTBOX, message)
+    while message = @redis.lpop(OUTBOX)
       begin
         log_message("Message is #{message.inspect}")
         message_hash     = JSON.parse(message)
@@ -80,7 +79,7 @@ class MessageHandler
         socket           = @sockets[socket_id]
         send_to_socket(socket, original_message)
       rescue
-        # @redis.sadd(OUTBOX, message)
+        # @redis.rpush(OUTBOX, message)
         log_message("returned message to outbox:: #{message}")
       end
     end
@@ -97,10 +96,8 @@ class MessageHandler
     end
   end
 
-
   ## Misc
   def log_message(message)
     @logger.syswrite "#{Time.now} :: #{message}\n"
   end
 end
-

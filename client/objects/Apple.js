@@ -25,7 +25,7 @@ Apple.prototype.update = function(gameContainer) {
 		removeElementFromArray(this, gameContainer.gameObjects);
 		var next = removeElementFromArray(this, apples);
 		if (apples[next]) {
-			apples[next].following = apples[next - 1]? apples[next - 1] : gameContainer.hero;
+			apples[next].following = apples[next - 1] ? apples[next - 1] : gameContainer.hero;
 		}
 	}
 	if (this.following) {
