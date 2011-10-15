@@ -2,17 +2,21 @@ var GAME_WIDTH;
 var GAME_HEIGHT;
 var FPS = 60;
 var INITIAL;
-var DEFAULT_ENEMY_CONSTANT = 3; // bigger -> slower enemies
+var DEFAULT_ENEMY_CONSTANT = 1; // bigger -> slower enemies
 var DEFAULT_ENEMY_MAX = 10;
 var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
 var POWERUP_FREQUENCY = 0.01;
 
 var damageConstant = 1;
 
+var DEFAULT_ENEMY_RESPONSE_RADIUS = 300;
+var POWERUP_FREQUENCY = 0.001;
+
 var gameContainer;
 var canvas;
 
 $(document).ready(function() {
+	console.log("In game.js");
     GAME_WIDTH = $(document).width() - 10;
     GAME_HEIGHT = $(document).height() - 10;
     canvas = document.createElement("canvas");
@@ -22,6 +26,8 @@ $(document).ready(function() {
     container.width(GAME_WIDTH);
     container.height(GAME_HEIGHT);
     container.append(canvas);
+	setupSocket();
+	//setupUI();
     setupGame();
 });
 
