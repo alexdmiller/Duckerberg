@@ -53,7 +53,7 @@ function setupGame() {
             gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
             gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
             gameContainer.hero.health = gameContainer.hero.startHealth;
-            gameContainer.hero.gameContainer.velocity = new Vector2D(0, 0);
+            gameContainer.hero.gameObject.velocity = new Vector2D(0, 0);
 			while (gameContainer.hero.apples.length > 0) {
 				removeElementFromArray(gameContainer.hero.apples.shift(), gameContainer.gameObjects);
 			}
@@ -108,5 +108,12 @@ function setupGameObjects(gameContainer) {
 		else
 			i--;
 	}
-	
+	getID();
+}
+
+function onPowerUp(powerup) {
+	var myPowerup = powerups[powerup["powerup_name"]]
+	myPowerup.activate();
+	setInterval(myPowerup.onFrame, 1000 / FPS);
+	setTimer(myPowerup.deactivate, duration);
 }
