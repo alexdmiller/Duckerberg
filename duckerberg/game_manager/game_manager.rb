@@ -24,7 +24,7 @@ class GameManager
     type    = message["type"]
 
     case type
-      when "issue_user_id" ; respond(*issue_user_id(message_hash))
+      when "join_request" ; respond(*issue_user_id(message_hash))
     end
   end
 
