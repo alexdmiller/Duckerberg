@@ -8,6 +8,8 @@ var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
 var POWERUP_FREQUENCY = 0.01;
 var MAX_POWERUPS = 3;
 var ROUND_TIME = 5;
+var PIXELS_PER_APPLE = 29696;
+var PIXELS_PER_ENEMY = 44544;
 
 var damageConstant = 1;
 var numPowerups = 0;
@@ -175,7 +177,7 @@ function updateGame() {
 }
 
 function setupGameObjects() {
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < GAME_WIDTH * GAME_HEIGHT / PIXELS_PER_ENEMY; i++) {
         var e = new Enemy();
         e.gameObject.position.x = Math.random() * GAME_WIDTH;
         e.gameObject.position.y = Math.random() * GAME_HEIGHT;
@@ -184,7 +186,7 @@ function setupGameObjects() {
 		else
 			i--;
     }
-	for (var i = 0; i < 30; i++) {
+	for (var i = 0; i < GAME_WIDTH * GAME_HEIGHT / PIXELS_PER_APPLE; i++) {
         var a = new Apple();
         a.gameObject.position.x = Math.random() * GAME_WIDTH;
         a.gameObject.position.y = Math.random() * GAME_HEIGHT;
