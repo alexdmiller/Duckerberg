@@ -69,9 +69,10 @@ module MessageBuilders
   end
 
   def set_score(message_hash)
-    user_id        = message_hash["user_id"]
+    message        = message_hash["message"]
+    user_id        = message["user_id"]
     @user          = @users_by_id[user_id]
-    @user["score"] = message_hash["score"]
+    @user["score"] = message["score"]
     nil
   end
 
@@ -92,7 +93,7 @@ module MessageBuilders
           "user_name" => user["user_name"],
           "score"     => user["score"]
         }
-      }
+      }.sort{|x, y| x["score"] <=> y["score"]}
     }
   end
 
