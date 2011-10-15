@@ -19,15 +19,19 @@ function Hero() {
     this.health = this.startHealth;
     this.img = new Image();
     this.img.src = "images/duck.png";
+	this.isSpawning = false;
+	this.shouldShow = true;
 }
 
 Hero.prototype.draw = function(context) {
-    if (this.gameObject.velocity.x > 0) {
-        this.img.src = "images/duck.png";
-    } else {
-        this.img.src = "images/duck_left.png";
-    }
-    context.drawImage(this.img, this.gameObject.position.x - this.gameObject.size.x/2, this.gameObject.position.y - this.gameObject.size.x/2);
+	if (this.shouldShow) {	
+		if (this.gameObject.velocity.x > 0) {
+			this.img.src = "images/duck.png";
+		} else {
+			this.img.src = "images/duck_left.png";
+		}
+		context.drawImage(this.img, this.gameObject.position.x - this.gameObject.size.x/2, this.gameObject.position.y - this.gameObject.size.x/2);
+	}
 }
 
 Hero.prototype.update = function(game) {
@@ -65,8 +69,22 @@ Hero.prototype.update = function(game) {
     this.gameObject.updatePosition();
 }
 
+Hero.prototype.spawn = function(game) {
+	game.hero.isSpawning = true;
+	game.hero.shouldShow = true;
+	this.keys = new Array();
+	var interval = setInterval(function() {
+		game.hero.shouldShow = !game.hero.shouldShow;
+	}, 100);
+	setTimeout(function() {
+		game.hero.isSpawning = false;
+		game.hero.shouldShow = true;
+		clearInterval(interval);
+	}, 1250);
+}
+
 Hero.prototype.onKeyDown = function(keyCode) {
-    if (this.keys.indexOf(keyCode) < 0) {
+    if (this.keys.indexOf(keyCode) < 0 && !this.isSpawning) {
         this.keys.push(keyCode);
     }
 }

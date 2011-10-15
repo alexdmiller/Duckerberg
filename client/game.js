@@ -117,6 +117,7 @@ function setupGame() {
             gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
             gameContainer.hero.health = gameContainer.hero.startHealth;
             gameContainer.hero.gameObject.velocity = new Vector2D(0, 0);
+			gameContainer.hero.spawn(gameContainer);
 			while (gameContainer.hero.apples.length > 0) {
 				removeElementFromArray(gameContainer.hero.apples.shift(), gameContainer.gameObjects);
 			}
