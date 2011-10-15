@@ -33,20 +33,19 @@ class GameDaemon
   end
 
   def handle_inbox
-    message = @redis.spop("inbox")
+    message = @redis.lpop("inbox")
     return if message.nil?
-    @redis.srem("inbox", message)
     begin
       message_hash            = JSON.parse(message)
       @game_manager.handle_message(message_hash)
     rescue
-      #@redis.sadd("inbox", message)
+      #@redis.rpush("inbox", message)
       @game_manager.log_message("returned message to outbox :: #{message} :: #{$!} #{$!.backtrace.inspect}")
     end
   end
 
   def pass_message(message)
-    @redis.sadd("outbox", message)
+    @redis.rpush("outbox", message)
   end
 end
 
