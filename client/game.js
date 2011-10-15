@@ -24,6 +24,7 @@ function setupGame() {
 		gameObjects : new Array(),
 		hero: new Hero(50, 50),
 		base: new Base($(document).width() / 2, $(document).height() / 2),
+		score: 0,
 		update: function() {
 			canvas.width = canvas.width;
 			for (var i = 0; i < gameContainer.gameObjects.length; i++) {

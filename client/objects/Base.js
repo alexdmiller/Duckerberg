@@ -21,10 +21,10 @@ Base.prototype.draw = function(context) {
 
 Base.prototype.update = function(gameContainer) {
 	if (collide(gameContainer.hero, this)) {
-		console.log("colliding");
+		gameContainer.score += gameContainer.hero.apples;
+		gameContainer.hero.apples = 0;
 		safe = true;
 	} else {
-		console.log("not colliding");
 		safe = false;
 	}
 }
