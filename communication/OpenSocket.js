@@ -16,36 +16,40 @@ var onEndGame;
  });
  
  function getID(){
-	id = $("#user_id").val();
+	id = parseInt($("#user_id").val());
  }
  
  // { "type" : "set_score", "user_id" : 1, "score" : 1 }
  function sendScore(){
 	getID();
-	var score = $("#score").val();
-	socket.send("type : set_score, user_id : " + id + ", score : " + score);
+	var score = parseInt($("#score").val());
+	var obj = {"type":"set_score", "user_id":id, "score":score};
+	socket.send(JSON.stringify(obj));
  }
  
  // { "type" : "powerup", "user_id" : 1, "powerup_name" : 1 }
  function sendPowerUp(){
 	getID();
 	var name = $("#powerup").val();
-	socket.send("type : powerup, user_id : " + id + ", powerup_name : " + name);
+	var obj = {"type":"powerup", "user_id":id, "powerup_name":name};
+	socket.send(JSON.stringify(obj));
  }
  
  // { "type" : "join_request", "user_name" : "derp" }
  function sendJoinRequest(){
 	var name = $("#request").val();
-	socket.send("type : request, user_name : " + name);
+	var obj = {"type":"join_request", "user_name":name};
+	socket.send(JSON.stringify(obj));
  }
  
  function sendAlive(){
-	socket.send("type : still_alive");
+	var obj = {"type":"still_alive"};
+	socket.send(JSON.stringify(obj));
  }
 
 function returnPowerUp(msg){
 	var powerup = {"powerup_name":msg.powerup_name, "user_name":msg.user_name};
-	onPowerUp(powerup);;
+	onPowerUp(powerup);
  }
  
  function issueUserID(msg){
@@ -65,22 +69,27 @@ function returnPowerUp(msg){
  }
  
  function readMessage(msg){
-	var parsedJSON = JSON.parse(msg);
-	var type = parsedJSON.type; 
-	if(type == "return_powerup"){
-		returnPowerUp(type);
+	try{
+		var parsedJSON = JSON.parse(msg);
+		var type = parsedJSON.type; 
+		if(type == "return_powerup"){
+			returnPowerUp(type);
+		}
+		if(type == "issue_user_id"){
+			issueUserID(type);
+		}
+		if(type == "pass_timer"){
+			passTimer(type);
+		}
+		if(type == "pass_full_score_table"){
+			passFullScoreTable(type);
+		}
+		if(type == "game_over"){
+			gameOver(type);
+		}
 	}
-	if(type == "issue_user_id"){
-		issueUserID(type);
-	}
-	if(type == "pass_timer"){
-		passTimer(type);
-	}
-	if(type == "pass_full_score_table"){
-		passFullScoreTable(type);
-	}
-	if(type == "game_over"){
-		gameOver(type);
+	catch(exception){
+		alert("Error" + exception);
 	}
 	
  }
