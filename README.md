@@ -1,103 +1,29 @@
 # Duckerberg
 
-Duckerberg is a hella awesome game
+Duckerberg is a subtly multiplayer web browser game built for the University of
+Washington Facebook Hackathon October 2011
 
-## Messages
+## Gameplay
 
-`REQUEST: Game Joining`
+Use the Arrow keys to move the Mark Duckerberg around. Try to collect
+apples, but avoid the mean strangers.
 
-`REQUEST: Receive powerup`
+Collecting powerups will affect you AND all other players.
 
-`REQUEST: A client sends a score`
+Games last in 90 second rounds, and all players play under the same time
+scopes.
 
-`REQUEST: Still Alive`
+## The Stack
 
-`POST:    Return powerup`
+* Javascript Canvas with Box 2d
+* Websocket connects for multiplayer data
+* Ruby EventMachine running WebSockets for two way message passing
+* Redis for server data organization
 
-`POST:    Issue user_id`
+## Authors
 
-`POST:    Pass Timer`
-
-`POST:    Pass Full Score Table`
-
-`POST:    Game over`
-
-I return a score
-
-{
-  "type":"set_score|powerup|join_request|still_alive"
-}
-
-
-## Requests
-### set_score
-
-{
-  "type"     : "set_score",
-  "user_id"  : 1,
-  "score"    : 1
-}
-
-### powerup
-
-{
-  "type"         : "powerup",
-  "user_id"      : 1,
-  "powerup_name" : 1
-}
-
-### join_request
-
-{
-  "type"      : "join_request",
-  "user_name" : "derp"
-}
-
-### still_alive
-
-{
-  "type"      : "still_alive"
-}
-
-
-
-
-## Posts
-
-### return_powerup
-
-{
-  "type"         : "return_powerup",
-  "powerup_name" : "derp",
-  "user_name"    : "garpley"
-}
-
-### issue_user_id
-
-{
-  "type" : "issue_user_id",
-  "user_id" : 1
-}
-
-### pass_timer
-
-{
-  "type" : "pass_timer",
-  "time" : 1
-}
-
-### pass_full_score_table
-
-{
-  "type" : "pass_full_score_table",
-  "table": [
-    "user_name" : "garpley",
-    "score"     : 1
-  ]
-}
-
-### game_over
-
-{
-  "type" : "game_over"
-}
+Four Computer Science Majors at the University of Washington
+* Alex Miller
+* Tyler Rigsby
+* David Mah
+* Harnoor Singh
