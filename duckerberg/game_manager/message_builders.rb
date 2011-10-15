@@ -64,7 +64,7 @@ module MessageBuilders
     {
       "type" => "pass_timer",
       "time" => GAME_LENGTH - (Time.now.to_i - @game_start_time)
-    }.to_json
+    }
   end
 
   # returns a pass_full_score_table message

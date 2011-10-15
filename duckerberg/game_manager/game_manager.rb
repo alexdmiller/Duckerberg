@@ -60,7 +60,6 @@ class GameManager
     type    = message["type"]
 
     outward_message = (send(type, message_hash))
-    
   end
 
   # Misc functionality
