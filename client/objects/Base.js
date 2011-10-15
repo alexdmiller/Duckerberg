@@ -11,7 +11,7 @@ function Base(x, y) {
 	
 Base.prototype.draw = function(context) {
     context.beginPath();
-	context.arc(this.gameObject.position.x, this.gameObject.position.y, BASE_RADIUS, (this.health / 10) * 2 * Math.PI, 0, false);
+	context.arc(this.gameObject.position.x, this.gameObject.position.y, BASE_RADIUS, 0, Math.PI * 2, false);
 	context.lineWidth = 10;
 	context.strokeStyle = "#FFFFFF";
 	context.stroke();
