@@ -7,12 +7,28 @@ class MessageHandler
     @inlogger  = File.new(INLOG_FILE, 'a')
     @redis   = Redis.new
     @sockets = {}
+    @current_new_socket_id = 0
   end
 
   def add_socket(socket)
-    id               = @sockets.size
+    id               = @current_new_socket_id
     @sockets[id]     = socket
     @sockets[socket] = id
+    log_message("Connection Opened -- Socket id: #{id}")
+    @current_new_socket_id += 1
+  end
+
+  def destroy_socket(socket)
+    id = @sockets[socket]
+
+    # Destroy on the Game Manager Side
+    message = { "type" => "destroy_socket" }.to_json
+    pass_message(message, socket)
+
+    # Destroy on the WebSocket Manager Side
+    @sockets.delete(id)
+    @sockets.delete(socket)
+    log_message("Destroyed Closed Socket Connection #{id}")
   end
 
   def receive_message(message, socket)
@@ -20,13 +36,20 @@ class MessageHandler
       read_outbox
       return
     end
-    log_message("received message: #{message}")
+
+    if message == "GAME_SERVER"
+      destroy_socket(socket)
+      return
+    end
+
+    socket_id = @sockets[socket]
+    log_message("Received message from socket #{socket_id} : #{message}")
     pass_message(message, socket)
   end
 
   def pass_message(message, socket)
     formatted_message = {
-      "message" => message,
+      "message" => JSON.parse(message),
       "socket_id" => @sockets[socket]
     }.to_json
 
@@ -34,19 +57,18 @@ class MessageHandler
   end
 
   def read_outbox
-    message = @redis.spop("outbox")
-    return if message.nil?
-
-    @redis.srem("outbox", message)
-    begin
-      message_hash     = JSON.parse(message)
-      socket_id        = message_hash["socket_id"]
-      original_message = message_hash["message"]
-      socket           = @sockets[socket_id]
-      send_to_socket(socket, original_message, socket_id)
-    rescue
-      @redis.sadd("outbox", message)
-      log_message("returned message to outbox:: #{message}")
+    while message = @redis.spop("outbox")
+      @redis.srem("outbox", message)
+      begin
+        message_hash     = JSON.parse(message)
+        socket_id        = message_hash["socket_id"]
+        original_message = message_hash["message"]
+        socket           = @sockets[socket_id]
+        send_to_socket(socket, original_message, socket_id)
+      rescue
+        @redis.sadd("outbox", message)
+        log_message("returned message to outbox:: #{message}")
+      end
     end
     true
   end
@@ -56,7 +78,7 @@ class MessageHandler
       socket.send(message)
       log_message("sent message to socket #{socket_id} :: #{message}")
     rescue
-      log_message("sending to socket failed:: #{$!}")
+      log_message("sending to socket #{socket_id} failed:: #{$!}")
     end
   end
 
