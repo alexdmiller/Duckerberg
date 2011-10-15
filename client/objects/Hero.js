@@ -2,10 +2,10 @@ var DEFAULT_POWER = 0.3;
 var FRICTION = 0.9;
 var GRAVITY = new Vector2D(0, 0);
 
-var LEFT_KEY = 65;
-var UP_KEY = 87;
-var RIGHT_KEY = 68;
-var DOWN_KEY = 83;
+var LEFT_KEY = 37;
+var UP_KEY = 38;
+var RIGHT_KEY = 39;
+var DOWN_KEY = 40;
 
 var START_HEALTH = 10;
 
@@ -61,6 +61,7 @@ Hero.prototype.update = function(game) {
 }
 
 Hero.prototype.onKeyDown = function(keyCode) {
+    console.log(keyCode);
     if (this.keys.indexOf(keyCode) < 0) {
         this.keys.push(keyCode);
     }

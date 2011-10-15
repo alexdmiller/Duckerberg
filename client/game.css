@@ -11,4 +11,8 @@ body {
 
 #score {
     position: absolute;
+    font-family: helvetica, verdana, sans-serif;
+    font-size: 40px;
+    width: 100px;
+    text-align: center;
 }
