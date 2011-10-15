@@ -10,6 +10,9 @@ class GameManager
   def initialize
     @logger          = File.new(GAME_DAEMON_LOG, 'a')
     @redis           = Redis.new
+    @redis.flushdb
+    log_message("Redis Flushed")
+
     @highest_user_id = 0
     @game_start_time = Time.now
     # user_name, user_id, socket_id, score
