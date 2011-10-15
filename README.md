@@ -68,7 +68,8 @@ I return a score
 
 {
   "type"         : "return_powerup",
-  "powerup_name" : "derp"
+  "powerup_name" : "derp",
+  "user_name"    : "garpley"
 }
 
 ### issue_user_id
@@ -89,7 +90,7 @@ I return a score
 
 {
   "type" : "pass_full_score_table",
-  [
+  "table": [
     "user_id" : 1,
     "score"   : 1
   ]
