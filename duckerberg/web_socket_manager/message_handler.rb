@@ -13,6 +13,7 @@ class MessageHandler
     id               = @sockets.size
     @sockets[id]     = socket
     @sockets[socket] = id
+    log_message("Connection Opened -- Socket id: #{id}")
   end
 
   def receive_message(message, socket)
@@ -20,7 +21,8 @@ class MessageHandler
       read_outbox
       return
     end
-    log_message("received message: #{message}")
+    socket_id = @sockets[socket]
+    log_message("Received message from socket #{socket_id} : #{message}")
     pass_message(message, socket)
   end
 
@@ -56,7 +58,7 @@ class MessageHandler
       socket.send(message)
       log_message("sent message to socket #{socket_id} :: #{message}")
     rescue
-      log_message("sending to socket failed:: #{$!}")
+      log_message("sending to socket #{socket_id} failed:: #{$!}")
     end
   end
 
