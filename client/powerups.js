@@ -53,5 +53,17 @@ var powerups = {
             game.maxEnemySpeed = DEFAULT_ENEMY_MAX;
             game.responseRadius = DEFAULT_ENEMY_RESPONSE_RADIUS;
         }
-    }
+    },
+	doubleDamage: {
+		name: "Double Damage",
+		type: "me",
+		duration: 100,
+		activate: function(game) {
+			game.damageConstant = 2;
+		},
+		onFrame: function(game) {},
+		deactivate: function(game) {
+			game.damageConstant = 1;
+		}
+	}
 }
