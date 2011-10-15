@@ -11,8 +11,6 @@ function Base(x, y) {
 Base.prototype.draw = function(context) {
 	context.beginPath();
 	context.arc(this.gameObject.position.x, this.gameObject.position.y, BASE_RADIUS, 0, 2 * Math.PI, false);
-	context.fillStyle = "black";
-	context.fill();
 	context.lineWidth = 5;
 	context.strokeStyle = "green";
 	context.stroke();
@@ -23,7 +21,7 @@ Base.prototype.update = function(gameContainer) {
 	if (collide(gameContainer.hero, this)) {
 		var apples = gameContainer.hero.apples;
 		if (apples.length > 0) {
-			gameContainer.score += apples.length;
+			gameContainer.addToScore(apples.length);
 			apples.sort();
 			for (var i = 0; i < gameContainer.gameObjects.length && apples.length > 0; i++) {
 				if (gameContainer.gameObjects[i] == apples[0]) {

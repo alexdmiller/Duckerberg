@@ -37,8 +37,14 @@ function setupGame() {
             gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
             gameContainer.hero.health = gameContainer.hero.startHealth;
 			gameContainer.hero.apples = 0;
+		},
+		addToScore: function(add) {
+		    gameContainer.score += add;
+		    $("#score").text(gameContainer.score);
 		}
 	};
+	$("#score").css("left", gameContainer.base.gameObject.position.x);
+	$("#score").css("top", gameContainer.base.gameObject.position.y);
     gameContainer.gameWidth = GAME_WIDTH;
     gameContainer.gameHeight = GAME_HEIGHT;
     gameContainer.gameObjects.push(gameContainer.base);

@@ -1,0 +1,40 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<!--
+	CSE 190M, Marty Stepp
+	This page is a countdown timer using JavaScript.
+	Its JavaScript code demonstrates how to use the setInterval function.
+	Also see the Timer Events section of Chapter 9 of the textbook.
+	-->
+
+	<head>
+		<title>Connect!</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+		<script src="OpenSocket.js" type="text/javascript"></script>
+	</head>
+
+
+	<body>
+		<h1>WebSocket Test</h1>
+		<div>
+			User ID: <input id="user_id" type="text" size="10" />
+			<br>
+			<br>
+
+				<input id="score" type="text" size="2" />
+				<button id="scoreclick">Send Score</button>
+				
+				<input id="powerup" type="text" size="2" />
+				<button id="powerupclick">Send Powerup</button>
+				
+				<input id="request" type="text" size="2" />
+				<button id="requestclick">Send Join Request</button>
+				
+				<button id="aliveclick">Send Still Alive</button><br>
+
+		</div>
+	</body>
+</html>
