@@ -1,7 +1,11 @@
 var GAME_WIDTH;
 var GAME_HEIGHT;
 var FPS = 60;
-var INITIAL
+var INITIAL;
+var DEFAULT_ENEMY_CONSTANT = 4; // bigger -> slower enemies
+var DEFAULT_ENEMY_MAX = 10;
+var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
+var POWERUP_FREQUENCY = 0.001;
 
 var gameContainer;
 var canvas;
@@ -25,6 +29,9 @@ function setupGame() {
 		hero: new Hero(50, 50),
 		base: new Base($(document).width() / 2, $(document).height() / 2),
 		score: 0,
+		enemyForceConstant: DEFAULT_ENEMY_CONSTANT,
+		maxEnemySpeed: DEFAULT_ENEMY_MAX,
+		responseRadius: DEFAULT_ENEMY_RESPONSE_RADIUS,
 		activePowerups: new Array(),
 		activatePowerup: function(p) {
             p.activate(gameContainer);
@@ -36,7 +43,7 @@ function setupGame() {
 		},
 		update: function() {
 			canvas.width = canvas.width;
-			for (var i = 0; i < gameContainer.gameObjects.length; i++) {
+			for (var i = gameContainer.gameObjects.length - 1; i >= 0; i--) {
 				gameContainer.gameObjects[i].update(gameContainer);
 			    gameContainer.gameObjects[i].draw(canvas.getContext("2d"));
 			}
@@ -48,12 +55,18 @@ function setupGame() {
 			        gameContainer.activePowerups.splice(i, 1);
 			    }
 			}
+			if (Math.random() < POWERUP_FREQUENCY) {
+			    var p = new Powerup(powerupNames[Math.floor(Math.random() * powerupNames.length)]);
+			    p.gameObject.position.x = Math.random() * GAME_WIDTH;
+			    p.gameObject.position.y = Math.random() * GAME_HEIGHT;
+			    gameContainer.gameObjects.push(p);
+			}
 		},
 		heroDeath: function() {
             gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
             gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
             gameContainer.hero.health = gameContainer.hero.startHealth;
-            gameContainer.hero.gameContainer.velocity = new Vector2D(0, 0);
+            gameContainer.hero.gameObject.velocity = new Vector2D(0, 0);
 			while (gameContainer.hero.apples.length > 0) {
 				removeElementFromArray(gameContainer.hero.apples.shift(), gameContainer.gameObjects);
 			}
@@ -85,6 +98,15 @@ function setupGame() {
     setupGameObjects(gameContainer);
 }
 
+function collideWithPowerup(powerupName) {
+    var p = powerups[powerupName];
+    if (p.type == "me") {
+        gameContainer.activatePowerup(p);
+    } else {
+        sendPowerUp(p);
+    }
+}
+
 function updateGame() {
 	gameContainer.update();
 }
@@ -108,4 +130,26 @@ function setupGameObjects(gameContainer) {
 		else
 			i--;
 	}
+}
+
+/* API for server */
+
+function onPowerUp(powerup) {
+	gameContainer.activatePowerUp(powerups[powerup["powerup_name"]]);
+}
+
+function onEndGame() {
+
+}
+
+function onTimer(time) {
+	
+}
+
+function onUserId(id) {
+
+}
+
+function onHighScores(scoreTable) {
+
 }

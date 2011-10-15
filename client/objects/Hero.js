@@ -61,7 +61,6 @@ Hero.prototype.update = function(game) {
 }
 
 Hero.prototype.onKeyDown = function(keyCode) {
-    console.log(keyCode);
     if (this.keys.indexOf(keyCode) < 0) {
         this.keys.push(keyCode);
     }
