@@ -97,3 +97,9 @@ body {
 	border: 1px solid  gray;
     background-color: #FFFFFF;
 }
+
+#splat {
+    z-index: 100;
+    position: absolute;
+    display: none;
+}
