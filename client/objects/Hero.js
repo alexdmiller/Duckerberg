@@ -1,4 +1,4 @@
-var DEFAULT_POWER = 0.3;
+var DEFAULT_POWER = 0.7;
 var FRICTION = 0.9;
 var GRAVITY = new Vector2D(0, 0);
 
