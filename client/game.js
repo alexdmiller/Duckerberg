@@ -2,7 +2,7 @@ var GAME_WIDTH;
 var GAME_HEIGHT;
 var FPS = 60;
 
-var game;
+var gameContainer;
 var canvas;
 
 $(document).ready(function() {
@@ -19,10 +19,20 @@ $(document).ready(function() {
 });
 
 function setupGame() {
-    gameContainer = {};
+    gameContainer = {
+		gameObjects : new Array(),
+		hero : new Hero(50, 50),
+		update: function() {
+			for (var i = 0; i < gameContainer.gameObjects.length; i++) {
+				canvas.width = canvas.width;
+				gameContainer.gameObjects[i].update(gameContainer);
+			    gameContainer.gameObjects[i].draw(canvas.getContext("2d"));
+			}
+		}
+	};
     gameContainer.gameWidth = GAME_WIDTH;
     gameContainer.gameHeight = GAME_HEIGHT;
-    gameContainer.hero = new Hero(50, 50);
+    gameContainer.gameObjects.push(gameContainer.hero);
     gameContainer.timer = setInterval(updateGame, 1000 / FPS);
     
     $(document).keydown(function(event) {
@@ -34,7 +44,5 @@ function setupGame() {
 }
 
 function updateGame() {
-    canvas.width = canvas.width;
-    gameContainer.hero.update(game);
-    gameContainer.hero.draw(canvas.getContext("2d"));
+	gameContainer.update();
 }
