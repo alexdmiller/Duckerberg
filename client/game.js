@@ -31,12 +31,12 @@ $(document).ready(function() {
 onTimer = function(time) {
     $("#time").text(time);
     if (state == "paused") {
-        if (time >= 50) {
+        if (time <= 50) {
             setupGameObjects(gameContainer);
             state = "running";
         }
     } else if (state == "running") {
-        if (time >= 60 && time < 50) {
+        if (time <= 60 && time > 50) {
             resetGame();
             state = "paused";
         }
@@ -48,12 +48,15 @@ function resetGame() {
     gameContainer.gameObjects.push(gameContainer.hero);
     gameContainer.gameObjects.push(gameContainer.base);
     gameContainer.score = 0;
+    $("#score").text("");
     for (var i = 0; i < gameContainer.activePowerups; i++) {
         gameContainer.activePowerups[i].deactivate(this);
     }
     gameContainer.activePowerups = new Array();
     gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
     gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
+    gameContainer.hero.health = START_HEALTH;
+    canvas.width = canvas.width;
 }
 
 function setupGame() {
@@ -75,34 +78,35 @@ function setupGame() {
             });
 		},
 		update: function() {
-			canvas.width = canvas.width;
-			for (var i = gameContainer.gameObjects.length - 1; i >= 0; i--) {
-				gameContainer.gameObjects[i].draw(canvas.getContext("2d"));	
-				gameContainer.gameObjects[i].update(gameContainer);
-			}
-			for (i = gameContainer.activePowerups.length - 1; i >= 0; i--) {
-			    gameContainer.activePowerups[i].onFrame(gameContainer);
-			    gameContainer.activePowerups[i].ticks--;
-			    if (gameContainer.activePowerups[i].ticks < 0) {
-			        gameContainer.activePowerups[i].deactivate(this);
-			        gameContainer.activePowerups.splice(i, 1);
-			    }
-			}
-			if (Math.random() < POWERUP_FREQUENCY) {
-				var p;
-				var layPowerup = function() {	
-					p = new Powerup(powerupNames[Math.floor(Math.random() * powerupNames.length)]);
-					p.gameObject.position.x = Math.random() * GAME_WIDTH;
-					p.gameObject.position.y = Math.random() * GAME_HEIGHT;
-					return collide(p, gameContainer.base);
-				}
-				while (layPowerup()) { }
-				gameContainer.gameObjects.push(p);
-				setTimeout(function() {
-					removeElementFromArray(p, gameContainer.gameObjects);
-				}, Math.random() * 5000 + 5000);
-			}
-
+		    if (state == "running") {
+		        canvas.width = canvas.width;
+    			for (var i = gameContainer.gameObjects.length - 1; i >= 0; i--) {
+    				gameContainer.gameObjects[i].draw(canvas.getContext("2d"));	
+    				gameContainer.gameObjects[i].update(gameContainer);
+    			}
+    			for (i = gameContainer.activePowerups.length - 1; i >= 0; i--) {
+    			    gameContainer.activePowerups[i].onFrame(gameContainer);
+    			    gameContainer.activePowerups[i].ticks--;
+    			    if (gameContainer.activePowerups[i].ticks < 0) {
+    			        gameContainer.activePowerups[i].deactivate(this);
+    			        gameContainer.activePowerups.splice(i, 1);
+    			    }
+    			}
+    			if (Math.random() < POWERUP_FREQUENCY) {
+    				var p;
+    				var layPowerup = function() {	
+    					p = new Powerup(powerupNames[Math.floor(Math.random() * powerupNames.length)]);
+    					p.gameObject.position.x = Math.random() * GAME_WIDTH;
+    					p.gameObject.position.y = Math.random() * GAME_HEIGHT;
+    					return collide(p, gameContainer.base);
+    				}
+    				while (layPowerup()) { }
+    				gameContainer.gameObjects.push(p);
+    				setTimeout(function() {
+    					removeElementFromArray(p, gameContainer.gameObjects);
+    				}, Math.random() * 5000 + 5000);
+    			}
+		    }
 		},
 		heroDeath: function() {
             gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
