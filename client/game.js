@@ -36,6 +36,7 @@ function setupGame() {
             gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
             gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
             gameContainer.hero.health = gameContainer.hero.startHealth;
+			gameContainer.hero.apples = 0;
 		}
 	};
     gameContainer.gameWidth = GAME_WIDTH;
@@ -65,12 +66,18 @@ function setupGameObjects(gameContainer) {
         var e = new Enemy();
         e.gameObject.position.x = Math.random() * GAME_WIDTH;
         e.gameObject.position.y = Math.random() * GAME_HEIGHT;
-        gameContainer.gameObjects.push(e);
+		if (!collide(e, gameContainer.base))
+			gameContainer.gameObjects.push(e);
+		else
+			i--;
     }
 	for (var i = 0; i < 30; i++) {
         var a = new Apple();
         a.gameObject.position.x = Math.random() * GAME_WIDTH;
         a.gameObject.position.y = Math.random() * GAME_HEIGHT;
-        gameContainer.gameObjects.push(a);	
+		if (!collide(a, gameContainer.base))
+			gameContainer.gameObjects.push(a);
+		else
+			i--;
 	}
 }
