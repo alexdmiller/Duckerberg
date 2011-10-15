@@ -43,8 +43,8 @@ module MessageBuilders
     log_message("HOLY DICKS USER ID #{user_id}")
     user_name    = @users_by_id[user_id]["user_name"]
 
-    @users_by_id.values.map{|x|
-      if x["user_id"] == user_id
+    @users_by_id.values.map{|user|
+      if user["user_id"] != user_id
         nil
       else
         { "message" => {
