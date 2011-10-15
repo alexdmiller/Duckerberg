@@ -11,6 +11,7 @@ var powerups = {
         onFrame: function(game) {},
         deactivate: function(game) {
             game.hero.power = DEFAULT_POWER;
+			
         }
     },
     slow: {
@@ -23,6 +24,7 @@ var powerups = {
         onFrame: function(game) {},
         deactivate: function(game) {
             game.hero.power = DEFAULT_POWER;
+			
         }
     },
     fasterEnemies: {
@@ -38,6 +40,7 @@ var powerups = {
             game.enemyForceConstant = DEFAULT_ENEMY_CONSTANT;
             game.maxEnemySpeed = DEFAULT_ENEMY_MAX;
             game.responseRadius = DEFAULT_ENEMY_RESPONSE_RADIUS;
+			
         }
     },
     slowerEnemies: {
@@ -52,6 +55,7 @@ var powerups = {
             game.enemyForceConstant = DEFAULT_ENEMY_CONSTANT;
             game.maxEnemySpeed = DEFAULT_ENEMY_MAX;
             game.responseRadius = DEFAULT_ENEMY_RESPONSE_RADIUS;
+			
         }
     },
 	invert: {
@@ -86,6 +90,7 @@ var powerups = {
 		onFrame: function(game) {},
 		deactivate: function(game) {
 			damageConstant = 1;
+			
 		}
 	},
 	splat: {

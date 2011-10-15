@@ -1,6 +1,8 @@
 
 //0 means disabled; 1 means enabled;  
 var popupStatus = 0; 
+var count = 0;
+
 function setupUI(){
 	console.log("In UI setup");
 	centerPopup();
@@ -23,13 +25,6 @@ function setupUI(){
 		});  
 }
 
-function showEndGameScores(){
-
-}
- 
-function hideEndGameScores(){
-
-}
  
  function loadHighScores(msg){
 	var x = msg.table;
@@ -47,6 +42,15 @@ function hideEndGameScores(){
 	}
 }
 
+
+function displayNewMessage(msg, msgID){
+	var id = "msg" + count;
+	count++;
+	var text = "<div class=messages id=" + id + ">" + msg + "</div>";
+	$("#message").append(text);
+	$("#" + id).fadeOut(5000);
+	
+}
 
 
 
@@ -76,8 +80,8 @@ function disablePopup(){
 //centering popup  
 function centerPopup(){  
 	//request data for centering  
-	var windowWidth = document.documentElement.clientWidth;  
-	var windowHeight = document.documentElement.clientHeight;  
+	var windowWidth = $(document).width();
+	var windowHeight = $(document).height();
 	var popupHeight = $("#popupContact").height();  
 	var popupWidth = $("#popupContact").width();  
 	//centering  

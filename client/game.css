@@ -36,13 +36,15 @@ body {
 		display:none;  
 		position:fixed;  
 		_position:absolute; /* hack for internet explorer 6*/  
-		height:200px;  
-		width:458px;  
 		background:#FFFFFF;  
 		border:2px solid #cecece;  
 		z-index:2;  
 		padding:6px;  
-		font-size:13px;  
+		font-size:20px; 
+		width: 500px;
+		height: 500px;
+		text-align: center;
+		font-weight: bold;
 }  
 #popupContact h1{  
 	text-align:left;  
@@ -75,7 +77,9 @@ body {
     font-family: helvetica;
     font-size: 25px;
     background-color: #FFFFFF;
-   padding: 10px;
+	padding: 10px;
+   	opacity: 0.4;
+
 }
 
 #time {
@@ -85,12 +89,14 @@ body {
    right: 10px;
    top: 10px;
    padding: 10px;
+   	opacity: 0.4;
 }
 
 #high_scores {
 	position: fixed;
-	left: 0%;
-	bottom: 0%;
+	left: 10px;
+	bottom: 10px;
+	padding: 10px;
     font-family: helvetica;
     font-size: 15px;
 	opacity: 0.4;
