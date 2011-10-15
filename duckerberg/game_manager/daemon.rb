@@ -3,7 +3,7 @@ require 'web_socket'
 load    'game_manager.rb'
 
 
-LOOP_RATE = 0.2
+LOOP_RATE = 0.7
 
 class GameDaemon
   def initialize

@@ -23,6 +23,8 @@ class MessageHandler
     @sockets.delete(id)
     @sockets.delete(socket)
     log_message("Destroyed Closed Socket Connection #{id}")
+    message = { "type" => "destroy_socket" }.to_json
+    pass_message(message, socket)
   end
 
   def receive_message(message, socket)
