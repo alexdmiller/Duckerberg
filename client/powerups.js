@@ -1,4 +1,4 @@
-var powerupNames = ["slowerEnemies", "fasterEnemies", "speed", "slow"];
+var powerupNames = ["slowerEnemies", "fasterEnemies", "speed", "slow", "doubleDamage"];
 
 var powerups = {
     speed: {
@@ -56,14 +56,14 @@ var powerups = {
     },
 	doubleDamage: {
 		name: "Double Damage",
-		type: "me",
+		type: "you",
 		duration: 100,
 		activate: function(game) {
-			game.damageConstant = 2;
+			damageConstant = 1.5;
 		},
 		onFrame: function(game) {},
 		deactivate: function(game) {
-			game.damageConstant = 1;
+			damageConstant = 1;
 		}
 	}
 }

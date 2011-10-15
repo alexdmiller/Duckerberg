@@ -5,7 +5,7 @@ var INITIAL;
 var DEFAULT_ENEMY_CONSTANT = 3; // bigger -> slower enemies
 var DEFAULT_ENEMY_MAX = 10;
 var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
-var POWERUP_FREQUENCY = 0.001;
+var POWERUP_FREQUENCY = 0.01;
 
 var damageConstant = 1;
 
@@ -139,23 +139,23 @@ function setupGameObjects(gameContainer) {
 
 /* API for server */
 
-function onPowerUp(powerup) {
+onPowerUp = function(powerup) {
     $("#message").text("Someone used " + powerup + "!");
 	gameContainer.activatePowerUp(powerups[powerup["powerup_name"]]);
 }
 
-function onEndGame() {
+onEndGame = function() {
 
 }
 
-function onTimer(time) {
+onTimer = function(time) {
 	
 }
 
-function onUserId(id) {
+onUserId = function(id) {
 
 }
 
-function onHighScores(scoreTable) {
+onHighScores = function(scoreTable) {
 
 }

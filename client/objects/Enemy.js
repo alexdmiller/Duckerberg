@@ -30,7 +30,7 @@ Enemy.prototype.update = function(game) {
         this.gameObject.velocity.y = Math.sin(angle) * force;
     } else {
         if (collide(game.hero, this)) {
-            game.hero.health -= this.damage * game.damageConstant;
+            game.hero.health -= this.damage * damageConstant;
             if (game.hero.health < 0) {
                 game.heroDeath();
             }
