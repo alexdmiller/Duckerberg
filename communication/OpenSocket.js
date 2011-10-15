@@ -1,12 +1,6 @@
 var socket;
 var id = 1;
 
-var onPowerUp;
-var onUserID;
-var onTimer;
-var onHighScores;
-var onEndGame;
-
  $(document).ready(function(){
    connect();
    $("#scoreclick").click(sendScore);
@@ -28,9 +22,9 @@ var onEndGame;
  }
  
  // { "type" : "powerup", "user_id" : 1, "powerup_name" : 1 }
- function sendPowerUp(){
+ function sendPowerUp(powerup){
 	getID();
-	var name = $("#powerup").val();
+	var name = powerup.name;
 	var obj = {"type":"powerup", "user_id":id, "powerup_name":name};
 	socket.send(JSON.stringify(obj));
  }
