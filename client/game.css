@@ -46,6 +46,7 @@ body {
 		text-align: center;
 		font-weight: bold;
 }  
+
 #popupContact h1{  
 	text-align:left;  
 	color:#6FA5FD;  
@@ -78,8 +79,8 @@ body {
     font-size: 25px;
     background-color: #FFFFFF;
 	padding: 10px;
-   	opacity: 0.4;
-
+   	opacity: 0.6;
+    border: 1px solid gray;
 }
 
 #time {
@@ -89,7 +90,8 @@ body {
    right: 10px;
    top: 10px;
    padding: 10px;
-   	opacity: 0.4;
+   	opacity: 0.6;
+    border: 1px solid gray;
 }
 
 #high_scores {
@@ -99,7 +101,7 @@ body {
 	padding: 10px;
     font-family: helvetica;
     font-size: 15px;
-	opacity: 0.4;
+	opacity: 0.6;
 	border: 1px solid  gray;
     background-color: #FFFFFF;
 }
@@ -108,4 +110,11 @@ body {
     z-index: 100;
     position: absolute;
     display: none;
+}
+
+#roundOver {
+    font-family: helvetica, verdana, sans-serif;
+    font-size: 40px;
+    position: absolute;
+    text-align: center;
 }

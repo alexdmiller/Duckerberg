@@ -39,12 +39,18 @@ onTimer = function(time) {
         if (time > ROUND_TIME) { // game should be running
             setupGameObjects();
             state = "running";
+            $("#roundOver").css("display", "none");
         }
     } else if (state == "running") {
         $("#time").text((time - ROUND_TIME) + " seconds left! Get apples duck!!");
         if (time <= ROUND_TIME) {
             resetGame();
             state = "paused";
+            $("#roundOver").css("display", "inline");
+            $("#roundOver").css("left", ($(document).width() / 2) + "px");
+            $("#roundOver").css("top", ($(document).height() / 2) + "px");
+            $("#high_scores").css("left", ($(document).width() / 2) + "px");
+            $("#high_scores").css("top", ($(document).height() / 2) + "px");
         }
     }
 }
