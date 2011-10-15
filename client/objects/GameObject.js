@@ -13,5 +13,5 @@ GameObject.prototype.applyForce = function(fx, fy) {
 }
 
 GameObject.prototype.radius = function() {
-    return this.size / 2;
+    return this.size.x / 2;
 }
