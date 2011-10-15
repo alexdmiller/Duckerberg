@@ -5,7 +5,6 @@ function Enemy() {
     this.gameObject.size = new Vector2D(10, 10);
     this.damage = 0.1;
     this.gameObject.velocity = new Vector2D(Math.random() * SPEED - SPEED / 2, Math.random() * SPEED - SPEED / 2);
-    this.responseThreshold = 200;
     this.following = false;
 }
 
@@ -39,12 +38,12 @@ Enemy.prototype.update = function(game) {
             var dx = game.hero.gameObject.position.x - this.gameObject.position.x;
             var dy = game.hero.gameObject.position.y - this.gameObject.position.y;    
             var dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < this.responseThreshold) {
+            if (dist < game.responseRadius) {
                 this.following = true;
                 var angle = Math.atan2(dy, dx);
-                var force = (this.responseThreshold / dist) / 2;
-                if (force > 10) {
-                    force = 10;
+                var force = (game.responseRadius / dist) / game.enemyForceConstant;
+                if (force > game.maxEnemySpeed) {
+                    force = game.maxEnemySpeed;
                 }
                 this.gameObject.velocity.x = Math.cos(angle) * force;
                 this.gameObject.velocity.y = Math.sin(angle) * force;
