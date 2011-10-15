@@ -38,7 +38,7 @@ function setupGame() {
 			canvas.width = canvas.width;
 			for (var i = gameContainer.gameObjects.length - 1; i >= 0; i--) {
 				gameContainer.gameObjects[i].update(gameContainer);
-			    gameContainer.gameObjects[i].draw(canvas.getContext("2d"));
+			    gameContainer.gameObjects[i].draw(canvas.getContext("2d"));	
 			}
 			for (i = gameContainer.activePowerups.length - 1; i >= 0; i--) {
 			    gameContainer.activePowerups[i].onFrame(gameContainer);
@@ -54,6 +54,7 @@ function setupGame() {
 			    p.gameObject.position.y = Math.random() * GAME_HEIGHT;
 			    gameContainer.gameObjects.push(p);
 			}
+
 		},
 		heroDeath: function() {
             gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;

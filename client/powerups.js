@@ -15,24 +15,15 @@ var powerups = {
     },
 	splatter: {
 		name: "Splatter",
-		type: "you",
-		duration: 3000,
-		canvas: function() {
-			var mycanvas = document.createElement("canvas");
-			mycanvas.width = GAME_WIDTH;
-			mycanvas.height = GAME_HEIGHT;
-			return mycanvas;
-		},
+		type: "me",
+		duration: 200,			
+		object: new Splatter(),
 		activate: function(game) {
-			canvas.beginPath();
-			canvas.arc(300, 300, 300, 0, Math.PI * 2, false);
-			canvas.fillStyle("black");
-			canvas.fill();
-			canvas.closePath();
+			gameContainer.gameObjects.push(powerups.splatter.object);
 		},
 		onFrame: function(game) {},
 		deactivate: function(game) {
-			canvas.width = canvas.width;
+			removeElementFromArray(powerups.splatter.object, gameContainer.gameObjects);
 		}
 	}
 }
