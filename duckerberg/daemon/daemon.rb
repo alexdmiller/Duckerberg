@@ -1,7 +1,8 @@
 require 'eventmachine'
+require 'em-websocket'
 
 EventMachine.run {
-  EventMachine::WebSocket.start(:host => "localhost", :port => 8080) do |socket|
+  EventMachine::WebSocket.start(:host => "127.0.0.1", :port => 8080) do |socket|
     socket.onopen {
       socket.send "Connection opened up bro"
     }
