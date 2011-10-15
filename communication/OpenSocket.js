@@ -7,20 +7,12 @@ var onTimer;
 var onEndGame;
 
  function setupSocket(){
+	console.log("in setupSocket");
    connect();
-   $("#scoreclick").click(sendScore);
-   $("#powerupclick").click(sendPowerUp);
-   $("#requestclick").click(sendJoinRequest);
-   $("#aliveclick").click(sendAlive);
 }
- 
- function getID(){
-	id = parseInt($("#user_id").val());
- }
  
  // { "type" : "set_score", "user_id" : 1, "score" : 1 }
  function sendScore(){
-	getID();
 	var score = parseInt($("#score").val());
 	var obj = {"type":"set_score", "user_id":id, "score":score};
 	socket.send(JSON.stringify(obj));
@@ -28,7 +20,6 @@ var onEndGame;
  
  // { "type" : "powerup", "user_id" : 1, "powerup_name" : 1 }
  function sendPowerUp(powerup){
-	getID();
 	var name = powerup.name;
 	var obj = {"type":"powerup", "user_id":id, "powerup_name":name};
 	socket.send(JSON.stringify(obj));
