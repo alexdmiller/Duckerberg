@@ -26,6 +26,14 @@ function setupGame() {
 		base: new Base($(document).width() / 2, $(document).height() / 2),
 		score: 0,
 		activePowerups: new Array(),
+		activatePowerup: function(p) {
+            p.activate(gameContainer);
+            gameContainer.activePowerups.push({
+                ticks: p.duration,
+                deactivate: p.deactivate,
+                onFrame: p.onFrame
+            });
+		},
 		update: function() {
 			canvas.width = canvas.width;
 			for (var i = 0; i < gameContainer.gameObjects.length; i++) {
@@ -33,9 +41,10 @@ function setupGame() {
 			    gameContainer.gameObjects[i].draw(canvas.getContext("2d"));
 			}
 			for (i = gameContainer.activePowerups.length - 1; i >= 0; i--) {
-			    activePowerups[i].ticks--;
-			    if (activePowerups[i].ticks < 0) {
-			        activePowerups[i].deactivate();
+			    gameContainer.activePowerups[i].onFrame(gameContainer);
+			    gameContainer.activePowerups[i].ticks--;
+			    if (gameContainer.activePowerups[i].ticks < 0) {
+			        gameContainer.activePowerups[i].deactivate(this);
 			        gameContainer.activePowerups.splice(i, 1);
 			    }
 			}
@@ -70,7 +79,9 @@ function setupGame() {
         gameContainer.hero.onKeyUp(event.keyCode);
     });
     setupGameObjects(gameContainer);
-    
+ 
+    // ***
+    gameContainer.activatePowerup(powerups.speed);
 }
 
 function updateGame() {
