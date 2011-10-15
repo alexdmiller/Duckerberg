@@ -19,6 +19,9 @@ Base.prototype.draw = function(context) {
 
 Base.prototype.update = function(gameContainer) {
 	if (collide(gameContainer.hero, this)) {
+		if (gameContainer.hero.health < START_HEALTH) {
+			gameContainer.hero.health += 0.075;
+		}
 		safe = true;
 	} else {
 		safe = false;
