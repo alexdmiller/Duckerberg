@@ -7,6 +7,7 @@ var DEFAULT_ENEMY_MAX = 10;
 var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
 var POWERUP_FREQUENCY = 0.01;
 var MAX_POWERUPS = 3;
+var ROUND_TIME = 5;
 
 var damageConstant = 1;
 var numPowerups = 0;
@@ -33,13 +34,13 @@ $(document).ready(function() {
 onTimer = function(time) {
     if (state == "paused") {
         $("#time").text(time + " seconds left until next round.");
-        if (time > 6) { // game should be running
+        if (time > ROUND_TIME) { // game should be running
             setupGameObjects();
             state = "running";
         }
     } else if (state == "running") {
-        $("#time").text(time + " seconds left! Get apples duck!!");
-        if (time <= 6) {
+        $("#time").text((time - ROUND_TIME) + " seconds left! Get apples duck!!");
+        if (time <= ROUND_TIME) {
             resetGame();
             state = "paused";
         }
@@ -51,9 +52,9 @@ function resetGame() {
     gameContainer.gameObjects.push(gameContainer.hero);
     gameContainer.gameObjects.push(gameContainer.base);
     gameContainer.score = 0;
-    $("#score").text("0");
+    $("#score").text("");
     for (var i = 0; i < gameContainer.activePowerups; i++) {
-        gameContainer.activePowerups[i].deactivate(this);
+        gameContainer.activePowerups[i].deactivate(gameContainer);
     }
     gameContainer.activePowerups = new Array();
     gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
