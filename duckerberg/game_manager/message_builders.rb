@@ -43,6 +43,7 @@ module MessageBuilders
   end
 
   def destroy_socket(message_hash)
+    log_message("Trying to destroy socket for #{message_hash.inspect}")
     socket_id = message_hash["socket_id"]
     user_id   = @ids_by_socket[socket_id]
 
