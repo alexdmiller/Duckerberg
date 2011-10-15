@@ -44,7 +44,8 @@ module MessageBuilders
     user_name    = @users_by_id[user_id]["user_name"]
 
     @users_by_id.values.map{|user|
-      if user["user_id"] != user_id
+      other_user_id = user["user_id"]
+      if other_user_id == user_id
         nil
       else
         { "message" => {
@@ -52,7 +53,7 @@ module MessageBuilders
             "powerup_name" => powerup_name,
             "user_name"    => user_name
           },
-          "socket_id" => @sockets_by_id[user_id]
+          "socket_id" => @sockets_by_id[other_user_id]
         }
       end
     }.compact
