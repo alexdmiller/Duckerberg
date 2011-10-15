@@ -10,7 +10,7 @@ var POWERUP_FREQUENCY = 0.01;
 var damageConstant = 1;
 
 var DEFAULT_ENEMY_RESPONSE_RADIUS = 300;
-var POWERUP_FREQUENCY = 0.001;
+var POWERUP_FREQUENCY = 0.01;
 
 var gameContainer;
 var canvas;
@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 function setupGame() {
     gameContainer = {
-		gameObjects : new Array(),
+		gameObjects: new Array(),
 		hero: new Hero(50, 50),
 		base: new Base($(document).width() / 2, $(document).height() / 2),
 		score: 0,

@@ -2,17 +2,21 @@ var socket;
 var id = 1;
 
 var onPowerUp;
-var onUserID;
 var onTimer;
 var onEndGame;
 
  function setupSocket(){
 	console.log("in setupSocket");
-   connect();
+	connect();
 }
+ 
+ function getID(){
+	id = parseInt($("#user_id").val());
+ }
  
  // { "type" : "set_score", "user_id" : 1, "score" : 1 }
  function sendScore(){
+	getID();
 	var score = parseInt($("#score").val());
 	var obj = {"type":"set_score", "user_id":id, "score":score};
 	socket.send(JSON.stringify(obj));
@@ -20,6 +24,7 @@ var onEndGame;
  
  // { "type" : "powerup", "user_id" : 1, "powerup_name" : 1 }
  function sendPowerUp(powerup){
+	getID();
 	var name = powerup.name;
 	var obj = {"type":"powerup", "user_id":id, "powerup_name":name};
 	socket.send(JSON.stringify(obj));
@@ -42,7 +47,7 @@ function returnPowerUp(msg){
  }
  
  function issueUserID(msg){
-	onUserID(msg.user_id);
+	id = msg.user_id;
  }
  
  function passTimer(msg){
@@ -54,7 +59,6 @@ function returnPowerUp(msg){
  }
  
  function readMessage(msg){
-	try{
 		var parsedJSON = JSON.parse(msg);
 		var type = parsedJSON.type; 
 		if(type == "return_powerup"){
@@ -72,11 +76,6 @@ function returnPowerUp(msg){
 		if(type == "game_over"){
 			gameOver(parsedJSON);
 		}
-	}
-	catch(exception){
-	
-	}
-	
  }
  
 function connect(){ 
@@ -89,7 +88,7 @@ function connect(){
 
 		socket.onmessage = function(msg){
 			console.log(msg.data);
-			//readMessage(msg.data);
+			readMessage(msg.data);
 		}
 
 		socket.onclose = function(msg){
