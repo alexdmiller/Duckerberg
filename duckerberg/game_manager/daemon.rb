@@ -10,13 +10,14 @@ class GameDaemon
     @game_manager  = GameManager.new
     @outward_socket = WebSocket.new("ws://localhost:8080/")
     @redis          = Redis.new
+		@game_manager.log_message("Starting up Game Server")
 
     # Monitoring Loop
     loop {
 			start = Time.now.to_f
 
       handle_inbox
-			manager.prepare_game_signals
+			@game_manager.prepare_game_signals
       @outward_socket.send("READ")
 
 			margin = Time.now.to_f - start

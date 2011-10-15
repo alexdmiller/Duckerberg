@@ -5,6 +5,8 @@ load    'message_handler.rb'
 handler = MessageHandler.new
 sockets = {}
 
+handler.log_message("Sarting up Duckerberg server")
+
 EventMachine.run {
 
   EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 8080) do |socket|
