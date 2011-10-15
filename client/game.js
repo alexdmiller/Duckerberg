@@ -5,7 +5,7 @@ var INITIAL;
 var DEFAULT_ENEMY_CONSTANT = 1; // bigger -> slower enemies
 var DEFAULT_ENEMY_MAX = 10;
 var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
-var POWERUP_FREQUENCY = 0.01;
+var POWERUP_FREQUENCY = 0.001;
 
 var damageConstant = 1;
 
