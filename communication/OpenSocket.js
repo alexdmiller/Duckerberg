@@ -82,7 +82,7 @@ function returnPowerUp(msg){
 	var highScores = new Array();
 	var scores = JSON.parse(msg.table);
 	for (var i = 0; i< scores.length; i++){
-		highScores.
+			
 	}
  }
  
