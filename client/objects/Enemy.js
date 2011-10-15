@@ -3,6 +3,8 @@ function Enemy() {
     this.gameObject.size = new Vector2D(10, 10);
     this.damage = 0.1;
     this.gameObject.velocity = new Vector2D(Math.random() * 2 - 1, Math.random() * 2 - 1);
+    this.responseThreshold = 200;
+    this.following = false;
 }
 
 Enemy.prototype.draw = function(context) {
@@ -33,5 +35,22 @@ Enemy.prototype.update = function(game) {
         this.gameObject.position.y = GAME_HEIGHT;
     } else if (this.gameObject.position.y > GAME_HEIGHT) {
         this.gameObject.position.y = 0;
+    }
+    
+    var dx = game.hero.gameObject.position.x - this.gameObject.position.x;
+    var dy = game.hero.gameObject.position.y - this.gameObject.position.y;    
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < this.responseThreshold) {
+        this.following = true;
+        var angle = Math.atan2(dy, dx);
+        var force = (this.responseThreshold / dist) / 2;
+        if (force > 10) {
+            force = 10;
+        }
+        this.gameObject.velocity.x = Math.cos(angle) * force;
+        this.gameObject.velocity.y = Math.sin(angle) * force;
+    } else if (this.following) {
+        this.following = false;
+        this.gameObject.velocity = new Vector2D(Math.random() * 2 - 1, Math.random() * 2 - 1);
     }
 }
