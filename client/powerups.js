@@ -1,4 +1,4 @@
-var powerupNames = ["slowerEnemies", "fasterEnemies", "speed", "slow", "doubleDamage"];
+var powerupNames = ["slowerEnemies", "fasterEnemies", "speed", "slow", "doubleDamage", "invert"];
 
 var powerups = {
     speed: {
@@ -54,6 +54,28 @@ var powerups = {
             game.responseRadius = DEFAULT_ENEMY_RESPONSE_RADIUS;
         }
     },
+	invert: {
+		name: "Invert",
+		type: "you",
+		duration: 100,
+		activate: function(game) {
+			var tempLeft = LEFT_KEY;
+			LEFT_KEY = RIGHT_KEY;
+			RIGHT_KEY = tempLeft;
+			var tempUp = UP_KEY;
+			UP_KEY = DOWN_KEY;
+			DOWN_KEY = tempUp;
+		},
+		onFrame: function(game) {},
+		deactivate: function(game) {
+			var tempLeft = LEFT_KEY;
+			LEFT_KEY = RIGHT_KEY;
+			RIGHT_KEY = tempLeft;
+			var tempUp = UP_KEY;
+			UP_KEY = DOWN_KEY;
+			DOWN_KEY = tempUp;
+		}
+	},
 	doubleDamage: {
 		name: "Double Damage",
 		type: "you",
