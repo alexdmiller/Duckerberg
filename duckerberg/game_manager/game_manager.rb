@@ -94,7 +94,7 @@ class GameManager
 
     end
     messages.each do |mess|
-      @redis.sadd(OUTBOX, mess.to_json)
+      @redis.rpush(OUTBOX, mess.to_json)
     end
   end
 
