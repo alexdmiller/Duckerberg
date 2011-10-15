@@ -16,24 +16,27 @@ Base.prototype.draw = function(context) {
 	context.stroke();
 	context.closePath();
 	
-	context.beginPath();
-	context.arc(this.gameObject.position.x, this.gameObject.position.y, BASE_RADIUS, 0, (this.health / 10) *  2 * Math.PI, false);
-	context.lineWidth = 10;
-	context.strokeStyle = "#25510a";
-	context.stroke();
-	context.closePath();	
+    context.beginPath();
+    context.arc(this.gameObject.position.x, this.gameObject.position.y, BASE_RADIUS, 0, (this.health / 10) *  2 * Math.PI, false);
+    context.lineWidth = 10;
+    context.strokeStyle = "#25510a";
+    context.stroke();
+    context.closePath(); 
 }
 
 Base.prototype.update = function(gameContainer) {
-    this.health = gameContainer.hero.health;
-	if (collide(gameContainer.hero, this)) {
-		if (gameContainer.hero.health < START_HEALTH) {
-			gameContainer.hero.health += 0.075;
-		}
-		this.safe = true;
-	} else {
-		this.safe = false;
-	}
+    if (gameContainer.hero) {
+        this.health = gameContainer.hero.health;
+    	if (collide(gameContainer.hero, this)) {
+    		if (gameContainer.hero.health < START_HEALTH) {
+    			gameContainer.hero.health += 0.075;
+    		}
+    		this.safe = true;
+    	} else {
+    		this.safe = false;
+    	}
+        
+    }
 }
 
 Base.prototype.containsHero = function() {

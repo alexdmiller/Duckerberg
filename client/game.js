@@ -31,14 +31,15 @@ $(document).ready(function() {
 });
 
 onTimer = function(time) {
-    $("#time").text(time);
     if (state == "paused") {
-        if (time <= 50) {
+        $("#time").text(time + " seconds left until next round.");
+        if (time > 6) { // game should be running
             setupGameObjects(gameContainer);
             state = "running";
         }
     } else if (state == "running") {
-        if (time <= 60 && time > 50) {
+        $("#time").text(time + " seconds left! Get apples duck!!");
+        if (time <= 6) {
             resetGame();
             state = "paused";
         }
@@ -57,7 +58,10 @@ function resetGame() {
     gameContainer.activePowerups = new Array();
     gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
     gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
-    gameContainer.hero.health = START_HEALTH;
+    gameContainer.hero.gameObject.velocity.x = 0;
+    gameContainer.hero.gameObject.velocity.y = 0;
+    gameContainer.hero.health = gameContainer.hero.startHealth;
+    gameContainer.hero.apples = new Array();
     canvas.width = canvas.width;
 }
 
