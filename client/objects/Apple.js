@@ -18,8 +18,8 @@ Apple.prototype.draw = function(context) {
 Apple.prototype.update = function(gameContainer) {
 	if (!this.following && collide(gameContainer.hero, this)) {
 		var apples = gameContainer.hero.apples;
-		this.following = apples[apples.length - 1] ? apples[apples.length - 1] : gameContainer.hero	;
-		apples.push(this)
+		this.following = apples[apples.length - 1] ? apples[apples.length - 1] : gameContainer.hero;
+		apples.push(this);
 	}
 	if (this.following) {
 		this.gameObject.velocity.y = (this.following.gameObject.position.y - this.gameObject.position.y) / 6;
