@@ -86,6 +86,8 @@ function setupGame() {
 		addToScore: function(add) {
 		    gameContainer.score += add;
 		    $("#score").text(gameContainer.score);
+			console.log("ADD TO SCORE");
+			sendScore(gameContainer.score);
 		}
 	};
 	

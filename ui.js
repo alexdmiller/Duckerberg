@@ -25,13 +25,18 @@ function setupUI(){
  
  
  function loadHighScores(msg){
-	// console.log("Loading High Scores");
-	//     var x = JSON.parse(msg).table;
-	//     for(var i = 0; i<x.length; i++){
-	//      console.log(x[i].user_name);
-	//      console.log(x[i].score);
-	//     }	
- }
+	var x = msg.table;
+	if(x == null)
+		return;
+	var score = -1;
+	for(var i = 0; i<x.length; i++){
+		if(x[i].score > score){
+			user = x[i].user_name;
+			score = x[i].score;
+		}
+	}
+	$("#high_score").text(user + " is winning with "+ score + " apples!");
+}
 
 
 
