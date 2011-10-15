@@ -1,12 +1,32 @@
 var socket;
 var id = 1;
 
+//0 means disabled; 1 means enabled;  
+var popupStatus = 0; 
  $(document).ready(function(){
    connect();
    $("#scoreclick").click(sendScore);
    $("#powerupclick").click(sendPowerUp);
    $("#requestclick").click(sendJoinRequest);
    $("#aliveclick").click(sendAlive);
+
+	centerPopup();
+	loadPopup();
+	
+	$("#name").keypress(function(event) {
+		if(event.keyCode == 13){
+			sendJoinRequest($("#name").val());
+			disablePopup();
+		}
+	  });
+		
+	$("#namesubmitted").click(function(){  
+		if($("#name").val() != ""){
+			sendJoinRequest($("#name").val());
+			disablePopup();  
+			}
+		});  
+
  });
  
  function getID(){
@@ -30,8 +50,7 @@ var id = 1;
  }
  
  // { "type" : "join_request", "user_name" : "derp" }
- function sendJoinRequest(){
-	var name = $("#request").val();
+ function sendJoinRequest(name){
 	var obj = {"type":"join_request", "user_name":name};
 	socket.send(JSON.stringify(obj));
  }
@@ -83,13 +102,12 @@ function returnPowerUp(msg){
 		}
 	}
 	catch(exception){
-		alert("Error" + exception);
+	
 	}
 	
  }
  
 function connect(){ 
-
 	try {		
 		//107.20.160.172
 		//port 8080
@@ -98,7 +116,7 @@ function connect(){
 		
 		
 		socket.onopen = function(msg){
-			alert("Socket succesfully opened");
+			console.log("Socket succesfully opened");
 		}
 
 		socket.onmessage = function(msg){
@@ -106,15 +124,59 @@ function connect(){
 		}
 
 		socket.onclose = function(msg){
-			alert("Socket closed");
+			console.log("Socket closed");
 		}
 		
 	}
 	
 	catch(exception){
-		alert("Error" + exception);
+		console.log("Error" + exception);
 	}
 }
 
 
 
+
+//loading popup with jQuery magic!  
+function loadPopup(){  
+	//loads popup only if it is disabled  
+	if(popupStatus==0){  
+		$("#backgroundPopup").css({  
+		"opacity": "0.7"  
+	});  
+	$("#backgroundPopup").fadeIn("slow");  
+	$("#popupContact").fadeIn("slow");  
+	popupStatus = 1;  
+}  
+}  
+
+//disabling popup with jQuery magic!  
+function disablePopup(){  
+	//disables popup only if it is enabled  
+	if(popupStatus==1){  
+		$("#backgroundPopup").fadeOut("slow");  
+		$("#popupContact").fadeOut("slow");  
+		popupStatus = 0;  
+	}  
+}  
+
+//centering popup  
+function centerPopup(){  
+	//request data for centering  
+	var windowWidth = document.documentElement.clientWidth;  
+	var windowHeight = document.documentElement.clientHeight;  
+	var popupHeight = $("#popupContact").height();  
+	var popupWidth = $("#popupContact").width();  
+	//centering  
+	$("#popupContact").css({  
+	"position": "absolute",  
+	"top": windowHeight/2-popupHeight/2,  
+	"left": windowWidth/2-popupWidth/2  
+});  
+//only need force for IE6  
+  
+$("#backgroundPopup").css({  
+	"height": windowHeight  
+});  
+  
+}  

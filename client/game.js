@@ -1,7 +1,11 @@
 var GAME_WIDTH;
 var GAME_HEIGHT;
 var FPS = 60;
-var INITIAL
+var INITIAL;
+var DEFAULT_ENEMY_CONSTANT = 4; // bigger -> slower enemies
+var DEFAULT_ENEMY_MAX = 10;
+var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
+var POWERUP_FREQUENCY = 0.001;
 
 var gameContainer;
 var canvas;
@@ -25,6 +29,9 @@ function setupGame() {
 		hero: new Hero(50, 50),
 		base: new Base($(document).width() / 2, $(document).height() / 2),
 		score: 0,
+		enemyForceConstant: DEFAULT_ENEMY_CONSTANT,
+		maxEnemySpeed: DEFAULT_ENEMY_MAX,
+		responseRadius: DEFAULT_ENEMY_RESPONSE_RADIUS,
 		activePowerups: new Array(),
 		activatePowerup: function(p) {
             p.activate(gameContainer);
@@ -48,8 +55,8 @@ function setupGame() {
 			        gameContainer.activePowerups.splice(i, 1);
 			    }
 			}
-			if (Math.random() < 0.001) {
-			    var p = new Powerup("speed");
+			if (Math.random() < POWERUP_FREQUENCY) {
+			    var p = new Powerup(powerupNames[Math.floor(Math.random() * powerupNames.length)]);
 			    p.gameObject.position.x = Math.random() * GAME_WIDTH;
 			    p.gameObject.position.y = Math.random() * GAME_HEIGHT;
 			    gameContainer.gameObjects.push(p);
