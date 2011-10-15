@@ -34,20 +34,20 @@ class GameManager
     log_message("Sending out game signals")
     game_time         = pass_timer
     score_table       = pass_full_score_table
+    log.message("Game Time: #{game_time}, Score Table: #{score_table}")
     game_over_message = game_over
 
     if game_over_message.nil?
       @users_by_id.values.each do |user|
-        log_message("Game Signals for #{user.inspect}")
         post(game_time, user["socket_id"])
         post(score_table, user["socket_id"])
       end
     else
-      endgame_measures(game_over_message)
+      endgame_measures(game_over_message. score_table)
     end
   end
 
-  def endgame_measures(game_over_message)
+  def endgame_measures(game_over_message, score_table)
       @users_by_id.values.each do |user|
         post(game_over_message, user["socket_id"])
         post(score_table, user["socket_id"])
