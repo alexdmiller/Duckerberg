@@ -46,8 +46,8 @@ function setupGame() {
 		update: function() {
 			canvas.width = canvas.width;
 			for (var i = gameContainer.gameObjects.length - 1; i >= 0; i--) {
+				gameContainer.gameObjects[i].draw(canvas.getContext("2d"));	
 				gameContainer.gameObjects[i].update(gameContainer);
-			    gameContainer.gameObjects[i].draw(canvas.getContext("2d"));	
 			}
 			for (i = gameContainer.activePowerups.length - 1; i >= 0; i--) {
 			    gameContainer.activePowerups[i].onFrame(gameContainer);
