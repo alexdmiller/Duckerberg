@@ -34,7 +34,7 @@ onTimer = function(time) {
     if (state == "paused") {
         $("#time").text(time + " seconds left until next round.");
         if (time > 6) { // game should be running
-            setupGameObjects(gameContainer);
+            setupGameObjects();
             state = "running";
         }
     } else if (state == "running") {
@@ -51,7 +51,7 @@ function resetGame() {
     gameContainer.gameObjects.push(gameContainer.hero);
     gameContainer.gameObjects.push(gameContainer.base);
     gameContainer.score = 0;
-    $("#score").text("");
+    $("#score").text("0");
     for (var i = 0; i < gameContainer.activePowerups; i++) {
         gameContainer.activePowerups[i].deactivate(this);
     }
@@ -62,6 +62,7 @@ function resetGame() {
     gameContainer.hero.gameObject.velocity.y = 0;
     gameContainer.hero.health = gameContainer.hero.startHealth;
     gameContainer.hero.apples = new Array();
+    numPowerups = 0;
     canvas.width = canvas.width;
 }
 
@@ -110,9 +111,11 @@ function setupGame() {
 					gameContainer.gameObjects.push(p);
 					numPowerups++;
 					setTimeout(function() {
-						removeElementFromArray(p, gameContainer.gameObjects);
-						numPowerups--;
-					}, Math.random() * 5000 + 5000);
+					    if (state == "running") {
+					        removeElementFromArray(p, gameContainer.gameObjects);
+                            numPowerups--;
+					    }
+                    }, Math.random() * 5000 + 5000);
 				}
 			}
 		},
@@ -129,7 +132,6 @@ function setupGame() {
 		addToScore: function(add) {
 		    gameContainer.score += add;
 		    $("#score").text(gameContainer.score);
-			console.log("ADD TO SCORE");
 			sendScore(gameContainer.score);
 		}
 	};
@@ -171,7 +173,7 @@ function updateGame() {
 	gameContainer.update();
 }
 
-function setupGameObjects(gameContainer) {
+function setupGameObjects() {
     for (var i = 0; i < 20; i++) {
         var e = new Enemy();
         e.gameObject.position.x = Math.random() * GAME_WIDTH;

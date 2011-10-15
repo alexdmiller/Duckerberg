@@ -35,7 +35,8 @@ Base.prototype.update = function(gameContainer) {
     	} else {
     		this.safe = false;
     	}
-        
+    } else {
+        console.log("HERO UNDEFINED");
     }
 }
 
