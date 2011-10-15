@@ -8,7 +8,7 @@ var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
 var POWERUP_FREQUENCY = .01;
 var MAX_POWERUPS = 1;
 var ROUND_TIME = 5;
-var PIXELS_PER_ENEMY = 44544;
+var PIXELS_PER_ENEMY = 36000;
 
 var damageConstant = 1;
 var powerupAvailable = false;
