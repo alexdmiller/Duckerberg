@@ -7,12 +7,22 @@ class MessageHandler
     @inlogger  = File.new(INLOG_FILE, 'a')
     @redis   = Redis.new
     @sockets = {}
+    @current_new_socket_id = 0
   end
 
   def add_socket(socket)
-    id               = @sockets.size
+    id               = @current_new_socket_id
     @sockets[id]     = socket
     @sockets[socket] = id
+    log_message("Connection Opened -- Socket id: #{id}")
+    @current_new_socket_id += 1
+  end
+
+  def destroy_socket(socket)
+    id = @sockets[socket]
+    @sockets.delete(id)
+    @sockets.delete(socket)
+    log_message("Destroyed Closed Socket Connection #{id}")
   end
 
   def receive_message(message, socket)
@@ -20,7 +30,8 @@ class MessageHandler
       read_outbox
       return
     end
-    log_message("received message: #{message}")
+    socket_id = @sockets[socket]
+    log_message("Received message from socket #{socket_id} : #{message}")
     pass_message(message, socket)
   end
 
@@ -56,7 +67,7 @@ class MessageHandler
       socket.send(message)
       log_message("sent message to socket #{socket_id} :: #{message}")
     rescue
-      log_message("sending to socket failed:: #{$!}")
+      log_message("sending to socket #{socket_id} failed:: #{$!}")
     end
   end
 

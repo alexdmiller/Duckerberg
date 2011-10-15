@@ -91,8 +91,8 @@ I return a score
 {
   "type" : "pass_full_score_table",
   "table": [
-    "user_id" : 1,
-    "score"   : 1
+    "user_name" : "garpley",
+    "score"     : 1
   ]
 }
 
