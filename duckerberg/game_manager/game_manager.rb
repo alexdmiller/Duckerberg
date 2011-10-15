@@ -10,7 +10,7 @@ load    'message_builders.rb'
 GAME_DAEMON_LOG = File.join("/home/ubuntu", "duckerberglog", "game_daemon_log.txt")
 USER_INFO = "id_pointer::"
 OUTBOX = "outbox"
-GAME_LENGTH = 60
+GAME_LENGTH = 35
 
 class GameManager
   include MessageBuilders
