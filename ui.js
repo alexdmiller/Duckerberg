@@ -42,7 +42,6 @@ function hideEndGameScores(){
 		score = x[i].score;
 		var text = '<tr><td>' + user + '</td><td>' + score + '</td></tr>';
 		$("#high_scores > tbody:last").append(text);
-		console.log("appending: " + text);
 	}
 }
 
