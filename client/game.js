@@ -36,7 +36,7 @@ function setupGame() {
 		},
 		update: function() {
 			canvas.width = canvas.width;
-			for (var i = 0; i < gameContainer.gameObjects.length; i++) {
+			for (var i = gameContainer.gameObjects.length - 1; i >= 0; i--) {
 				gameContainer.gameObjects[i].update(gameContainer);
 			    gameContainer.gameObjects[i].draw(canvas.getContext("2d"));
 			}
@@ -47,6 +47,12 @@ function setupGame() {
 			        gameContainer.activePowerups[i].deactivate(this);
 			        gameContainer.activePowerups.splice(i, 1);
 			    }
+			}
+			if (Math.random() < 0.01) {
+			    var p = new Powerup("speed");
+			    p.gameObject.position.x = Math.random() * GAME_WIDTH;
+			    p.gameObject.position.y = Math.random() * GAME_HEIGHT;
+			    gameContainer.gameObjects.push(p);
 			}
 		},
 		heroDeath: function() {
@@ -83,6 +89,15 @@ function setupGame() {
         gameContainer.hero.onKeyUp(event.keyCode);
     });
     setupGameObjects(gameContainer);
+}
+
+function collideWithPowerup(powerupName) {
+    var p = powerups[powerupName];
+    if (p.type == "me") {
+        gameContainer.activatePowerup(p);
+    } else {
+        // send to server
+    }
 }
 
 function updateGame() {
