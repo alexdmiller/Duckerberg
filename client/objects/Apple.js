@@ -14,19 +14,23 @@ Apple.prototype.draw = function(context) {
 }
 
 Apple.prototype.update = function(gameContainer) {
+	var apples = gameContainer.hero.apples;
+	if (!this.following && this == apples[0]) {
+		this.following = gameContainer.hero;
+	}
+	for (var i = 1; i < apples.length; i++) {
+		apples[i].following = apples[i - 1];
+	}
 	if (!this.following && collide(gameContainer.hero, this)) {
-		var apples = gameContainer.hero.apples;
 		this.following = apples[apples.length - 1] ? apples[apples.length - 1] : gameContainer.hero;
 		apples.push(this);
 	}
 	if (collide(gameContainer.base, this)) {
-		var apples = gameContainer.hero.apples;
 		gameContainer.addToScore(Math.floor((apples.length - 1) / 3) + 1);
 		removeElementFromArray(this, gameContainer.gameObjects);
 		var next = removeElementFromArray(this, apples);
-		if (apples[next]) {
+		if (apples[next])
 			apples[next].following = apples[next - 1] ? apples[next - 1] : gameContainer.hero;
-		}
 	}
 	if (this.following) {
 		this.gameObject.velocity.y = (this.following.gameObject.position.y - this.gameObject.position.y) / 6;
