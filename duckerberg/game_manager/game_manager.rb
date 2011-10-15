@@ -91,9 +91,9 @@ class GameManager
       return if (not message.is_a?(Hash)) and (not message.is_a?(Array))
       messages = [message] if (not message.is_a?(Array))
 
-      messages.each do |mess|
-        @redis.sadd(OUTBOX, mess.to_json)
-      end
+    end
+    messages.each do |mess|
+      @redis.sadd(OUTBOX, mess.to_json)
     end
   end
 
