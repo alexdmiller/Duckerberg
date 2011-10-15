@@ -11,8 +11,6 @@ function Base(x, y) {
 Base.prototype.draw = function(context) {
 	context.beginPath();
 	context.arc(this.gameObject.position.x, this.gameObject.position.y, BASE_RADIUS, 0, 2 * Math.PI, false);
-	context.fillStyle = "black";
-	context.fill();
 	context.lineWidth = 5;
 	context.strokeStyle = "green";
 	context.stroke();
@@ -21,7 +19,7 @@ Base.prototype.draw = function(context) {
 
 Base.prototype.update = function(gameContainer) {
 	if (collide(gameContainer.hero, this)) {
-		gameContainer.score += gameContainer.hero.apples;
+		gameContainer.addToScore(gameContainer.hero.apples);
 		gameContainer.hero.apples = 0;
 		safe = true;
 	} else {
