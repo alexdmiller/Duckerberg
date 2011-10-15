@@ -8,7 +8,7 @@ require 'web_socket'
 load    'game_manager.rb'
 
 
-LOOP_RATE = 0.2
+LOOP_RATE = 0.1
 
 class GameDaemon
   def initialize
@@ -28,7 +28,7 @@ class GameDaemon
 
 			margin = Time.now.to_f - start
 			sleep_time = (margin > LOOP_RATE ? LOOP_RATE : LOOP_RATE - margin)
-      #sleep(sleep_time)
+      sleep(sleep_time)
     }
   end
 
