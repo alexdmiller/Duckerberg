@@ -9,7 +9,6 @@ var onEndGame;
 //0 means disabled; 1 means enabled;  
 var popupStatus = 0; 
  $(document).ready(function(){
-   console.log("poop poop poop");
    connect();
    $("#scoreclick").click(sendScore);
    $("#powerupclick").click(sendPowerUp);
