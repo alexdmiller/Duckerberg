@@ -1,4 +1,5 @@
 module MessageBuilders
+
   # returns an issue_user_id message
   def join_request(message_hash)
     user_name = message_hash["message"]["user_name"]
@@ -17,10 +18,10 @@ module MessageBuilders
 
     @highest_user_id += 1
 
-    [{
+    {
       "type"    => "issue_user_id",
       "user_id" => user_id
-    }, socket_id]
+    }
   end
 
   # returns a return_powerup message to hella people
