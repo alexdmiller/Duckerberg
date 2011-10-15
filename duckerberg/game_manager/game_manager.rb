@@ -43,7 +43,7 @@ class GameManager
         post(score_table, user["socket_id"])
       end
     else
-      endgame_measures(game_over_message. score_table)
+      endgame_measures(game_over_message, score_table)
     end
   end
 
