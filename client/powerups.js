@@ -1,4 +1,4 @@
-var powerupNames = ["slowerEnemies", "fasterEnemies", "speed", "slow", "doubleDamage", "invert"];
+var powerupNames = ["slowerEnemies", "fasterEnemies", "speed", "slow", "doubleDamage", "invert", "splat"];
 
 var powerups = {
     speed: {
@@ -87,5 +87,19 @@ var powerups = {
 		deactivate: function(game) {
 			damageConstant = 1;
 		}
+	},
+	splat: {
+	    name: "Splat",
+	    type: "you",
+	    duration: 100,
+	    activate: function(game) {
+	        $("#splat").css("display", "block");
+	        $("#splat").css("top", GAME_HEIGHT / 2 - 800 / 2);
+	        $("#splat").css("left", GAME_WIDTH / 2 - 800 / 2);
+	    },
+	    onFrame: function(game) {},
+	    deactivate: function(game) {
+	        $("#splat").css("display", "none");
+	    }
 	}
 }
