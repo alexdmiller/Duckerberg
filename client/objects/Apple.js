@@ -26,7 +26,7 @@ Apple.prototype.update = function(gameContainer) {
 		apples.push(this);
 	}
 	if (collide(gameContainer.base, this)) {
-		gameContainer.addToScore(Math.floor((apples.length - 1) / 5) + 1);
+		gameContainer.addToScore(Math.floor((apples.length - 1) / 4) + 1);
 		removeElementFromArray(this, gameContainer.gameObjects);
 		var next = removeElementFromArray(this, apples);
 		if (apples[next])
