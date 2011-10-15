@@ -96,7 +96,7 @@ function collideWithPowerup(powerupName) {
     if (p.type == "me") {
         gameContainer.activatePowerup(p);
     } else {
-        // send to server
+        sendPowerUp(p);
     }
 }
 
@@ -123,7 +123,6 @@ function setupGameObjects(gameContainer) {
 		else
 			i--;
 	}
-	getID();
 }
 
 /* API for server */
