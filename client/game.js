@@ -11,6 +11,7 @@ var gameContainer;
 var canvas;
 
 $(document).ready(function() {
+	console.log("In game.js");
     GAME_WIDTH = $(document).width() - 10;
     GAME_HEIGHT = $(document).height() - 10;
     canvas = document.createElement("canvas");
@@ -20,6 +21,8 @@ $(document).ready(function() {
     container.width(GAME_WIDTH);
     container.height(GAME_HEIGHT);
     container.append(canvas);
+	setupSocket();
+	setupUI();
     setupGame();
 });
 

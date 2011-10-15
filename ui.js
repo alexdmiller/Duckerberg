@@ -1,7 +1,8 @@
 
 //0 means disabled; 1 means enabled;  
 var popupStatus = 0; 
- $(document).ready(function(){
+function setupUI(){
+	console.log("In UI setup");
 	centerPopup();
 	loadPopup();
 	
@@ -20,7 +21,7 @@ var popupStatus = 0;
 			disablePopup();  
 			}
 		});  
- });
+}
  
  
  function loadHighScores(msg){

@@ -6,13 +6,13 @@ var onUserID;
 var onTimer;
 var onEndGame;
 
- $(document).ready(function(){
+ function setupSocket(){
    connect();
    $("#scoreclick").click(sendScore);
    $("#powerupclick").click(sendPowerUp);
    $("#requestclick").click(sendJoinRequest);
    $("#aliveclick").click(sendAlive);
- });
+}
  
  function getID(){
 	id = parseInt($("#user_id").val());
