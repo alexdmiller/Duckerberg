@@ -29,7 +29,9 @@ Hero.prototype.draw = function(context) {
     
     context.fillStyle = "#0000FF";
     context.beginPath();
-    context.arc(0, 0, (this.health / START_HEALTH) * this.gameObject.size.x / 2, 0, Math.PI * 2, true);
+    if (this.health > 0) {
+        context.arc(0, 0, (this.health / START_HEALTH) * this.gameObject.size.x / 2, 0, Math.PI * 2, true);
+    }
     context.closePath();
     context.fill();
     
