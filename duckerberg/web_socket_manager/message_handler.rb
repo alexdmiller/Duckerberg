@@ -14,7 +14,7 @@ class MessageHandler
   def initialize
     log_message("Starting up Duckerberg server")
 
-    @inlogger  = File.new(LOG_FILE, 'a')
+    @logger  = File.new(LOG_FILE, 'a')
     @redis   = Redis.new
     @sockets = {}
     @current_new_socket_id = 0
@@ -99,7 +99,7 @@ class MessageHandler
 
   ## Misc
   def log_message(message)
-    @inlogger.syswrite "#{Time.now} :: #{message}\n"
+    @logger.syswrite "#{Time.now} :: #{message}\n"
   end
 end
 
