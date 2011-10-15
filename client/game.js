@@ -5,7 +5,7 @@ var INITIAL;
 var DEFAULT_ENEMY_CONSTANT = 1; // bigger -> slower enemies
 var DEFAULT_ENEMY_MAX = 10;
 var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
-var POWERUP_FREQUENCY = 0.01;
+var POWERUP_FREQUENCY = 3;
 var MAX_POWERUPS = 3;
 var ROUND_TIME = 5;
 var PIXELS_PER_APPLE = 29696;
@@ -13,6 +13,7 @@ var PIXELS_PER_ENEMY = 44544;
 
 var damageConstant = 1;
 var numPowerups = 0;
+var messages = new Array();
 
 var gameContainer;
 var canvas;
@@ -100,6 +101,10 @@ function setupGame() {
 					if (gameContainer.activePowerups[i].ticks < 0) {
 						gameContainer.activePowerups[i].deactivate(this);
 						gameContainer.activePowerups.splice(i, 1);
+						
+						var id = messages.shift();
+						console.log("removing" + id);
+						removeMessage(id);
 					}
 				}
 				if (Math.random() < POWERUP_FREQUENCY && numPowerups < MAX_POWERUPS) {
@@ -163,13 +168,17 @@ function setupGame() {
 function collideWithPowerup(powerupName) {
     var p = powerups[powerupName];
 	numPowerups--;
+	var msg = "";
     if (p.type == "me") {
         gameContainer.activatePowerup(p);
-        $("#message").text(p.name + "!");
+		msg = p.name + "!";
     } else {
         sendPowerUp(powerupName);
-        $("#message").text("Deployed '" + p.name + "'!");
+		msg = "Deployed '" + p.name + "'!";
     }
+	var msgID = "msg" + messages.length
+	messages.push(msgID);
+	displayNewMessage(msg, msgID); 	
 }
 
 function updateGame() {

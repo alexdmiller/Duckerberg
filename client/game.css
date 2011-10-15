@@ -75,7 +75,9 @@ body {
     font-family: helvetica;
     font-size: 25px;
     background-color: #FFFFFF;
-   padding: 10px;
+	padding: 10px;
+   	opacity: 0.4;
+
 }
 
 #time {
@@ -85,12 +87,14 @@ body {
    right: 10px;
    top: 10px;
    padding: 10px;
+   	opacity: 0.4;
 }
 
 #high_scores {
 	position: fixed;
-	left: 0%;
-	bottom: 0%;
+	left: 10px;
+	bottom: 10px;
+	padding: 10px;
     font-family: helvetica;
     font-size: 15px;
 	opacity: 0.4;

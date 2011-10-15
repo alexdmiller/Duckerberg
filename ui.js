@@ -1,6 +1,7 @@
 
 //0 means disabled; 1 means enabled;  
 var popupStatus = 0; 
+
 function setupUI(){
 	console.log("In UI setup");
 	centerPopup();
@@ -23,13 +24,6 @@ function setupUI(){
 		});  
 }
 
-function showEndGameScores(){
-
-}
- 
-function hideEndGameScores(){
-
-}
  
  function loadHighScores(msg){
 	var x = msg.table;
@@ -47,6 +41,17 @@ function hideEndGameScores(){
 	}
 }
 
+
+function displayNewMessage(msg, msgID){
+	var text = "<div class=messages id=" + msgID + ">" + msg + "</div>";
+	$("#message").append(text);
+}
+
+function removeMessage(msgID){
+	console.log("called removed on " + msgID");
+	console.log($("#" + msgID));
+	$("#" + msgID).fadeOut('slow');
+}
 
 
 
