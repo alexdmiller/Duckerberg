@@ -5,9 +5,11 @@ var INITIAL;
 var DEFAULT_ENEMY_CONSTANT = 1; // bigger -> slower enemies
 var DEFAULT_ENEMY_MAX = 10;
 var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
-var POWERUP_FREQUENCY = 0.001;
+var POWERUP_FREQUENCY = 0.01;
+var MAX_POWERUPS = 3;
 
 var damageConstant = 1;
+var numPowerups = 0;
 
 var gameContainer;
 var canvas;
@@ -63,7 +65,7 @@ function setupGame() {
 			        gameContainer.activePowerups.splice(i, 1);
 			    }
 			}
-			if (Math.random() < POWERUP_FREQUENCY) {
+			if (Math.random() < POWERUP_FREQUENCY && numPowerups < MAX_POWERUPS) {
 				var p;
 				var layPowerup = function() {	
 					p = new Powerup(powerupNames[Math.floor(Math.random() * powerupNames.length)]);
@@ -73,8 +75,10 @@ function setupGame() {
 				}
 				while (layPowerup()) { }
 				gameContainer.gameObjects.push(p);
+				numPowerups++;
 				setTimeout(function() {
 					removeElementFromArray(p, gameContainer.gameObjects);
+					numPowerups--;
 				}, Math.random() * 5000 + 5000);
 			}
 
@@ -119,6 +123,7 @@ function setupGame() {
 
 function collideWithPowerup(powerupName) {
     var p = powerups[powerupName];
+	numPowerups--;
     if (p.type == "me") {
         gameContainer.activatePowerup(p);
         $("#message").text(p.name + "!");
