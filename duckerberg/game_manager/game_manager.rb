@@ -37,7 +37,9 @@ class GameManager
 
 
   ### Individual Post Responses
-  def issue_user_id(message_hash)
+
+  # returns an issue_user_id message
+  def join_request(message_hash)
     user_name = message_hash["message"]["user_name"]
     socket_id = message_hash["socket_id"]
     user_id   = @highest_user_id
@@ -60,6 +62,7 @@ class GameManager
     }, socket_id]
   end
 
+  # returns a pass_timer message
   def pass_timer
     {
       "type" => "pass_timer",
