@@ -25,9 +25,11 @@ module MessageBuilders
 
   # returns a return_powerup message to hella people
   def powerup(message_hash)
+    log_message("made it 0")
     powerup_name = message_hash["powerup_name"]
     user_id      = message_hash["user_id"]
     user_name    = @users_by_id[user_id]["user_name"]
+    log_message("made it 1")
 
     @users_by_id.map{|x|
       if x["user_id"] == user_id
