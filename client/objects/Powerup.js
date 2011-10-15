@@ -1,18 +1,13 @@
 function Powerup(name) {
     this.gameObject = new GameObject();
-    this.gameObject.size = new Vector2D(50, 50);
+    this.gameObject.size = new Vector2D(40, 40);
     this.powerupName = name;
+    this.img = new Image();
+    this.img.src = "images/box.png";
 }
 
 Powerup.prototype.draw = function(context) {
-    context.save();
-    context.translate(this.gameObject.position.x, this.gameObject.position.y);
-    context.fillStyle = "#FF00FF";
-    context.beginPath();
-    context.arc(0, 0, this.gameObject.size.x / 2, 0, Math.PI * 2, true);
-    context.closePath();
-    context.fill();
-    context.restore();
+    context.drawImage(this.img, this.gameObject.position.x - this.gameObject.size.x / 2, this.gameObject.position.y - this.gameObject.size.x / 2);
 }
 
 Powerup.prototype.update = function(game) {
