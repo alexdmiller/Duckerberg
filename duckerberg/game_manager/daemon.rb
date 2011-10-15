@@ -28,7 +28,7 @@ class GameDaemon
 
 			margin = Time.now.to_f - start
 			sleep_time = (margin > LOOP_RATE ? LOOP_RATE : LOOP_RATE - margin)
-      sleep(sleep_time)
+      #sleep(sleep_time)
     }
   end
 
