@@ -29,7 +29,7 @@ class GameManager
   end
 
   def respond(message, socket_id)
-    redis.sadd(OUTBOX,{
+    @redis.sadd(OUTBOX,{
       "message"   => message.to_json,
       "socket_id" => socket_id
     }.to_json)
