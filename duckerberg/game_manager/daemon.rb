@@ -33,11 +33,10 @@ class GameDaemon
     @redis.srem("inbox", message)
     begin
       message_hash            = JSON.parse(message)
-      message_hash["message"] = JSON.parse(message_hash["message"])
       @game_manager.handle_message(message_hash)
     rescue
       @redis.sadd("inbox", message)
-      @game_manager.log_message("returned message to outbox:: #{message} :: #{$!}")
+      @game_manager.log_message("returned message to outbox :: #{message} :: #{$!} #{$!.backtrace.inspect}")
     end
   end
 
