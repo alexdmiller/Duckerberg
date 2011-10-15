@@ -20,9 +20,9 @@ Apple.prototype.update = function(gameContainer) {
 		apples.push(this);
 	}
 	if (collide(gameContainer.base, this)) {
-		gameContainer.addToScore(1);
-		removeElementFromArray(this, gameContainer.gameObjects);
 		var apples = gameContainer.hero.apples;
+		gameContainer.addToScore(Math.floor((apples.length - 1) / 3) + 1);
+		removeElementFromArray(this, gameContainer.gameObjects);
 		var next = removeElementFromArray(this, apples);
 		if (apples[next]) {
 			apples[next].following = apples[next - 1]? apples[next - 1] : gameContainer.hero;
