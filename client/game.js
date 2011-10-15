@@ -29,6 +29,10 @@ function setupGame() {
 				gameContainer.gameObjects[i].update(gameContainer);
 			    gameContainer.gameObjects[i].draw(canvas.getContext("2d"));
 			}
+		},
+		heroDeath: function() {
+		    // TODO: implement
+		    console.log("hero death!");
 		}
 	};
     gameContainer.gameWidth = GAME_WIDTH;
@@ -51,7 +55,7 @@ function updateGame() {
 }
 
 function setupGameObjects(gameContainer) {
-    for (var i = 0; i < 50; i++) {
+    for (var i = 0; i < 20; i++) {
         var e = new Enemy();
         e.gameObject.position.x = Math.random() * GAME_WIDTH;
         e.gameObject.position.y = Math.random() * GAME_HEIGHT;

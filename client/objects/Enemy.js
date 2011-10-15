@@ -16,4 +16,7 @@ Enemy.prototype.draw = function(context) {
 
 Enemy.prototype.update = function(game) {
     this.gameObject.updatePosition();
+    if (collide(game.hero, this)) {
+        game.heroDeath();
+    }
 }
