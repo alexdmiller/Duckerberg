@@ -28,7 +28,7 @@ Enemy.prototype.update = function(game) {
         var force = 2;
         this.gameObject.velocity.x = Math.cos(angle) * force;
         this.gameObject.velocity.y = Math.sin(angle) * force;
-    } else {
+    } else if (!game.base.safe) {
         if (collide(game.hero, this)) {
             game.hero.health -= this.damage;
             if (game.hero.health < 0) {
