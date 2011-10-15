@@ -34,7 +34,7 @@ class GameManager
     log_message("Sending out game signals")
     game_time         = pass_timer
     score_table       = pass_full_score_table
-    log.message("Game Time: #{game_time}, Score Table: #{score_table}")
+    log_message("Game Time: #{game_time}, Score Table: #{score_table}")
     game_over_message = game_over
 
     if game_over_message.nil?
