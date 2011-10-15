@@ -11,32 +11,23 @@ var START_HEALTH = 10;
 
 function Hero() {
     this.gameObject = new GameObject();
-    this.gameObject.size = new Vector2D(20, 20);
+    this.gameObject.size = new Vector2D(50, 50);
     this.power = DEFAULT_POWER;
     this.keys = [];
     this.apples = new Array();
     this.startHealth = 10;
     this.health = this.startHealth;
+    this.img = new Image();
+    this.img.src = "../images/duck.png";
 }
 
 Hero.prototype.draw = function(context) {
-    context.save();
-    context.translate(this.gameObject.position.x, this.gameObject.position.y);
-    context.fillStyle = "#000000";
-    context.beginPath();
-    context.arc(0, 0, this.gameObject.size.x / 2, 0, Math.PI * 2, true);
-    context.closePath();
-    context.fill();
-    
-    context.fillStyle = "#0000FF";
-    context.beginPath();
-    if (this.health > 0) {
-        context.arc(0, 0, (this.health / this.startHealth) * this.gameObject.size.x / 2, 0, Math.PI * 2, true);
+    if (this.gameObject.velocity.x > 0) {
+        this.img.src = "../images/duck.png";
+    } else {
+        this.img.src = "../images/duck_left.png";
     }
-    context.closePath();
-    context.fill();
-    
-    context.restore();
+    context.drawImage(this.img, this.gameObject.position.x - this.gameObject.size.x/2, this.gameObject.position.y - this.gameObject.size.x/2);
 }
 
 Hero.prototype.update = function(game) {

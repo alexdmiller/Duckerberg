@@ -1,5 +1,5 @@
 body {
-    background-color: #EEEEEE;
+    background-color: #a7d495;
     margin: 0;
     padding: 0;
 }
@@ -15,8 +15,9 @@ body {
     font-size: 40px;
     width: 100px;
     text-align: center;
+    color: #25510a;
+    font-weight: bold;
 }
-
 
 
 #backgroundPopup{  

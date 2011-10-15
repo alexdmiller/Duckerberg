@@ -48,7 +48,6 @@ var powerups = {
         },
         onFrame: function(game) {},
         deactivate: function(game) {
-            console.log("DEACTIVATE");
             game.enemyForceConstant = DEFAULT_ENEMY_CONSTANT;
             game.maxEnemySpeed = DEFAULT_ENEMY_MAX;
             game.responseRadius = DEFAULT_ENEMY_RESPONSE_RADIUS;

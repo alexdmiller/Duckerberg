@@ -6,17 +6,17 @@ function Enemy() {
     this.damage = 0.1;
     this.gameObject.velocity = new Vector2D(Math.random() * SPEED - SPEED / 2, Math.random() * SPEED - SPEED / 2);
     this.following = false;
+    this.img = new Image();
+    this.img.src = "../images/apple.png";
 }
 
 Enemy.prototype.draw = function(context) {
-    context.save();
-    context.translate(this.gameObject.position.x, this.gameObject.position.y);
-    context.fillStyle = "#FF0000";
-    context.beginPath();
-    context.arc(0, 0, this.gameObject.size.x / 2, 0, Math.PI * 2, true);
-    context.closePath();
-    context.fill();
-    context.restore();
+    if (this.gameObject.velocity.x > 0) {
+       this.img.src = "../images/man_right.png";
+    } else {
+       this.img.src = "../images/man_left.png";
+    }
+    context.drawImage(this.img, this.gameObject.position.x - this.gameObject.size.x/2, this.gameObject.position.y - this.gameObject.size.x/2);
 }
 
 Enemy.prototype.update = function(game) {

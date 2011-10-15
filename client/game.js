@@ -2,7 +2,7 @@ var GAME_WIDTH;
 var GAME_HEIGHT;
 var FPS = 60;
 var INITIAL;
-var DEFAULT_ENEMY_CONSTANT = 4; // bigger -> slower enemies
+var DEFAULT_ENEMY_CONSTANT = 3; // bigger -> slower enemies
 var DEFAULT_ENEMY_MAX = 10;
 var DEFAULT_ENEMY_RESPONSE_RADIUS = 200;
 var POWERUP_FREQUENCY = 0.001;

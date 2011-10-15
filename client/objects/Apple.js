@@ -1,18 +1,16 @@
-var APPLE_RADIUS = 5;
+var APPLE_RADIUS = 13;
 
 function Apple() {
 	this.gameObject = new GameObject();
 	this.gameObject.size = new Vector2D(APPLE_RADIUS * 2, APPLE_RADIUS * 2);
 	this.gameObject.velocity = new Vector2D(0, 0);
 	this.following = null;
+	this.img = new Image();
+    this.img.src = "../images/apple.png";
 }
  
 Apple.prototype.draw = function(context) {
-	context.beginPath();
-	context.arc(this.gameObject.position.x, this.gameObject.position.y, APPLE_RADIUS, 0, 2 * Math.PI, false);
-	context.fillStyle = "yellow";
-	context.fill();
-	context.closePath();
+    context.drawImage(this.img, this.gameObject.position.x - APPLE_RADIUS, this.gameObject.position.y - APPLE_RADIUS);
 }
 
 Apple.prototype.update = function(gameContainer) {
