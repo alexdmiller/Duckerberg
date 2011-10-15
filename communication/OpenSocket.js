@@ -8,14 +8,8 @@ var onEndGame;
 function setupSocket(){
    connect();
 }
- 
- function getID(){
-	id = parseInt($("#user_id").val());
- }
- 
  // { "type" : "set_score", "user_id" : 1, "score" : 1 }
  function sendScore(){
-	getID();
 	var score = parseInt($("#score").val());
 	var obj = {"type":"set_score", "user_id":id, "score":score};
 	socket.send(JSON.stringify(obj));
@@ -23,9 +17,9 @@ function setupSocket(){
  
  // { "type" : "powerup", "user_id" : 1, "powerup_name" : 1 }
  function sendPowerUp(powerup){
-	getID();
 	var name = powerup.name;
 	var obj = {"type":"powerup", "user_id":id, "powerup_name":name};
+	console.log("SENDING POWER UP");
 	socket.send(JSON.stringify(obj));
  }
  
@@ -45,7 +39,8 @@ function returnPowerUp(msg){
 	onPowerUp(powerup);
  }
  
- function issueUserID(msg){
+ function issueUserID(msg) {
+    console.log(msg.user_id);
 	id = msg.user_id;
  }
  
@@ -86,7 +81,7 @@ function connect(){
 		}
 
 		socket.onmessage = function(msg){
-			console.log(msg.data);
+			//console.log(msg.data);
 			readMessage(msg.data);
 		}
 
