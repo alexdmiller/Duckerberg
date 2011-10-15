@@ -11,6 +11,7 @@ var damageConstant = 1;
 
 var gameContainer;
 var canvas;
+var state = "paused";
 
 $(document).ready(function() {
     GAME_WIDTH = $(document).width() - 10;
@@ -28,7 +29,31 @@ $(document).ready(function() {
 });
 
 onTimer = function(time) {
-    $("#timer").text(time);
+    $("#time").text(time);
+    if (state == "paused") {
+        if (time >= 50) {
+            setupGameObjects(gameContainer);
+            state = "running";
+        }
+    } else if (state == "running") {
+        if (time >= 60 && time < 50) {
+            resetGame();
+            state = "paused";
+        }
+    }
+}
+
+function resetGame() {
+    gameContainer.gameObjects = new Array();
+    gameContainer.gameObjects.push(gameContainer.hero);
+    gameContainer.gameObjects.push(gameContainer.base);
+    gameContainer.score = 0;
+    for (var i = 0; i < gameContainer.activePowerups; i++) {
+        gameContainer.activePowerups[i].deactivate(this);
+    }
+    gameContainer.activePowerups = new Array();
+    gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
+    gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
 }
 
 function setupGame() {
@@ -164,9 +189,6 @@ onEndGame = function() {
 
 }
 
-onTimer = function(time) {
-	
-}
 
 onUserId = function(id) {
 
