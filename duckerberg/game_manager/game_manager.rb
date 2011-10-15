@@ -99,6 +99,6 @@ class GameManager
   end
 
   def log_message(message)
-    @logger.syswrite "#{Time.now} :: #{message}\n"
+ #   @logger.syswrite "#{Time.now} :: #{message}\n"
   end
 end
