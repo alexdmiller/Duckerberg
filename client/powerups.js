@@ -25,19 +25,6 @@ var powerups = {
             game.hero.power = DEFAULT_POWER;
         }
     },
-	splatter: {
-		name: "Splatter",
-		type: "me",
-		duration: 200,			
-		object: new Splatter(),
-		activate: function(game) {
-			gameContainer.gameObjects.push(powerups.splatter.object);
-		},
-		onFrame: function(game) {},
-		deactivate: function(game) {
-			removeElementFromArray(powerups.splatter.object, gameContainer.gameObjects);
-		}
-	},
     fasterEnemies: {
         name: "Faster Enemies",
         type: "you",
