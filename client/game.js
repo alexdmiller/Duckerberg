@@ -13,7 +13,6 @@ var PIXELS_PER_ENEMY = 44544;
 
 var damageConstant = 1;
 var numPowerups = 0;
-var messages = new Array();
 
 var gameContainer;
 var canvas;
@@ -58,9 +57,6 @@ function resetGame() {
     $("#score").text("");
     for (var i = 0; i < gameContainer.activePowerups.length; i++) {
         gameContainer.activePowerups[i].deactivate(gameContainer);
-		var id = messages.shift();
-		console.log("removing" + id);
-		removeMessage(id);
     }
     gameContainer.activePowerups = new Array();
     gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
@@ -105,10 +101,7 @@ function setupGame() {
 						console.log('called');
 						gameContainer.activePowerups[i].deactivate(this);
 						gameContainer.activePowerups.splice(i, 1);
-						
-						var id = messages.shift();
-						console.log("removing" + id);
-						removeMessage(id);
+
 					}
 				}
 				if (Math.random() < POWERUP_FREQUENCY && numPowerups < MAX_POWERUPS) {
@@ -180,9 +173,7 @@ function collideWithPowerup(powerupName) {
         sendPowerUp(powerupName);
 		msg = "Deployed '" + p.name + "'!";
     }
-	var msgID = "msg" + messages.length
-	messages.push(msgID);
-	displayNewMessage(msg, msgID); 	
+	displayNewMessage(msg); 	
 }
 
 function updateGame() {

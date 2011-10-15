@@ -1,6 +1,7 @@
 
 //0 means disabled; 1 means enabled;  
 var popupStatus = 0; 
+var count = 0;
 
 function setupUI(){
 	console.log("In UI setup");
@@ -43,14 +44,12 @@ function setupUI(){
 
 
 function displayNewMessage(msg, msgID){
-	var text = "<div class=messages id=" + msgID + ">" + msg + "</div>";
+	var id = "msg" + count;
+	count++;
+	var text = "<div class=messages id=" + id + ">" + msg + "</div>";
 	$("#message").append(text);
-}
-
-function removeMessage(msgID){
-	console.log("called removed on " + msgID);
-	console.log($("#" + msgID));
-	$("#" + msgID).fadeOut('slow');
+	$("#" + id).fadeOut(5000);
+	
 }
 
 
