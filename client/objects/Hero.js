@@ -1,5 +1,5 @@
 var DEFAULT_POWER = 0.3;
-var FRICTION = 0.99;
+var FRICTION = 0.9;
 var GRAVITY = new Vector2D(0, 0);
 
 var LEFT_KEY = 65;
@@ -23,9 +23,16 @@ Hero.prototype.draw = function(context) {
     context.translate(this.gameObject.position.x, this.gameObject.position.y);
     context.fillStyle = "#000000";
     context.beginPath();
-    context.arc(0, 0, this.gameObject.size.x, 0, Math.PI * 2, true);
+    context.arc(0, 0, this.gameObject.size.x / 2, 0, Math.PI * 2, true);
     context.closePath();
     context.fill();
+    
+    context.fillStyle = "#0000FF";
+    context.beginPath();
+    context.arc(0, 0, (this.health / START_HEALTH) * this.gameObject.size.x / 2, 0, Math.PI * 2, true);
+    context.closePath();
+    context.fill();
+    
     context.restore();
 }
 
