@@ -6,7 +6,7 @@ function Apple() {
 	this.gameObject.velocity = new Vector2D(0, 0);
 	this.following = null;
 	this.img = new Image();
-    this.img.src = "../images/apple.png";
+    this.img.src = "images/apple.png";
 }
  
 Apple.prototype.draw = function(context) {
