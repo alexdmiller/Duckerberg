@@ -95,13 +95,12 @@ class GameManager
         "message"   => message,
         "socket_id" => socket_id
       }]
-
-    else
-      return if (not message.is_a?(Hash)) and (not message.is_a?(Array))
-      messages = message
-      messages = [message] if (not message.is_a?(Array))
-
     end
+
+    return if (not message.is_a?(Hash)) and (not message.is_a?(Array))
+    messages = message
+    messages = [message] if (not message.is_a?(Array))
+
     messages.each do |mess|
       @redis.rpush(OUTBOX, mess.to_json)
     end
