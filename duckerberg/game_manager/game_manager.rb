@@ -89,18 +89,21 @@ class GameManager
   # All individual messages are of the form {"type" : string, "message" : JSON}, 
   # So an Array is guaranteed to be multiple messages while a hash is guaranteed to be one message
   def post(message, socket_id = nil)
+    return if message.nil?
+
     log_message("trying to post #{message.inspect}")
     if socket_id
       messages = [{
         "message"   => message,
         "socket_id" => socket_id
       }]
+
+    else
+      return if (not message.is_a?(Hash)) and (not message.is_a?(Array))
+      messages = message
+      messages = [message] if (not message.is_a?(Array))
+
     end
-
-    return if (not message.is_a?(Hash)) and (not message.is_a?(Array))
-    messages = message
-    messages = [message] if (not message.is_a?(Array))
-
     messages.each do |mess|
       @redis.rpush(OUTBOX, mess.to_json)
     end
