@@ -47,14 +47,14 @@ class GameManager
   # For instance Score and Game clock
   def prepare_game_signals
     game_time         = pass_timer
-    score_table = if (Time.now.to_i - @score_table_previous) > SCORE_TABLE_INTERVAL
+    game_over_message = game_over
+    score_table = if ((Time.now.to_i - @score_table_previous) > SCORE_TABLE_INTERVAL) or game_over_message
       @score_table_previous = Time.now.to_i
       pass_full_score_table
     else
       nil
     end
     log_message("Sending out game signals :: Game Time: #{game_time}, Score Table: #{score_table}")
-    game_over_message = game_over
 
     if game_over_message.nil?
       @users_by_id.values.each do |user|

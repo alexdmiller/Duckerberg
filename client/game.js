@@ -38,6 +38,8 @@ onTimer = function(time) {
         $("#time").text(time + " seconds left until next round.");
         if (time > ROUND_TIME) { // game should be running
             setupGameObjects();
+			if(state =="paused")
+				sendScores();
             state = "running";
             $("#roundOver").css("display", "none");
             $("#high_scores").css("left", "10px");
@@ -82,8 +84,10 @@ function resetGame() {
 }
 
 function sendScores(){
-	console.log("SENDING SCORES");
-	sendScore(gameContainer.score);
+	if(state == "running"){	
+		console.log("SENDING SCORES");
+		sendScore(gameContainer.score);
+	}
 }
 
 function setupGame() {
@@ -155,7 +159,6 @@ function setupGame() {
 		    $("#score").text(gameContainer.score);
 		}
 	};
-	
 	// put score in middle
 	$("#score").css("left", gameContainer.base.gameObject.position.x - $("#score").width() / 2);
 	$("#score").css("top", gameContainer.base.gameObject.position.y - $("#score").height() / 2);
@@ -175,6 +178,7 @@ function setupGame() {
     $(document).keyup(function(event) {
         gameContainer.hero.onKeyUp(event.keyCode);
     });
+
     //setupGameObjects(gameContainer);
     //setup = true;
 }
