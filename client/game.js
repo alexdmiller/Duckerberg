@@ -183,12 +183,13 @@ function collideWithPowerup(powerupName) {
     var p = powerups[powerupName];
 	powerupAvailable = true;;
 	var msg = "";
+	var iconPath = p.icon;
     if (p.type == "me") {
         gameContainer.activatePowerup(p);
-		msg = p.name + "!";
+		msg = "<img src=\"" + iconPath + "\"> " + p.name + "!";
     } else {
         sendPowerUp(powerupName);
-		msg = "Deployed '" + p.name + "'!";
+		msg = "<img src=\"" + iconPath + "\"> " + "Deployed '" + p.name + "'!";
     }
 	displayNewMessage(msg); 	
 }
@@ -220,8 +221,8 @@ function setupGameObjects() {
 
 /* API for server */
 
-onPowerUp = function(powerup) {
-	displayNewMessage(powerup.user_name + " deployed " + powerup.powerup_name + "!"); 	
+onPowerUp = function(powerup) {	
+	displayNewMessage("<img src=\"" + powerups[powerup.powerup_name].icon + "\"> " + powerup.user_name + " deployed " + powerup.powerup_name + "!"); 	
 	gameContainer.activatePowerup(powerups[powerup["powerup_name"]]);
 }
 

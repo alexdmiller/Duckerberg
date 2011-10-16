@@ -26,7 +26,7 @@ function setupUI(){
 }
 
  
- function loadHighScores(msg){
+function loadHighScores(msg){
 	var x = msg.table;
 	if(x == null)
 		return;
@@ -46,7 +46,7 @@ function setupUI(){
 function displayNewMessage(msg){
 	console.log(msg);
 	var e = $( document.createElement('div') );  // ~300ms
-	e.text(msg);
+	e.html(msg);
 	$("#message").append(e);
 	e.fadeOut(2000);
 }

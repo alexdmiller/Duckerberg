@@ -12,7 +12,8 @@ var powerups = {
         deactivate: function(game) {
             game.hero.power = DEFAULT_POWER;
 			
-        }
+        },
+        icon: "images/arrow_up_green.png"
     },
     slow: {
         name: "Slow Down",
@@ -25,7 +26,8 @@ var powerups = {
         deactivate: function(game) {
             game.hero.power = DEFAULT_POWER;
 			
-        }
+        },
+        icon: "images/arrow_down_red.png"
     },
     fasterEnemies: {
         name: "Faster Enemies",
@@ -41,7 +43,8 @@ var powerups = {
             game.maxEnemySpeed = DEFAULT_ENEMY_MAX;
             game.responseRadius = DEFAULT_ENEMY_RESPONSE_RADIUS;
 			
-        }
+        },
+        icon: "images/arrow_up_red.png"
     },
     slowerEnemies: {
         name: "Slower Enemies",
@@ -54,9 +57,9 @@ var powerups = {
         deactivate: function(game) {
             game.enemyForceConstant = DEFAULT_ENEMY_CONSTANT;
             game.maxEnemySpeed = DEFAULT_ENEMY_MAX;
-            game.responseRadius = DEFAULT_ENEMY_RESPONSE_RADIUS;
-			
-        }
+            game.responseRadius = DEFAULT_ENEMY_RESPONSE_RADIUS;			
+        },
+        icon: "images/arrow_down_green.png"
     },
 	invert: {
 		name: "Invert",
@@ -78,7 +81,8 @@ var powerups = {
 			var tempUp = UP_KEY;
 			UP_KEY = DOWN_KEY;
 			DOWN_KEY = tempUp;
-		}
+		},
+        icon: "images/question_mark.png"
 	},
 	doubleDamage: {
 		name: "Double Damage",
@@ -89,9 +93,9 @@ var powerups = {
 		},
 		onFrame: function(game) {},
 		deactivate: function(game) {
-			damageConstant = 1;
-			
-		}
+			damageConstant = 1;	
+		},
+        icon: "images/arrow_up_red.png"
 	},
 	splat: {
 	    name: "Splat",
@@ -105,6 +109,7 @@ var powerups = {
 	    onFrame: function(game) {},
 	    deactivate: function(game) {
 	        $("#splat").css("display", "none");
-	    }
+	    },
+        icon: "images/tiny_splat.png"
 	}
 }
