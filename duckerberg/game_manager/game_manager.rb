@@ -11,6 +11,7 @@ GAME_DAEMON_LOG = File.join("/home/ubuntu", "duckerberglog", "game_daemon_log.tx
 USER_INFO = "id_pointer::"
 OUTBOX = "outbox"
 GAME_LENGTH = 35
+SCORE_TABLE_INTERVAL = 1
 
 class GameManager
   include MessageBuilders
@@ -27,6 +28,9 @@ class GameManager
     @users_by_id     = {}
     @ids_by_socket   = {}
     @sockets_by_id   = {}
+
+    @game_start_time = 0
+    @score_table_previous = Time.now.to_i
     setup_game
   end
 
@@ -43,7 +47,12 @@ class GameManager
   # For instance Score and Game clock
   def prepare_game_signals
     game_time         = pass_timer
-    score_table       = pass_full_score_table
+    score_table = if (Time.now.to_i - @score_table_previous) > SCORE_TABLE_INTERVAL
+      pass_full_score_table
+      @score_table_previous = Time.now.to_i
+    else
+      nil
+    end
     log_message("Sending out game signals :: Game Time: #{game_time}, Score Table: #{score_table}")
     game_over_message = game_over
 
