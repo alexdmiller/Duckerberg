@@ -48,7 +48,8 @@ onTimer = function(time) {
     } else if (state == "running") {
         $("#time").text((time - ROUND_TIME) + " seconds left! Get apples duck!!");
         if (time <= ROUND_TIME) {
-            resetGame();
+            sendScores();
+			resetGame();
             state = "paused";
             $("#roundOver").css("display", "inline");
             $("#roundOver").css("left", ($(document).width() / 2 - $("#roundOver").width() / 2) + "px");
@@ -78,6 +79,11 @@ function resetGame() {
     gameContainer.hero.apples = new Array();
     powerupAvailable = false;
     canvas.width = canvas.width;
+}
+
+function sendScores(){
+	console.log("SENDING SCORES");
+	sendScore(gameContainer.score);
 }
 
 function setupGame() {
@@ -147,7 +153,6 @@ function setupGame() {
 		addToScore: function(add) {
 		    gameContainer.score += add;
 		    $("#score").text(gameContainer.score);
-			sendScore(gameContainer.score);
 		}
 	};
 	
@@ -162,7 +167,8 @@ function setupGame() {
     gameContainer.hero.gameObject.position.x = gameContainer.base.gameObject.position.x;
     gameContainer.hero.gameObject.position.y = gameContainer.base.gameObject.position.y;
     gameContainer.timer = setInterval(updateGame, 1000 / FPS);
-        
+	gameContainer.updateScores = setInterval(sendScores, 1000);
+		
     $(document).keydown(function(event) {
         gameContainer.hero.onKeyDown(event.keyCode);
     });
