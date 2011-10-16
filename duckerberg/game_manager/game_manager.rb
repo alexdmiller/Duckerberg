@@ -48,8 +48,8 @@ class GameManager
   def prepare_game_signals
     game_time         = pass_timer
     score_table = if (Time.now.to_i - @score_table_previous) > SCORE_TABLE_INTERVAL
-      pass_full_score_table
       @score_table_previous = Time.now.to_i
+      pass_full_score_table
     else
       nil
     end
