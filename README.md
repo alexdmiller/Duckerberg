@@ -24,8 +24,8 @@ scopes.
 
 Four Computer Science Majors at the University of Washington
 
-* Alex Miller for the game mechanics and frontend
-* Tyler Rigsby for the game mechanics and frontend
-* Harnoor Singh for the frontend and the client interface for the
+* **Alex Miller** for the game mechanics and frontend
+* **Tyler Rigsby** for the game mechanics and frontend
+* **Harnoor Singh** for the frontend and the client interface for the
   server
-* David Mah for the backend and linux sysadmining
+* **David Mah** for the backend and linux sysadmining
