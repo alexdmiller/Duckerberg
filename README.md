@@ -16,14 +16,16 @@ scopes.
 ## The Stack
 
 * Javascript Canvas with Box 2d
-* Websocket connects for multiplayer data
-* Ruby EventMachine running WebSockets for two way message passing
-* Redis for server data organization
+* Websocket connections for multiplayer data
+* Ruby EventMachine to accept Websocket connections
+* Redis for message organizing for the Game Server
 
 ## Authors
 
 Four Computer Science Majors at the University of Washington
-* Alex Miller
-* Tyler Rigsby
-* David Mah
-* Harnoor Singh
+
+* Alex Miller for the game mechanics and frontend
+* Tyler Rigsby for the game mechanics and frontend
+* Harnoor Singh for the frontend and the client interface for the
+  server
+* David Mah for the backend and linux sysadmining
