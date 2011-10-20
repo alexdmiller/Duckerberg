@@ -23,9 +23,9 @@ class GameManager
     setup_redis
     @highest_user_id = 0
     # user_name, user_id, socket_id, score
-    @users_by_id     = {}
-    @ids_by_socket   = {}
-    @sockets_by_id   = {}
+    self.users_by_id     = {}
+    self.ids_by_socket   = {}
+    self.sockets_by_id   = {}
 
     @score_table_previous = Time.now.to_i
     setup_game
@@ -40,8 +40,8 @@ class GameManager
   # Starts a new game by resetting the game clock and setting scores to 0
   def setup_game
     log_message("Game Restarting...")
-    @game_start_time = Time.now.to_i
-    @users_by_id.values.each do |user|
+    self.game_start_time = Time.now.to_i
+    self.users_by_id.values.each do |user|
       user["score"] = 0
     end
   end
@@ -60,7 +60,7 @@ class GameManager
     log_message("Sending out game signals :: Game Time: #{game_time}, Score Table: #{score_table}")
 
     if game_over_message.nil?
-      @users_by_id.values.each do |user|
+      users_by_id.values.each do |user|
         post(game_time, user["socket_id"])
         post(score_table, user["socket_id"])
       end
@@ -71,7 +71,7 @@ class GameManager
 
   # Runs game changes for when the game is over
   def endgame_measures(game_over_message, score_table)
-      @users_by_id.values.each do |user|
+      users_by_id.values.each do |user|
         post(game_over_message, user["socket_id"])
         post(score_table, user["socket_id"])
       end
