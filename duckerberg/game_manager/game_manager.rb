@@ -5,7 +5,7 @@
 
 require 'json'
 require 'redis'
-load    'message_builders.rb'
+load    File.join(File.dirname(__FILE__), 'message_builders.rb')
 
 GAME_DAEMON_LOG = File.join("/home/ubuntu", "duckerberglog", "game_daemon_log.txt")
 USER_INFO = "id_pointer::"
@@ -16,22 +16,25 @@ SCORE_TABLE_INTERVAL = 1
 class GameManager
   include MessageBuilders
 
+  attr_accessor :users_by_id, :ids_by_socket, :sockets_by_id, :game_start_time
   # Sets up structures to organize users
   def initialize
     @logger          = File.new(GAME_DAEMON_LOG, 'a')
-    @redis           = Redis.new
-    @redis.flushdb
-    log_message("Redis Flushed")
-
+    setup_redis
     @highest_user_id = 0
     # user_name, user_id, socket_id, score
     @users_by_id     = {}
     @ids_by_socket   = {}
     @sockets_by_id   = {}
 
-    @game_start_time = 0
     @score_table_previous = Time.now.to_i
     setup_game
+  end
+
+  def setup_redis
+    @redis = Redis.new
+    @redis.flushdb
+    log_message("Redis Flushed")
   end
 
   # Starts a new game by resetting the game clock and setting scores to 0
