@@ -13,7 +13,7 @@ LOGGING  = false
 
 class MessageHandler
   def initialize
-    @logger  = File.new(LOG_FILE, 'a')
+    @logger  = File.new(LOG_FILE, 'a') if LOGGING
     log_message("Starting up Duckerberg server")
 
     @redis   = Redis.new
@@ -75,7 +75,8 @@ class MessageHandler
 
   # Processes messages sent from the Game Server meant for the clients
   def process_outbox
-    while message = @redis.lpop(OUTBOX)
+    messages = @redis.lrange(OUTBOX, 0, @redis.llen(OUTBOX))
+    while message = messages.delete_at(0)
       begin
         log_message("Message is #{message.inspect}")
         message_hash     = JSON.parse(message)
@@ -84,8 +85,7 @@ class MessageHandler
         socket           = @sockets[socket_id]
         send_to_socket(socket, original_message)
       rescue
-        # @redis.rpush(OUTBOX, message)
-        log_message("returned message to outbox:: #{message}")
+        log_message("Message Failure: #{message}")
       end
     end
     true

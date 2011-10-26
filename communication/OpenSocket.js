@@ -73,7 +73,7 @@ function returnPowerUp(msg){
  
 function connect(){ 
 	try {		
-		socket = new WebSocket("ws://107.20.160.172:8080");
+		socket = new WebSocket("ws://davidpmah.com:8080");
 		
 		socket.onopen = function(msg){
 			console.log("Socket succesfully opened");

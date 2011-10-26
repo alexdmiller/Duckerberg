@@ -21,7 +21,7 @@ class GameManager
 
   # Sets up structures to organize users
   def initialize
-    @logger          = File.new(GAME_DAEMON_LOG, 'a')
+    @logger          = File.new(GAME_DAEMON_LOG, 'a') if LOGGING
     @redis           = Redis.new
     @redis.flushdb
     log_message("Redis Flushed")
