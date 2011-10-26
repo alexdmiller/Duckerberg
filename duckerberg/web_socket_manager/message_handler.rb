@@ -60,10 +60,14 @@ class MessageHandler
 
   # Passes a message to the Game Server with data on socket_id
   def pass_message(message, socket)
-    formatted_message = {
-      "message" => JSON.parse(message),
-      "socket_id" => @sockets[socket]
-    }.to_json
+    begin
+      formatted_message = {
+        "message" => JSON.parse(message),
+        "socket_id" => @sockets[socket]
+      }.to_json
+    rescue
+        log_message("#{$!}")
+    end
 
     @redis.rpush(INBOX, formatted_message)
   end
