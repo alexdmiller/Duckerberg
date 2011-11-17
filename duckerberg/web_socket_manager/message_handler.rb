@@ -9,6 +9,7 @@ require 'redis'
 LOG_FILE = File.join("/home/ubuntu", "duckerberglog", "websocket_log.txt")
 INBOX    = "inbox"
 OUTBOX   = "outbox"
+LOGGING  = false
 
 class MessageHandler
   def initialize
@@ -98,6 +99,6 @@ class MessageHandler
 
   ## Misc
   def log_message(message)
-    @logger.syswrite "#{Time.now} :: #{message}\n"
+    @logger.syswrite "#{Time.now} :: #{message}\n" if LOGGING
   end
 end
