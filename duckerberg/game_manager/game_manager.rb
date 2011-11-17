@@ -9,9 +9,12 @@ load    'message_builders.rb'
 
 GAME_DAEMON_LOG = File.join("/home/ubuntu", "duckerberglog", "game_daemon_log.txt")
 USER_INFO = "id_pointer::"
-OUTBOX = "outbox"
-GAME_LENGTH = 35
+
+GAME_LENGTH          = 35
 SCORE_TABLE_INTERVAL = 1
+
+OUTBOX  = "outbox"
+LOGGING = false
 
 class GameManager
   include MessageBuilders
@@ -110,6 +113,6 @@ class GameManager
   end
 
   def log_message(message)
-    @logger.syswrite "#{Time.now} :: #{message}\n"
+    @logger.syswrite "#{Time.now} :: #{message}\n" if LOGGING
   end
 end
