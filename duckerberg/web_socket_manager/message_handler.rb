@@ -13,7 +13,7 @@ LOGGING  = false
 
 class MessageHandler
   def initialize
-    @logger  = File.new(LOG_FILE, 'a')
+    @logger  = File.new(LOG_FILE, 'a') if LOGGING
     log_message("Starting up Duckerberg server")
 
     @redis   = Redis.new
