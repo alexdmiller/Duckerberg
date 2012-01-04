@@ -1,5 +1,7 @@
 # Duckerberg
 
+http://davidpmah.com/duckerberg
+
 Duckerberg is a subtly multiplayer web browser game built for the University of
 Washington Facebook Hackathon October 2011
 
